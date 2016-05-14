@@ -4,11 +4,13 @@ var game = new Phaser.Game(1280,720, Phaser.AUTO, '',
 function preload() {
 	game.load.image('box', 'assets/box.png');
 	game.load.image('blob', 'assets/blob.png');
+	
 }
 
 var ground;
 var player;
 var cursors;
+var followerSystem;
 
 function create() {
 	game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -31,6 +33,9 @@ function create() {
 	var g = ground.create(0, game.world.height - 10, 'box');
 	g.scale.setTo(100,2);
 	g.body.immovable = true;
+	
+	followerSystem = new FollowerSystem(game, player, ground);
+	followerSystem.create();
 	
 }
 
@@ -56,5 +61,6 @@ function update() {
 	if(cursors.up.isDown && player.body.touching.down) {
 		player.body.velocity.y = -250;
 	}
+	
+	followerSystem.update();
 }
-
