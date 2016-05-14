@@ -2,8 +2,9 @@ function FollowerSystem(game, player, collisionGroup) {
     this.g = game;
     this.p = player;
     this.cGroup = collisionGroup;
-    this.fList = [];
-    this.distance = 20;
+    this.fList =[];
+    this.fList.push(new EmptyFollower());
+    this.distance = 2;
     
     this.timer = 10;
     this.counterList = [];
@@ -12,29 +13,24 @@ function FollowerSystem(game, player, collisionGroup) {
         
     }
     
-    this.create = function() {
-        for (var i = 0; i < 10; ++i){
-        this.add();
+    this.create = function () {
+        for (var i = 0; i < 20; ++i){
+            this.add();
         }
     }
     
     this.update = function() {
         
-        for(var i = 0; i < this.fList.length; ++i) {
-            var followerBody = this.fList[i].f.body;
-            this.g.physics.arcade.collide(this.fList[i].f, this.cGroup);
-            
-            //follower is on left of player
-            if(followerBody.center.x < this.p.body.center.x  - this.distance * (i+1)) {
-                followerBody.velocity.x = 200;
+        for(var i = this.fList.length - 1; i >= 0; --i) {
+            if (i == 0) {
+                this.fList[i].velocity.x = this.p.body.velocity.x;
             }
-            //follower is on right of player
-            else if(followerBody.center.x > this.p.body.center.x + this.distance * (i+1)) {
-                followerBody.velocity.x = -200;
+            if (i != 0) {
+                this.fList[i].velocity.x = this.fList[i - 1].velocity.x;
             }
-            //called when found a follower that doesn't need to move
-            else {
-                followerBody.velocity.x = 0;
+            if (i % this.distance == 0) {
+                this.g.physics.arcade.collide(this.fList[i].f, this.cGroup);
+                this.fList[i].update();
             }
         }
         
@@ -46,11 +42,11 @@ function FollowerSystem(game, player, collisionGroup) {
             for(var i = 0; i < this.counterList.length; ++i) {
                 this.counterList[i] += 1;
                 var index = this.counterList[i] / this.timer;
-                if(index > this.fList.length) {
+                if(index > this.fList.length / this.distance) {
                     this.counterList.splice(i,1);
                 }
                 else if(this.counterList[i] % this.timer == 0) {
-                    this.fList[index-1].jump();
+                    this.fList[(index) * this.distance].jump();
                 }
             }
         }
@@ -58,7 +54,11 @@ function FollowerSystem(game, player, collisionGroup) {
     }
     
     this.add = function() {
-        var follower = this.g.add.sprite(this.p.body.x, this.p.body.y, 'blob');
+        for(var i = 1; i < this.distance; ++i) {
+            this.fList.push(new EmptyFollower());
+        }
+
+        var follower = this.g.add.sprite(this.p.body.x, this.p.y, 'blob');
         follower.scale.setTo(0.1,0.1);
         this.g.physics.arcade.enable(follower);
         follower.body.bounce.y = 0.1;
@@ -69,12 +69,25 @@ function FollowerSystem(game, player, collisionGroup) {
 
 function Follower(object) {
     this.f = object;
+    this.velocity = {this:x = 0};
     
     this.update = function() {
-        
+        this.f.body.velocity.x = this.velocity.x;
     }
     
     this.jump = function() {
         this.f.body.velocity.y = -250;
+    }
+}
+
+function EmptyFollower() {
+    this.velocity = {this:x = 0};
+
+    this.update = function () {
+        //empty
+    }
+
+    this.jump = function () {
+        //nothing
     }
 }
