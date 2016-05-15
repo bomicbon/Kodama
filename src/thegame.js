@@ -4,6 +4,7 @@ var theGame = function(game){
 	cursors = null;
 	ground = null;
 	followerSystem = null;
+	flower = null;
 }
 
 theGame.prototype = {
@@ -20,12 +21,25 @@ theGame.prototype = {
 		player.body.bounce.y = 0.1;
 		player.body.gravity.y = 200;
 		player.body.collideWorldBounds = true;
+		
+		// Ground Code
 		ground = this.game.add.physicsGroup();
 		for (var i = 0; i < 13; i++) {
-			ground.create(300 * i, 670, 'ground');
-			ground.create(700 * i, 500, 'ground');
+			ground.create(300 * i, 670, 'ground'); // level 1
+			ground.create(700 * i, 500, 'ground'); // ground
 		}
 		ground.setAll('body.immovable', true);
+		
+		// Flower Code - not yet complete
+		flower = this.game.add.physicsGroup();
+		flower.scale.setTo(0.3, 0.3);
+		for(var i = 0; i < 13; i++) {
+			flower.create(3000*i, 2180, 'flower');
+			flower.create(400+4600*i, 1600, 'flower');
+		}
+		flower.setAll('body.immovable', true);
+		
+		//Follower Code
 		followerSystem = new FollowerSystem(this.game, player, ground);
 		followerSystem.create();
 		

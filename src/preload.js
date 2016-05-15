@@ -12,6 +12,7 @@ preload.prototype = {
 		this.game.load.image("player", "assets/player.png");
 		this.game.load.image("ground", "assets/platform.png");
 		this.game.load.image("follower", "assets/follower.png");
+		this.game.load.image("flower", "assets/flower.png");
 	},
   	create: function(){
 		this.game.state.start("GameTitle");
