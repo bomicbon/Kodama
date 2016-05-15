@@ -14,7 +14,7 @@ function FollowerSystem(game, player, collisionGroup) {
     }
     
     this.create = function () {
-        for (var i = 0; i < 20; ++i){
+        for (var i = 0; i < 20; ++i) {
             this.add();
         }
     }
