@@ -6,21 +6,30 @@ var theGame = function(game){
 	followerSystem = null;
 	flower = null;
 	animal = null;
+
+	jumpVelocity = -250;
+	gravity = 300;
+	worldWidth = 3800;
+	worldHeight = 720;
+
+	playerSpeed = 250;
+	playerX = 160;
+	playerY = 240;
 }
 
 theGame.prototype = {
   	create: function(){
   		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		number = Math.floor(Math.random()*10);
-		player = this.game.add.sprite(160,240,"player");
+		player = this.game.add.sprite(playerX,playerY,"player");
 		player.anchor.setTo(0.5,0.5);
 		cursors = this.game.input.keyboard.createCursorKeys();
-		this.game.world.setBounds(0, 0, 3800, 720);
+		this.game.world.setBounds(0, 0, worldWidth, worldHeight);
 		this.game.physics.arcade.enable(player);
 		player.scale.setTo(1.0, 1.0);
 		this.game.camera.follow(player);
 		player.body.bounce.y = 0.1;
-		player.body.gravity.y = 200;
+		player.body.gravity.y = gravity;
 		player.body.collideWorldBounds = true;
 		
 		// Ground Code
@@ -47,28 +56,29 @@ theGame.prototype = {
 		}
 		
 		//Follower Code
-		followerSystem = new FollowerSystem(this.game, player, ground);
+		followerSystem = new FollowerSystem(this.game, player, jumpVelocity, ground);
 		followerSystem.create();
 		
 	},
 	update: function() {
-		this.game.physics.arcade.collide(player, ground); 
+	    this.game.physics.arcade.collide(player, ground);
+
 		player.body.velocity.x = 0;
 		if(cursors.left.isDown && cursors.right.isDown) {
 			//
 		}
 		else if(cursors.left.isDown) {
-			player.body.velocity.x = -200;
+			player.body.velocity.x = -playerSpeed;
 		}
 		else if(cursors.right.isDown) {
-			player.body.velocity.x = 200;
+			player.body.velocity.x = playerSpeed;
 		}
 		else {
 			//put idle animation in here
 		}
 		
-		if(cursors.up.isDown && (player.body.touching.down || player.body.onFloor())) {
-			player.body.velocity.y = -250;
+		if (cursors.up.isDown && player.body.touching.down) {
+			player.body.velocity.y = jumpVelocity;
 		}
 		
 		followerSystem.update();
