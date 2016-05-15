@@ -13,7 +13,7 @@ function FollowerSystem(game, player, collisionGroup) {
     }
     
     this.create = function () {
-        for (var i = 0; i < 20; ++i) {
+        for (var i = 0; i < 8; ++i) {
             this.add(); // 
         }
     }
@@ -57,8 +57,8 @@ function FollowerSystem(game, player, collisionGroup) {
             this.fList.push(new EmptyFollower());
         }
 
-        var follower = this.g.add.sprite(this.p.body.x, this.p.y, 'blob');
-        follower.scale.setTo(0.1,0.1);
+        var follower = this.g.add.sprite(this.p.body.x, this.p.y, 'follower');
+        follower.scale.setTo(0.5,0.5);
         this.g.physics.arcade.enable(follower);
         follower.body.bounce.y = 0.1;
         follower.body.gravity.y = 500;
