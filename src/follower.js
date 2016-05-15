@@ -29,7 +29,12 @@ function FollowerSystem(game, player, jumpVelocity, collisionGroup) {
 
             //inital dummy for follower list to get player velocity
             if (i == 0) {
-                this.fList[i].velocity.x = this.p.body.velocity.x;
+                if (this.p.body.touching.left || this.p.body.touching.right) {
+                    this.fList[i].velocity.x = 0;
+                }
+                else {
+                    this.fList[i].velocity.x = this.p.body.velocity.x;
+                }
             }
             
             //called for all other indexes > 0
