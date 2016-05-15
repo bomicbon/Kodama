@@ -5,6 +5,7 @@ var theGame = function(game){
 	ground = null;
 	followerSystem = null;
 	flower = null;
+	animal = null;
 }
 
 theGame.prototype = {
@@ -30,7 +31,7 @@ theGame.prototype = {
 		}
 		ground.setAll('body.immovable', true);
 		
-		// Flower Code - not yet complete
+		// Flower Code - no collisions yet
 		flower = this.game.add.physicsGroup();
 		flower.scale.setTo(0.3, 0.3);
 		for(var i = 0; i < 13; i++) {
@@ -38,6 +39,12 @@ theGame.prototype = {
 			flower.create(400+4600*i, 1600, 'flower');
 		}
 		flower.setAll('body.immovable', true);
+		
+		// Animal Code
+		animal = this.game.add.physicsGroup();
+		for (var i = 0; i < 13; i++) {
+			animal.create(800+1500*i, 470, 'animal');
+		}
 		
 		//Follower Code
 		followerSystem = new FollowerSystem(this.game, player, ground);
