@@ -10,12 +10,11 @@ function FollowerSystem(game, player, collisionGroup) {
     this.counterList = [];
     
     this.preload = function() {
-        
     }
     
     this.create = function () {
         for (var i = 0; i < 20; ++i) {
-            this.add();
+            this.add(); // 
         }
     }
     
