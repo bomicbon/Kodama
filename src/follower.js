@@ -2,11 +2,11 @@ function FollowerSystem(game, player, collisionGroup) {
     this.g = game;
     this.p = player;
     this.cGroup = collisionGroup;
-    this.fList =[];
-    this.fList.push(new EmptyFollower());
-    this.distance = 2;
+    this.fList =[]; //follower list
+    this.fList.push(new EmptyFollower()); //put an empty one
+    this.distance = 2;  //this is the distance between followers
     
-    this.timer = 10;
+    this.timer = 10;    //used to delay the jumps
     this.counterList = [];
     
     this.preload = function() {
@@ -19,7 +19,7 @@ function FollowerSystem(game, player, collisionGroup) {
     }
     
     this.update = function() {
-        
+        //loop will go through 
         for(var i = this.fList.length - 1; i >= 0; --i) {
             if (i == 0) {
                 this.fList[i].velocity.x = this.p.body.velocity.x;

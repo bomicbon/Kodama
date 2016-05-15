@@ -26,8 +26,8 @@ theGame.prototype = {
 			ground.create(700 * i, 500, 'ground');
 		}
 		ground.setAll('body.immovable', true);
-		//followerSystem = new FollowerSystem(game, player, ground);
-		//followerSystem.create();
+		followerSystem = new FollowerSystem(this.game, player, ground);
+		followerSystem.create();
 		
 	},
 	update: function() {
@@ -50,7 +50,7 @@ theGame.prototype = {
 			player.body.velocity.y = -250;
 		}
 		
-		//followerSystem.update();
+		followerSystem.update();
 	}
 	
 	//this.game.state.start("GameOver", true, false, score);
