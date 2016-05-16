@@ -20,7 +20,6 @@ var theGame = function(game){
 
 	wcShooter = null;
 	
-	
 	//platform y values
 	levelI = 90; //space between levels
 	level0 = 690;
@@ -54,12 +53,12 @@ theGame.prototype = {
 			
 		}
 		//platforms before wall 1
-		ground.create(300, level1, 'platformL'); 
+		ground.create(300, level1, 'platformL'); //up arrow jump tutorial image next to this, also space image to attack first monster 
 		ground.create(150, level2, 'platformS'); 
 		ground.create(50, level3, 'platformS'); 
 		ground.create(180, level4, 'platformL'); 
 		ground.create(40, level6+80, 'platformS'); //bonus
-		ground.create(580, level3, 'platformM'); //put tree on this platform
+		ground.create(580, level3, 'platformM'); //put tree on this 
 		ground.create(480, level5, 'platformM'); 
 		ground.create(600, level6, 'platformS'); 
 		ground.create(700, level5+35, 'platformWall');
@@ -85,10 +84,18 @@ theGame.prototype = {
 		ground.create(2550, level3, 'platformS');
 		ground.create(2400, level4, 'platformM');  
 		ground.create(2250, level5, 'platformS'); 
-		ground.create(2400, level6-10, 'platformL'); 
+		ground.create(2400, level6-10, 'platformL'); //bonus
+		ground.create(2750, level3, 'platformL'); 
+		ground.create(2850, level1-10, 'platformS'); //bonus
+		ground.create(3050, level4, 'platformS'); 
+		ground.create(3100, level5+25, 'platformWall'); 
+		//boss area platforms
+		ground.create(3200, level4, 'platformS'); 
+		ground.create(3300, level3, 'platformS'); 
+		ground.create(3400, level2, 'platformS'); 
 		
 		ground.setAll('body.immovable', true);
-		
+	
 		// Flower Code - no collisions yet
 		flower = this.game.add.physicsGroup();
 		flower.scale.setTo(0.3, 0.3);
