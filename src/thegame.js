@@ -1,12 +1,17 @@
 var theGame = function(game){
 	player = null;
 	score = 0;
+	temperature = 85;
+	
 	cursors = null;
 	ground = null;
 	followerSystem = null;
 	flower = null;
 	animal = null;
-
+	faceRight = true;
+	
+	attackDelay = true; //prevent spamming different type of attacks
+	
 	jumpVelocity = -450;
 	//jumpV should be -435 on first heatup so that bonus platforms cannot be reached
 	
@@ -122,6 +127,10 @@ theGame.prototype = {
 		//Follower Code
 		followerSystem = new FollowerSystem(this.game, player, jumpVelocity, ground);
 		followerSystem.create();
+		
+		//watering can melee code
+		wcMelee = new wateringcanMelee(this.game, player, ground);
+		wcMelee.create();
 
   	    //watering can shooter code
 		wcShooter = new wateringcanShooter(this.game, player, ground);
@@ -137,9 +146,11 @@ theGame.prototype = {
 		}
 		else if(cursors.left.isDown) {
 			player.body.velocity.x = -playerSpeed;
+			faceRight = false;
 		}
 		else if(cursors.right.isDown) {
 			player.body.velocity.x = playerSpeed;
+			faceRight = true;
 		}
 		else {
 			//put idle animation in here
@@ -151,6 +162,7 @@ theGame.prototype = {
 		
 		followerSystem.update();
 		wcShooter.update();
+		wcMelee.update();
 	}
 	
 	//this.game.state.start("GameOver", true, false, score);
