@@ -4,10 +4,10 @@ function FollowerSystem(game, player, jumpVelocity, collisionGroup) {
     this.cGroup = collisionGroup;
     this.fList =[]; //follower list
     this.fList.push(new EmptyFollower()); //put an empty one
-    this.distance = 2;  //this is the distance between followers
+    this.distance = 3;  //this is the distance between followers
     this.jumpV = jumpVelocity; //jump velocity of the player
     
-    this.timer = 10;    //used to delay the jumps
+    this.timer = 3;    //used to delay the jumps
     this.counterList = [];
     
     this.preload = function() {
@@ -29,12 +29,12 @@ function FollowerSystem(game, player, jumpVelocity, collisionGroup) {
 
             //inital dummy for follower list to get player velocity
             if (i == 0) {
+                this.fList[i].velocity.x = this.p.body.velocity.x;
+                
                 if (this.p.body.touching.left || this.p.body.touching.right) {
                     this.fList[i].velocity.x = 0;
                 }
-                else {
-                    this.fList[i].velocity.x = this.p.body.velocity.x;
-                }
+                
             }
             
             //called for all other indexes > 0
@@ -125,7 +125,8 @@ function Follower(object, jumpVelocity) {
     }
     
     this.jump = function () {
-        this.f.body.velocity.y = this.jumpV;
+        if(this.f.body.touching.down)
+            this.f.body.velocity.y = this.jumpV;
     }
 }
 
