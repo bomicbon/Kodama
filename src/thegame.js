@@ -7,8 +7,8 @@ var theGame = function(game){
 	flower = null;
 	animal = null;
 
-	jumpVelocity = -250;
-	gravity = 300;
+	jumpVelocity = -450;
+	gravity = 1000;
 	worldWidth = 3800;
 	worldHeight = 720;
 
@@ -17,6 +17,17 @@ var theGame = function(game){
 	playerY = 240;
 
 	wcShooter = null;
+	
+	
+	//platform y values
+	levelI = 93;
+	level0 = 690;
+	level1 = level0-levelI;
+	level2 = level1-levelI;
+	level3 = level2-levelI;
+	level4 = level3-levelI;
+	level5 = level4-levelI;
+	level6 = level5-levelI;
 }
 
 theGame.prototype = {
@@ -28,18 +39,25 @@ theGame.prototype = {
 		cursors = this.game.input.keyboard.createCursorKeys();
 		this.game.world.setBounds(0, 0, worldWidth, worldHeight);
 		this.game.physics.arcade.enable(player);
-		player.scale.setTo(1.0, 1.0);
+		player.scale.setTo(1.3, 1.3);
 		this.game.camera.follow(player);
 		player.body.bounce.y = 0.1;
 		player.body.gravity.y = gravity;
 		player.body.collideWorldBounds = true;
 		
-		// Ground Code
+	// Ground Code
 		ground = this.game.add.physicsGroup();
 		for (var i = 0; i < 13; i++) {
-			ground.create(300 * i, 670, 'ground'); // level 1
-			ground.create(700 * i, 500, 'ground'); // ground
+			ground.create(300 * i, level0, 'ground'); // ground
+			
 		}
+		ground.create(300, level1, 'platformL'); 
+		ground.create(150, level2, 'platformS'); 
+		ground.create(50, level3, 'platformS'); 
+		ground.create(180, level4, 'platformL'); 
+		ground.create(480, level5, 'platformM'); 
+		ground.create(600, level6, 'platformS'); 
+		
 		ground.setAll('body.immovable', true);
 		
 		// Flower Code - no collisions yet

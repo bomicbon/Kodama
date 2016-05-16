@@ -10,7 +10,10 @@ preload.prototype = {
 		this.game.load.image("gametitle", "assets/gametitle.png");
 		this.game.load.image("play", "assets/play.png");
 		this.game.load.image("player", "assets/player.png");
-		this.game.load.image("ground", "assets/platform.png");
+		this.game.load.image("platformL", "assets/platformL.png");
+		this.game.load.image("platformM", "assets/platformM.png");
+		this.game.load.image("platformS", "assets/platformS.png");
+		this.game.load.image("ground", "assets/ground.png");
 		this.game.load.image("follower", "assets/follower.png");
 		this.game.load.image("flower", "assets/flower.png");
 		this.game.load.image("animal", "assets/squirrel.png");
