@@ -15,8 +15,8 @@ var theGame = function(game){
 	worldHeight = 720;
 
 	playerSpeed = 250;
-	playerX = 160;
-	playerY = 240;
+	playerX = 10;
+	playerY = 650;
 
 	wcShooter = null;
 	
