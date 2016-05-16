@@ -7,10 +7,13 @@ function wateringcanShooter(game, player, collisionGroup) {
     this.damage = 0;
     this.gravity = 300;
     this.initUpVelocity = -100;
+    this.scale = 0.2;
+    
+    this.delay = 20;
+    this.delayCount = 0;
 
     this.key = null;
     this.projList = [];
-    this.removeIndex = 0;
 
     this.create = function () {
         //looks for spacebar input and spawns a new projectile
@@ -21,6 +24,10 @@ function wateringcanShooter(game, player, collisionGroup) {
     }
 
     this.update = function () {
+        //add to counter for delay counter
+        if(this.delayCount < this.delay) {
+            ++this.delayCount;
+        }
         for (var i = 0; i < this.projList.length; ++i) {
             //if a projectile is null (destroyed) then remove it from the list
             if (this.projList[i] == null) {
@@ -34,18 +41,33 @@ function wateringcanShooter(game, player, collisionGroup) {
     }
 
     this.spawnWater = function () {
-        var proj = this.g.add.sprite(this.p.body.x, this.p.body.y, 'flower');
-        this.g.physics.arcade.enable(proj);
-        proj.body.gravity.y = this.gravity;
-        proj.body.velocity.x = this.speed;
-        proj.body.velocity.y = this.initUpVelocity;
-        proj.scale.setTo(0.2, 0.2);
-
-        //destroy when out of bounds
-        proj.checkWorldBounds = true;
-        proj.outOfBoundsKill = true;
+        //if delay is passed
+        if(this.delayCount >= this.delay) {
+            this.delayCount = 0;
+            var projL = this.g.add.sprite(this.p.body.x, this.p.body.y, 'flower');
+            this.g.physics.arcade.enable(projL);
+            projL.body.gravity.y = this.gravity;
+            projL.body.velocity.x = (-1) * this.speed;
+            projL.body.velocity.y = this.initUpVelocity;
+            projL.scale.setTo(this.scale, this.scale);
         
-        this.projList.push(proj);
+            var projR = this.g.add.sprite(this.p.body.x, this.p.body.y, 'flower');
+            this.g.physics.arcade.enable(projR);
+            projR.body.gravity.y = this.gravity;
+            projR.body.velocity.x = this.speed;
+            projR.body.velocity.y = this.initUpVelocity;
+            projR.scale.setTo(this.scale, this.scale);
+
+            //destroy when out of bounds
+            projL.checkWorldBounds = true;
+            projL.outOfBoundsKill = true;
+            //
+            projR.checkWorldBounds = true;
+            projR.outOfBoundsKill = true;
+        
+            this.projList.push(projL);
+            this.projList.push(projR);
+        }
     }
 
     this.hitCollision = function (body1, body2) {
