@@ -15,6 +15,8 @@ var theGame = function(game){
 	playerSpeed = 250;
 	playerX = 160;
 	playerY = 240;
+
+	wcShooter = null;
 }
 
 theGame.prototype = {
@@ -58,6 +60,10 @@ theGame.prototype = {
 		//Follower Code
 		followerSystem = new FollowerSystem(this.game, player, jumpVelocity, ground);
 		followerSystem.create();
+
+  	    //watering can shooter code
+		wcShooter = new wateringcanShooter(this.game, player, ground);
+		wcShooter.create();
 		
 	},
 	update: function() {
@@ -82,6 +88,7 @@ theGame.prototype = {
 		}
 		
 		followerSystem.update();
+		wcShooter.update();
 	}
 	
 	//this.game.state.start("GameOver", true, false, score);
