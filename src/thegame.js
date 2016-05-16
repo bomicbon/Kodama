@@ -7,7 +7,7 @@ var theGame = function(game){
 	flower = null;
 	animal = null;
 
-	jumpVelocity = -435;
+	jumpVelocity = -450;
 	//jumpV should be -435 on first heatup so that bonus platforms cannot be reached
 	
 	gravity = 1000;
