@@ -3,10 +3,10 @@ function wateringcanShooter(game, player, collisionGroup) {
     this.g = game;
     this.cGroup = collisionGroup;
 
-    this.speed = 300;
+    this.speed = 200;
     this.damage = 0;
-    this.gravity = 300;
-    this.initUpVelocity = -100;
+    this.gravity = 1300;
+    this.initUpVelocity = -300;
     this.scale = 2.0; // Bigger Water
     
     this.delay = 20;
