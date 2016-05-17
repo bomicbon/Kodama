@@ -36,7 +36,7 @@ function wateringcanShooter(game, player, collisionGroup) {
                 continue;
             }
             //if collide, call hitCollision
-            this.g.physics.arcade.collide(this.projList[i], this.cGroup, this.hitCollision);
+            this.g.physics.arcade.collide(this.projList[i], this.cGroup, this.hitCollision, null, this);
         }
     }
 
@@ -47,12 +47,16 @@ function wateringcanShooter(game, player, collisionGroup) {
             this.delayCount = 0;
             
             if (!faceRight){
-           		var projL = this.g.add.sprite(this.p.body.x, this.p.body.y, 'flower');
+           		var projL = game.add.sprite(this.p.body.x, this.p.body.y, 'flower');
 	            this.g.physics.arcade.enable(projL);
 	            projL.body.gravity.y = this.gravity;
 	            projL.body.velocity.x = (-1) * this.speed;
 	            projL.body.velocity.y = this.initUpVelocity;
 	            projL.scale.setTo(this.scale, this.scale);
+                
+                //destroy when out of bounds
+                projL.checkWorldBounds = true;
+                projL.outOfBoundsKill = true;
             }
            
             else{
@@ -62,15 +66,15 @@ function wateringcanShooter(game, player, collisionGroup) {
 	            projR.body.velocity.x = this.speed;
 	            projR.body.velocity.y = this.initUpVelocity;
 	            projR.scale.setTo(this.scale, this.scale);
+                
+                //
+                projR.checkWorldBounds = true;
+                projR.outOfBoundsKill = true;
+            
             }
 
-            //destroy when out of bounds
-            projL.checkWorldBounds = true;
-            projL.outOfBoundsKill = true;
-            //
-            projR.checkWorldBounds = true;
-            projR.outOfBoundsKill = true;
-        
+            
+            
             this.projList.push(projL);
             this.projList.push(projR);
         }
@@ -79,6 +83,24 @@ function wateringcanShooter(game, player, collisionGroup) {
     }
 
     this.hitCollision = function (body1, body2) {
+        var hitSprite = this.g.add.sprite(body1.body.x, body1.body.y, 'flower');
+        hitSprite.scale.setTo(this.scale, this.scale);
+        hitSprite.anchor.setTo(0.5,0.5);
+        
+        if(body1.body.touching.up) {
+            hitSprite.angle = 180;
+        }
+        else if(body1.body.touching.left) {
+            hitSprite.angle = 90;
+        }
+        else if(body1.body.touching.right) {
+            hitSprite.angle = -90;
+            hitSprite.x += hitSprite.width;
+        }
+        else {
+            hitSprite.y += hitSprite.height;
+        }
+        
         body1.destroy();
     }
 
