@@ -111,6 +111,11 @@ function FollowerSystem(game, player, jumpVelocity, collisionGroup) {
     this.removeFirst = function () {
         this.fList.splice(1, this.distance);
     }
+    
+    //this is used to remove a follower given an index [0 to n]
+    this.removeIndex = function(index) {
+        this.fList.splice(index + 1, this.distance);
+    }
 }
 
 function Follower(object, jumpVelocity) {

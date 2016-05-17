@@ -8,7 +8,7 @@ function oilGroup(game, player) {
     this.stepTime = 20;
     
     this.create = function() {
-        this.add(400,590, 5, 1);
+        this.add(400,585, 5, 1);
     }
     
     //loops through the oil group and checks for overlap with a player

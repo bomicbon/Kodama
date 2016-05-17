@@ -57,8 +57,8 @@ theGame.prototype = {
 		ground = this.game.add.physicsGroup();
 		for (var i = 0; i < 13; i++) {
 			ground.create(300 * i, level0, 'ground'); // ground
-			
 		}
+		
 		//platforms before wall 1
 		ground.create(300, level1, 'platformL'); //up arrow jump tutorial image next to this, also space image to attack first monster 
 		ground.create(150, level2, 'platformS'); 
