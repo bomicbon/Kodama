@@ -25,6 +25,8 @@ var theGame = function(game){
 
 	wcShooter = null;
 	
+	oilG = null;
+	
 	//platform y values
 	levelI = 90; //space between levels
 	level0 = 690;
@@ -136,6 +138,10 @@ theGame.prototype = {
 		wcShooter = new wateringcanShooter(this.game, player, ground);
 		wcShooter.create();
 		
+		//oils group
+		oilG = new oilGroup(this.game, player);
+		oilG.create();
+		
 	},
 	update: function() {
 	    this.game.physics.arcade.collide(player, ground);
@@ -160,6 +166,8 @@ theGame.prototype = {
 			player.body.velocity.y = jumpVelocity;
 		}
 		
+		//oil update needs to be before the follower update
+		oilG.update();
 		followerSystem.update();
 		wcShooter.update();
 		wcMelee.update();

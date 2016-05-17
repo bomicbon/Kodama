@@ -18,6 +18,7 @@ preload.prototype = {
 		this.game.load.image("follower", "assets/follower.png");
 		this.game.load.image("flower", "assets/flower.png");
 		this.game.load.image("animal", "assets/squirrel.png");
+		this.game.load.image("oil", "assets/oil.png");
 	
 	},
   	create: function(){

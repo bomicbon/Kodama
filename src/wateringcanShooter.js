@@ -14,6 +14,8 @@ function wateringcanShooter(game, player, collisionGroup) {
 
     this.key = null;
     this.projList = [];
+    
+    this.bounds = Phaser.Rectangle.clone(this.g.world.bounds);
 
     this.create = function () {
         //looks for key input and spawns a new projectile
@@ -22,6 +24,7 @@ function wateringcanShooter(game, player, collisionGroup) {
 
         this.g.input.keyboard.removeKeyCapture(Phaser.Keyboard.X);
     }
+    
 
     this.update = function () {
         //add to counter for delay counter
@@ -46,8 +49,9 @@ function wateringcanShooter(game, player, collisionGroup) {
         	attackDelay = false;
             this.delayCount = 0;
             
+            //shoot projectile to left
             if (!faceRight){
-           		var projL = game.add.sprite(this.p.body.x, this.p.body.y, 'flower');
+           		var projL = this.g.add.sprite(this.p.body.x + this.p.body.halfWidth, this.p.body.y, 'flower');
 	            this.g.physics.arcade.enable(projL);
 	            projL.body.gravity.y = this.gravity;
 	            projL.body.velocity.x = (-1) * this.speed;
@@ -59,22 +63,22 @@ function wateringcanShooter(game, player, collisionGroup) {
                 projL.outOfBoundsKill = true;
             }
            
+           //shoot projectile to right
             else{
-            	var projR = this.g.add.sprite(this.p.body.x+20, this.p.body.y, 'flower');
+            	var projR = this.g.add.sprite(this.p.body.x + this.p.body.halfWidth, this.p.body.y, 'flower');
 	            this.g.physics.arcade.enable(projR);
 	            projR.body.gravity.y = this.gravity;
 	            projR.body.velocity.x = this.speed;
 	            projR.body.velocity.y = this.initUpVelocity;
 	            projR.scale.setTo(this.scale, this.scale);
                 
-                //
+                //destroy when out of bounds
                 projR.checkWorldBounds = true;
                 projR.outOfBoundsKill = true;
             
             }
-
             
-            
+            //add both projectiles to the projectile list
             this.projList.push(projL);
             this.projList.push(projR);
         }
@@ -82,6 +86,8 @@ function wateringcanShooter(game, player, collisionGroup) {
         attackDelay = true;
     }
 
+    //this is a the collision event for when the projectile hits a wall
+    // or something, it changes its rotation depending on where collision happened
     this.hitCollision = function (body1, body2) {
         var hitSprite = this.g.add.sprite(body1.body.x, body1.body.y, 'flower');
         hitSprite.scale.setTo(this.scale, this.scale);
