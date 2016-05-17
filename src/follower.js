@@ -4,7 +4,7 @@ function FollowerSystem(game, player, jumpVelocity, collisionGroup) {
     this.cGroup = collisionGroup;
     this.fList =[]; //follower list
     this.fList.push(new EmptyFollower()); //put an empty one
-    this.distance = 3;  //this is the distance between followers
+    this.distance = 5;  //this is the distance between followers
     this.jumpV = jumpVelocity; //jump velocity of the player
     
     this.timer = 3;    //used to delay the jumps
@@ -15,7 +15,7 @@ function FollowerSystem(game, player, jumpVelocity, collisionGroup) {
     
     this.create = function () {
         for (var i = 0; i < 8; ++i) {
-            this.add('follower'); // 
+            this.add('animal'); // 
         }
     }
     
@@ -94,7 +94,7 @@ function FollowerSystem(game, player, jumpVelocity, collisionGroup) {
 
         //follower phaser sprite
         var follower = this.g.add.sprite(this.p.body.x, this.p.y, followerImage);
-        follower.scale.setTo(0.5, 0.5);
+        follower.scale.setTo(1.0, 1.0);
 
         //follower phaser physics
         this.g.physics.arcade.enable(follower);
