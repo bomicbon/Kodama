@@ -145,8 +145,6 @@ theGame.prototype = {
 	},
 	update: function() {
 	    this.game.physics.arcade.collide(player, ground);
-	    
-
 		player.body.velocity.x = 0;
 		if(cursors.left.isDown && cursors.right.isDown) {
 			//

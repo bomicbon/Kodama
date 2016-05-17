@@ -44,10 +44,14 @@ function wateringcanShooter(game, player, collisionGroup) {
     }
 
     this.spawnWater = function () {
+        // I removed the delay cuz basically
+        // 1. delay count doesn't do anything
+        // 2. if else statement basically waits for water sprite to be out of bounds before player can shoot again...
+        
         //if delay is passed
-        if(this.delayCount >= this.delay && attackDelay) {
-        	attackDelay = false;
-            this.delayCount = 0;
+        //if(this.delayCount >= this.delay && attackDelay) {
+        	//attackDelay = false;
+            //this.delayCount = 0;
             
             //shoot projectile to left
             if (!faceRight){
@@ -81,9 +85,9 @@ function wateringcanShooter(game, player, collisionGroup) {
             //add both projectiles to the projectile list
             this.projList.push(projL);
             this.projList.push(projR);
-        }
-        else
-        attackDelay = true;
+        //}
+        //else
+        //attackDelay = true;
     }
 
     //this is a the collision event for when the projectile hits a wall
