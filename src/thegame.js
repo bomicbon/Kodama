@@ -139,12 +139,13 @@ theGame.prototype = {
 		wcShooter.create();
 		
 		//oils group
-		oilG = new oilGroup(this.game, player);
+		oilG = new oilGroup(this.game, player, ground);
 		oilG.create();
 		
 	},
 	update: function() {
 	    this.game.physics.arcade.collide(player, ground);
+	    
 
 		player.body.velocity.x = 0;
 		if(cursors.left.isDown && cursors.right.isDown) {

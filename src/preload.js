@@ -20,7 +20,7 @@ preload.prototype = {
 		this.game.load.image("animal", "assets/squirrel.png");
 		this.game.load.image("oil", "assets/oil.png");
 		this.game.load.image("water", "assets/water.png");
-	
+		this.game.load.image("sludge", "assets/sludge.png");
 	},
   	create: function(){
 		this.game.state.start("GameTitle");
