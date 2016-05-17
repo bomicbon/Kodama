@@ -7,20 +7,21 @@ preload.prototype = {
           this.load.setPreloadSprite(loadingBar);
 		
 		// 
-		this.game.load.image("gametitle", "assets/gametitle.png");
-		this.game.load.image("play", "assets/play.png");
-		this.game.load.image("player", "assets/player.png");
-		this.game.load.image("platformL", "assets/platformL.png");
-		this.game.load.image("platformM", "assets/platformM.png");
-		this.game.load.image("platformS", "assets/platformS.png");
-		this.game.load.image("platformWall", "assets/platformWall.png");
-		this.game.load.image("ground", "assets/ground.png");
-		this.game.load.image("follower", "assets/follower.png");
-		this.game.load.image("flower", "assets/flower.png");
-		this.game.load.image("animal", "assets/squirrel.png");
-		this.game.load.image("oil", "assets/oil.png");
-		this.game.load.image("water", "assets/water.png");
-		this.game.load.image("sludge", "assets/sludge.png");
+		this.game.load.image("gametitle", "assets/img/gametitle.png");
+		this.game.load.image("play", "assets/img/play.png");
+		this.game.load.image("player", "assets/img/player.png");
+		this.game.load.image("platformL", "assets/img/platformL.png");
+		this.game.load.image("platformM", "assets/img/platformM.png");
+		this.game.load.image("platformS", "assets/img/platformS.png");
+		this.game.load.image("platformWall", "assets/img/platformWall.png");
+		this.game.load.image("ground", "assets/img/ground.png");
+		this.game.load.image("follower", "assets/img/follower.png");
+		this.game.load.image("flower", "assets/img/flower.png");
+		this.game.load.image("animal", "assets/img/squirrel.png");
+		this.game.load.image("oil", "assets/img/oil.png");
+		this.game.load.image("water", "assets/img/water.png");
+		this.game.load.image("sludge", "assets/img/sludge.png");
+		this.game.load.spritesheet("splash", "assets/img/splash.png", 24, 24, 10);
 	},
   	create: function(){
 		this.game.state.start("GameTitle");
