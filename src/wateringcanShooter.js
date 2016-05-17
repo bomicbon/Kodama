@@ -7,7 +7,7 @@ function wateringcanShooter(game, player, collisionGroup) {
     this.damage = 0;
     this.gravity = 300;
     this.initUpVelocity = -100;
-    this.scale = 0.5;
+    this.scale = 2.0; // Bigger Water
     
     this.delay = 20;
     this.delayCount = 0;
@@ -51,7 +51,7 @@ function wateringcanShooter(game, player, collisionGroup) {
             
             //shoot projectile to left
             if (!faceRight){
-           		var projL = this.g.add.sprite(this.p.body.x + this.p.body.halfWidth, this.p.body.y, 'flower');
+           		var projL = this.g.add.sprite(this.p.body.x + this.p.body.halfWidth, this.p.body.y, 'water');
 	            this.g.physics.arcade.enable(projL);
 	            projL.body.gravity.y = this.gravity;
 	            projL.body.velocity.x = (-1) * this.speed;
@@ -65,7 +65,7 @@ function wateringcanShooter(game, player, collisionGroup) {
            
            //shoot projectile to right
             else{
-            	var projR = this.g.add.sprite(this.p.body.x + this.p.body.halfWidth, this.p.body.y, 'flower');
+            	var projR = this.g.add.sprite(this.p.body.x + this.p.body.halfWidth, this.p.body.y, 'water');
 	            this.g.physics.arcade.enable(projR);
 	            projR.body.gravity.y = this.gravity;
 	            projR.body.velocity.x = this.speed;
@@ -89,7 +89,7 @@ function wateringcanShooter(game, player, collisionGroup) {
     //this is a the collision event for when the projectile hits a wall
     // or something, it changes its rotation depending on where collision happened
     this.hitCollision = function (body1, body2) {
-        var hitSprite = this.g.add.sprite(body1.body.x, body1.body.y, 'flower');
+        var hitSprite = this.g.add.sprite(body1.body.x, body1.body.y, 'water');
         hitSprite.scale.setTo(this.scale, this.scale);
         hitSprite.anchor.setTo(0.5,0.5);
         
