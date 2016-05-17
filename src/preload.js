@@ -21,7 +21,7 @@ preload.prototype = {
 		this.game.load.image("oil", "assets/img/oil.png");
 		this.game.load.image("water", "assets/img/water.png");
 		this.game.load.image("sludge", "assets/img/sludge.png");
-		this.game.load.spritesheet("splash", "assets/img/splash.png", 24, 24, 10);
+		this.game.load.spritesheet('splash', 'assets/img/splash.png', 24, 24, 10);
 	},
   	create: function(){
 		this.game.state.start("GameTitle");
