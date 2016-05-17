@@ -1,7 +1,9 @@
 var theGame = function(game){
 	player = null;
 	score = 0;
-	temperature = 85;
+	temperature = 60;
+	pollution_timer = 0;
+	temperature_reading = null;
 	
 	cursors = null;
 	ground = null;
@@ -40,6 +42,7 @@ var theGame = function(game){
 
 theGame.prototype = {
   	create: function(){
+  		
   		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		number = Math.floor(Math.random()*10);
 		player = this.game.add.sprite(playerX,playerY,"player");
@@ -52,6 +55,7 @@ theGame.prototype = {
 		player.body.bounce.y = 0.1;
 		player.body.gravity.y = gravity;
 		player.body.collideWorldBounds = true;
+		
 		
 	// Ground Code
 		ground = this.game.add.physicsGroup();
@@ -142,8 +146,22 @@ theGame.prototype = {
 		oilG = new oilGroup(this.game, player, ground);
 		oilG.create();
 		
+		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, temperature, {
+  			font: "65px Arial",
+  			fill: "000000",
+  			align: "center"
+  		});
+    	temperature_reading.anchor.setTo(0.5, 0.5);
 	},
 	update: function() {
+		pollution_timer++;
+		if (pollution_timer == 1000) {
+			temperature += 1;
+			pollution_timer = 0;
+		}
+		temperature_reading.setText(temperature);
+		temperature_reading.x = this.game.camera.x + 550;
+		temperature_reading.y = this.game.camera.y + 50;
 	    this.game.physics.arcade.collide(player, ground);
 		player.body.velocity.x = 0;
 		if(cursors.left.isDown && cursors.right.isDown) {
