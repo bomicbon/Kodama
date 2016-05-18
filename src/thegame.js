@@ -155,13 +155,16 @@ theGame.prototype = {
 	},
 	update: function() {
 		pollution_timer++;
-		if (pollution_timer == 1000) {
+		if (pollution_timer == 500) {
 			temperature += 1;
 			pollution_timer = 0;
 		}
 		temperature_reading.setText(temperature);
 		temperature_reading.x = this.game.camera.x + 550;
 		temperature_reading.y = this.game.camera.y + 50;
+		
+		
+		this.game.stage.backgroundColor =  8762849 + pollution_timer + 10*temperature;
 	    this.game.physics.arcade.collide(player, ground);
 		player.body.velocity.x = 0;
 		if(cursors.left.isDown && cursors.right.isDown) {
