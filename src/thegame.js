@@ -146,6 +146,10 @@ theGame.prototype = {
 		oilG = new oilGroup(this.game, player, ground);
 		oilG.create();
 		
+		//enemy code
+		enemies = new enemy(this.game, ground);
+		enemies.create();
+		
 		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, temperature, {
   			font: "65px Arial",
   			fill: "000000",
@@ -191,6 +195,7 @@ theGame.prototype = {
 		followerSystem.update();
 		wcShooter.update();
 		wcMelee.update();
+		enemies.update();
 	}
 	
 	//this.game.state.start("GameOver", true, false, score);
