@@ -4,7 +4,7 @@ function wateringcanShooter(game, player, collisionGroup) {
     this.cGroup = collisionGroup;
 
     this.speed = 200;
-    this.damage = 0;
+    this.damage = 10;
     this.gravity = 1300;
     this.initUpVelocity = -300;
     this.scale = 2.0; // Bigger Water
@@ -13,7 +13,7 @@ function wateringcanShooter(game, player, collisionGroup) {
     this.delayCount = 0;
 
     this.key = null;
-    this.projList = [];
+    this.projList = this.g.add.group();
     
     this.bounds = Phaser.Rectangle.clone(this.g.world.bounds);
 
@@ -31,16 +31,10 @@ function wateringcanShooter(game, player, collisionGroup) {
         if(this.delayCount < this.delay) {
             ++this.delayCount;
         }
-        for (var i = 0; i < this.projList.length; ++i) {
-            //if a projectile is null (destroyed) then remove it from the list
-            if (this.projList[i] == null) {
-                this.projList.splice(i, 1);
-                --i;
-                continue;
-            }
+        this.projList.forEach(function(item) {
             //if collide, call hitCollision
-            this.g.physics.arcade.collide(this.projList[i], this.cGroup, this.hitCollision, null, this);
-        }
+            this.g.physics.arcade.collide(item, this.cGroup, this.hitCollision, null, this);
+        }, this);
     }
 
     this.spawnWater = function () {
@@ -61,10 +55,13 @@ function wateringcanShooter(game, player, collisionGroup) {
 	            projL.body.velocity.x = (-1) * this.speed;
 	            projL.body.velocity.y = this.initUpVelocity;
 	            projL.scale.setTo(this.scale, this.scale);
+	            projL.damage = this.damage;
                 
                 //destroy when out of bounds
                 projL.checkWorldBounds = true;
                 projL.outOfBoundsKill = true;
+
+                this.projList.add(projL);
             }
            
            //shoot projectile to right
@@ -75,16 +72,16 @@ function wateringcanShooter(game, player, collisionGroup) {
 	            projR.body.velocity.x = this.speed;
 	            projR.body.velocity.y = this.initUpVelocity;
 	            projR.scale.setTo(this.scale, this.scale);
+	            projR.damage = this.damage;
                 
                 //destroy when out of bounds
                 projR.checkWorldBounds = true;
                 projR.outOfBoundsKill = true;
             
+                this.projList.add(projR);
             }
+                        
             
-            //add both projectiles to the projectile list
-            this.projList.push(projL);
-            this.projList.push(projR);
         //}
         //else
         //attackDelay = true;
@@ -119,7 +116,8 @@ function wateringcanShooter(game, player, collisionGroup) {
             hitSprite.y += hitSprite.height;
         }
         */
-        body1.destroy();
+
+        this.projList.removeChild(body1, true);
     }
 
 

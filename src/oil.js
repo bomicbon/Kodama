@@ -3,11 +3,13 @@ function oilGroup(game, player, ground) {
     this.g = game;
     this.ground = ground;
     
-    this.oils = this.g.add.group();
+    this.enemyGroup = this.g.add.group();
     
     this.counter = 0;
     this.stepTime = 20;
     this.gravity = 1000;
+    this.damage = 0.2;
+    this.health = 20;
     
     this.oilSpeed = 50; // Speed of Oil 
     this.oilDelay = 30; // Time in between Oil steps
@@ -16,14 +18,13 @@ function oilGroup(game, player, ground) {
     this.oilStepMax = 90; // Max number of steps in one direction
     this.oilTimer = 0;
     
-    
     this.create = function() {
         this.add(400,400, 1, 1); // U: I set it to normal dimensions...
     }
     
     //loops through the oil group and checks for overlap with a player
     this.update = function() {
-        this.oils.forEach(function(object) {
+        this.enemyGroup.forEach(function(object) {
             this.overlapping(object);
             this.movement(object); // Movement Code
         }, this);
@@ -31,10 +32,12 @@ function oilGroup(game, player, ground) {
     
     //add an oil slick given x, y, width, height
     this.add = function(x, y, width, heigth) {
-        var oil = this.oils.create(x,y, 'oil');       
+        var oil = this.enemyGroup.create(x,y, 'oil');       
         oil.scale.setTo(width, heigth) 
         this.g.physics.arcade.enable(oil);
         oil.body.gravity.y = this.gravity;
+        oil.damage = this.damage;
+        oil.health = this.health;
     }
     
     //overlap function called from the update function 
@@ -43,6 +46,11 @@ function oilGroup(game, player, ground) {
         if(Phaser.Rectangle.intersects(this.p.body.sprite.getBounds(),body.getBounds())) {
             ++this.counter;
             this.p.body.velocity.y /= 4;
+
+            //subtract player health when touched
+            this.p.health -= body.damage;
+            //console.log(this.p.health);
+
             if(this.counter > this.stepTime * 2) {
                 this.counter = 0;
             }

@@ -44,9 +44,8 @@ function wateringcanMelee(game, player, collisionGroup) {
 
     this.spawnHit = function () {
         //if delay is passed
-        if(this.delayCount >= this.delay && attackDelay) {
+        if(this.delayCount >= this.delay) {
             this.delayCount = 0;
-            attackDelay = false;
             
             if (!faceRight){
             	var projL = this.g.add.sprite(this.p.body.x-25, this.p.body.y+15, 'flower');
@@ -55,6 +54,8 @@ function wateringcanMelee(game, player, collisionGroup) {
            		projL.body.velocity.x = (-1) * this.speed;
            		projL.body.velocity.y = this.initUpVelocity;
            		projL.scale.setTo(this.scale, this.scale);
+
+           		this.projList.push(projL);
             }
             else{
             	var projR = this.g.add.sprite(this.p.body.x+25, this.p.body.y+15, 'flower');
@@ -63,13 +64,13 @@ function wateringcanMelee(game, player, collisionGroup) {
             	projR.body.velocity.x = this.speed;
             	projR.body.velocity.y = this.initUpVelocity;
             	projR.scale.setTo(this.scale, this.scale);
+
+            	this.projList.push(projR);
 			}
-     
-            this.projList.push(projL);
-            this.projList.push(projR);
+
         }
-        else
-        attackDelay = true;
+        /* Note: the attackDelay variable meant that the
+        player must hit the key twice to attack*/
     }
 
    

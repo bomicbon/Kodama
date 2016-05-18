@@ -7,7 +7,7 @@ function FollowerSystem(game, player, jumpVelocity, collisionGroup) {
     this.distance = 5;  //this is the distance between followers
     this.jumpV = jumpVelocity; //jump velocity of the player
     
-    this.timer = 3;    //used to delay the jumps
+    this.timer = this.distance;    //used to delay the jumps
     this.counterList = [];
     
     this.preload = function() {

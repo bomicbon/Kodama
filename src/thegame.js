@@ -24,10 +24,14 @@ var theGame = function(game){
 	playerSpeed = 250;
 	playerX = 10;
 	playerY = 650;
+	playerHealth = 100;
 
 	wcShooter = null;
 	
 	oilG = null;
+	dmgSystem = null;
+	projGroup = [];
+	enemyGroup = [];
 	
 	//platform y values
 	levelI = 90; //space between levels
@@ -55,6 +59,8 @@ theGame.prototype = {
 		player.body.bounce.y = 0.1;
 		player.body.gravity.y = gravity;
 		player.body.collideWorldBounds = true;
+
+		player.health = playerHealth;
 		
 		
 	// Ground Code
@@ -145,6 +151,11 @@ theGame.prototype = {
 		//oils group
 		oilG = new oilGroup(this.game, player, ground);
 		oilG.create();
+
+  	    //damage system code
+		enemyGroup.push(oilG);
+		projGroup.push(wcShooter);
+		dmgSystem = new DamageSystem(this.game, player, enemyGroup, projGroup);
 		
 		//enemy code
 		enemies = new enemy(this.game, ground);
@@ -155,7 +166,8 @@ theGame.prototype = {
   			fill: "000000",
   			align: "center"
   		});
-    	temperature_reading.anchor.setTo(0.5, 0.5);
+		temperature_reading.anchor.setTo(0.5, 0.5);
+		temperature_reading.fixedToCamera = true;
 	},
 	update: function() {
 		pollution_timer++;
@@ -164,8 +176,9 @@ theGame.prototype = {
 			pollution_timer = 0;
 		}
 		temperature_reading.setText(temperature);
-		temperature_reading.x = this.game.camera.x + 550;
-		temperature_reading.y = this.game.camera.y + 50;
+        //E: used fixedToCamera instead
+		//temperature_reading.x = this.game.camera.x + 550;
+		//temperature_reading.y = this.game.camera.y + 50;
 		
 		
 		this.game.stage.backgroundColor =  8762849 + pollution_timer + 10*temperature;
@@ -189,6 +202,10 @@ theGame.prototype = {
 		if (cursors.up.isDown && player.body.touching.down) {
 			player.body.velocity.y = jumpVelocity;
 		}
+
+		if (player.health <= 0) {
+		    this.game.state.start("GameTitle");
+		}
 		
 		//oil update needs to be before the follower update
 		oilG.update();
@@ -196,6 +213,7 @@ theGame.prototype = {
 		wcShooter.update();
 		wcMelee.update();
 		enemies.update();
+		dmgSystem.update();
 	}
 	
 	//this.game.state.start("GameOver", true, false, score);
