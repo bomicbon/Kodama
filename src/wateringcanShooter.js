@@ -117,7 +117,7 @@ function wateringcanShooter(game, player, collisionGroup) {
         }
         */
 
-        this.projList.removeChild(body1, true);
+        this.projList.removeChild(body1);
     }
 
 

@@ -4,6 +4,7 @@ function oilGroup(game, player, ground) {
     this.ground = ground;
     
     this.enemyGroup = this.g.add.group();
+    this.removeList = [];
     
     this.counter = 0;
     this.stepTime = 20;
@@ -20,14 +21,34 @@ function oilGroup(game, player, ground) {
     
     this.create = function() {
         this.add(400,400, 1, 1); // U: I set it to normal dimensions...
+        this.add(300, 0,1,1);
+        this.add(600, 0, 1, 1);
+        this.add(700, 0, 1, 1);
+        this.add(1200, 400, 1, 1);
+        this.add(1500, 0, 1, 1);
+        this.add(1600, 0, 1, 1);
+        this.add(2000, 0, 1, 1);
+        this.add(2600, 0, 1, 1);
+        this.add(3050, 0, 1, 1);
+        for(var i = 0; i < 5; ++i) {
+            this.add(3600+ i*20, 0, 1, 1);
+        }        
     }
     
     //loops through the oil group and checks for overlap with a player
     this.update = function() {
+        this.removeList = [];
         this.enemyGroup.forEach(function(object) {
-            this.overlapping(object);
-            this.movement(object); // Movement Code
+           if(object.health <= 0) {
+                this.removeList.push(object);
+           }
+           this.overlapping(object);
+           this.movement(object); // Movement Code
+           
         }, this);
+        for(var i = 0; i < this.removeList.length; ++i) {
+            this.enemyGroup.removeChild(this.removeList[i]);
+        }
     }
     
     //add an oil slick given x, y, width, height
@@ -38,23 +59,25 @@ function oilGroup(game, player, ground) {
         oil.body.gravity.y = this.gravity;
         oil.damage = this.damage;
         oil.health = this.health;
+        oil.counter = this.counter;
+        oil.stepTime = this.stepTime;
     }
     
     //overlap function called from the update function 
     //also halves the players movement speed
     this.overlapping = function(body) {
         if(Phaser.Rectangle.intersects(this.p.body.sprite.getBounds(),body.getBounds())) {
-            ++this.counter;
+            body.counter += 1;
             this.p.body.velocity.y /= 4;
 
             //subtract player health when touched
             this.p.health -= body.damage;
             //console.log(this.p.health);
 
-            if(this.counter > this.stepTime * 2) {
-                this.counter = 0;
+            if(body.counter > body.stepTime * 2) {
+                body.counter = 0;
             }
-            else if(this.counter >= this.stepTime) {
+            else if(body.counter >= body.stepTime) {
                 this.p.body.velocity.x /= 2;
             }
             else {
@@ -63,7 +86,7 @@ function oilGroup(game, player, ground) {
             
         }
         else {
-            this.counter = 0;
+            body.counter = 0;
         }
     }
     

@@ -4,7 +4,7 @@ function wateringcanMelee(game, player, collisionGroup) {
     this.cGroup = collisionGroup;
 
     this.speed = 200;
-    this.damage = 0;
+    this.damage = 5;
     this.gravity = 17500;
     this.initUpVelocity = -900;
     this.scale = 1;
@@ -13,7 +13,7 @@ function wateringcanMelee(game, player, collisionGroup) {
     this.delayCount = 0;
 
     this.key = null;
-    this.projList = [];
+    this.projList = this.g.add.group();
 
     this.create = function () {
         //looks for key input and spawns a new projectile
@@ -28,18 +28,18 @@ function wateringcanMelee(game, player, collisionGroup) {
         if(this.delayCount < this.delay) {
             ++this.delayCount;
         }
-        for (var i = 0; i < this.projList.length; ++i) {
-            //if a projectile is null (destroyed) then remove it from the list
-            if (this.projList[i] == null) {
-                this.projList.splice(i, 1);
-                --i;
-                continue;
+        //list of bodies to remove
+        //var removeList = [];
+        this.projList.forEach(function(item) {
+            if (item.y >= this.p.y - 5) {
+                this.projList.removeChild(item);
             }
-            if (this.projList[i].y >= this.p.y - 5)
-				this.projList[i].kill();
-          
-          
+        }, this);
+        /*
+        for(var i = 0; i < removeList.length; ++i) {
+            this.projList.removeChild(removeList[i]);
         }
+        */
     }
 
     this.spawnHit = function () {
@@ -54,8 +54,9 @@ function wateringcanMelee(game, player, collisionGroup) {
            		projL.body.velocity.x = (-1) * this.speed;
            		projL.body.velocity.y = this.initUpVelocity;
            		projL.scale.setTo(this.scale, this.scale);
+                projL.damage = this.damage;
 
-           		this.projList.push(projL);
+           		this.projList.add(projL);
             }
             else{
             	var projR = this.g.add.sprite(this.p.body.x+25, this.p.body.y+15, 'flower');
@@ -64,13 +65,18 @@ function wateringcanMelee(game, player, collisionGroup) {
             	projR.body.velocity.x = this.speed;
             	projR.body.velocity.y = this.initUpVelocity;
             	projR.scale.setTo(this.scale, this.scale);
+                projR.damage = this.damage;
 
-            	this.projList.push(projR);
+            	this.projList.add(projR);
 			}
 
         }
         /* Note: the attackDelay variable meant that the
         player must hit the key twice to attack*/
+    }
+    
+    this.hitCollision = function(body1, body2) {
+        //do nothing
     }
 
    

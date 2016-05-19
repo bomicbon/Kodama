@@ -155,6 +155,7 @@ theGame.prototype = {
   	    //damage system code
 		enemyGroup.push(oilG);
 		projGroup.push(wcShooter);
+		projGroup.push(wcMelee);
 		dmgSystem = new DamageSystem(this.game, player, enemyGroup, projGroup);
 		
 		//enemy code

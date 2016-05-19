@@ -22,12 +22,15 @@ function DamageSystem(game, player, enemyList, projectileList) {
     //this.enemyHitDelay = [];
 
     //this.hitDelay = 10;
+    
+    this.removeList = [];
 
     this.create = function () {
     }
 
     this.update = function () {
 
+        this.removeList = [];
         //this big loop will loop through both lists and see if any 
         // combination of enemy and projectile collide
         //if they do collide, this.hitCollision is called
@@ -50,9 +53,10 @@ function DamageSystem(game, player, enemyList, projectileList) {
     // it will also call the projectile's "hitCollision" function
     this.hitCollision = function (enemy, projectile) {
         enemy.health -= projectile.damage;
-        if (enemy.health <= 0) {
-            this.eGroup.enemyGroup.remove(enemy, true);
+        /*if (enemy.health <= 0) {
+            this.eGroup.enemyGroup.removeChild(enemy);
         }
+        */
 
         this.pGroup.hitCollision(projectile, null);
         //console.log(projectile.damage + " damage");
