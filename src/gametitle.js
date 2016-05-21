@@ -12,6 +12,8 @@ gameTitle.prototype = {
 		level1Button.anchor.setTo(0.5, 0.5);
 		var level2Button = this.game.add.button(500, 195, "level2", this.gotoLevel2, this);
 		level2Button.anchor.setTo(0.5, 0.5);
+		var godModeButton = this.game.add.button(500, 235, "godmode", this.beginGodMode, this);
+		godModeButton.anchor.setTo(0.5, 0.5);
 	},
 	playTheGame: function(){
 		this.game.state.start("TheGame");
@@ -24,5 +26,8 @@ gameTitle.prototype = {
 	},
 	gotoLevel2: function(){
 		this.game.state.start("level2"); // level2 is state 'name', level_Two is function name
-	}
+	},
+	beginGodMode: function() {
+		this.game.state.start("GodMode");
+	},
 }
