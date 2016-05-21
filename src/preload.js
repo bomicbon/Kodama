@@ -20,9 +20,11 @@ preload.prototype = {
 		this.game.load.image("animal", "assets/img/squirrel.png");
 		this.game.load.image("oil", "assets/img/oil.png");
 		this.game.load.image("water", "assets/img/water.png");
-		//this.game.load.image("sludge", "assets/img/sludge.png");
 		this.game.load.spritesheet('splash', 'assets/img/splash.png', 24, 24, 10);
-		this.game.load.image("enemy", "assets/box.png");
+		this.game.load.image("enemy", "assets/img/box.png");
+		this.game.load.image("tutorial", "assets/img/tutorial.png");
+		this.game.load.image("level1", "assets/img/level1.png");
+		this.game.load.image("level2", "assets/img/level2.png");
 	},
   	create: function(){
 		this.game.state.start("GameTitle");

@@ -9,7 +9,10 @@
         <script src="src/wateringcanShooter.js"></script>
 		<script src="src/wateringcanMelee.js"></script>
 		<script src="src/oil.js"></script>
-        <script src="src/damageSystem.js"><</script>
+        <script src="src/damageSystem.js"></script>
+        <script src="src/thetutorial.js"></script>
+        <script src="src/level1.js"></script>
+        <script src="src/level2.js"></script>
 		<script src="src/thegame.js"></script>
 		<script src="src/gameover.js"></script>
 		<script src="src/enemy.js"></script>
@@ -21,7 +24,10 @@
 				var game = new Phaser.Game(600, 480, Phaser.CANVAS, "game");
 				game.state.add("Boot",boot);
 				game.state.add("Preload",preload);
+				game.state.add("TheTutorial", theTutorial);
 				game.state.add("GameTitle",gameTitle);
+				game.state.add("level1", level_One);
+				game.state.add("level2", level_Two);
 				game.state.add("TheGame",theGame);
 				game.state.add("GameOver",gameOver);
 				game.state.start("Boot");
