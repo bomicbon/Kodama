@@ -26,6 +26,8 @@ preload.prototype = {
 		this.game.load.image("level1", "assets/img/level1.png");
 		this.game.load.image("level2", "assets/img/level2.png");
 		this.game.load.image("godmode", "assets/img/godmode.png");
+		this.game.load.image("gameover", "assets/img/gameover.png");
+		this.game.load.image("quit", "assets/img/quit.png");
 	},
   	create: function(){
 		this.game.state.start("GameTitle");

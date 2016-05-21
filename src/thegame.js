@@ -205,7 +205,8 @@ theGame.prototype = {
 		}
 
 		if (player.health <= 0) {
-		    this.game.state.start("GameTitle");
+			this.game.state.start("GameOver", true, false, score);
+		    //this.game.state.start("GameTitle");
 		}
 		
 		//oil update needs to be before the follower update
@@ -217,5 +218,4 @@ theGame.prototype = {
 		dmgSystem.update();
 	}
 	
-	//this.game.state.start("GameOver", true, false, score);
 }
