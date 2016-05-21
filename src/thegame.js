@@ -29,6 +29,7 @@ var theGame = function(game){
 	wcShooter = null;
 	
 	oilG = null;
+	gasG = null;
 	dmgSystem = null;
 	projGroup = [];
 	enemyGroup = [];
@@ -151,9 +152,14 @@ theGame.prototype = {
 		//oils group
 		oilG = new oilGroup(this.game, player, ground);
 		oilG.create();
+		
+		//gas Group
+		gasG = new gasGroup(this.game, player);
+		gasG.create();
 
   	    //damage system code
 		enemyGroup.push(oilG);
+		enemyGroup.push(gasG);
 		projGroup.push(wcShooter);
 		projGroup.push(wcMelee);
 		dmgSystem = new DamageSystem(this.game, player, enemyGroup, projGroup);
@@ -209,8 +215,9 @@ theGame.prototype = {
 		    //this.game.state.start("GameTitle");
 		}
 		
-		//oil update needs to be before the follower update
+		//Enemies update needs to be before the follower update
 		oilG.update();
+		gasG.update();
 		followerSystem.update();
 		wcShooter.update();
 		wcMelee.update();
