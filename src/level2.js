@@ -14,11 +14,11 @@ var level_Two = function(game) {
 	jumpVelocity = -450;
 	//jumpV should be -435 on first heatup so that bonus platforms cannot be reached
 	gravity = 1000;
-	worldWidth = 3800;
-	worldHeight = 720;
+	worldWidth = 600*2;
+	worldHeight = 480;
 	playerSpeed = 250;
 	playerX = 10;
-	playerY = 650;
+	playerY = 300;
 	playerHealth = 100;
 	wcShooter = null;
 	oilG = null;
@@ -52,10 +52,55 @@ level_Two.prototype = {
 		player.body.collideWorldBounds = true; // Collision
 		player.health = playerHealth; // Health
 		
+		// Player Input
 		cursors = this.game.input.keyboard.createCursorKeys();
 		number = Math.floor(Math.random()*10);
+		
+		// Flower Code
+		for (var i = 0; i < 12; i++) {
+		    flower = this.game.add.sprite(100*i, 560, 'flower');
+		    flower.anchor.setTo(0.5, 0.5);
+		    flower.scale.setTo(2.0, 2.0);
+		}
+		// Flower Code
+		for (var i = 0; i < 12; i++) {
+		    flower = this.game.add.sprite(100*i, 560, 'flower');
+		    flower.anchor.setTo(0.5, 0.5);
+		    flower.scale.setTo(1.0, 1.0);
+		}
+		// Grounds
+		ground = this.game.add.physicsGroup();
+		for (var i = 0; i < 13; i++) {
+			ground.create(300 * i, level0, 'ground'); // ground
+		}
+		ground.setAll('body.immovable', true);
     },
     update: function() {
         
+        // Player Movement
+        this.game.physics.arcade.collide(player, ground);
+        player.body.velocity.x = 0; // doesn't slide
+		if(cursors.left.isDown && cursors.right.isDown) {} // Do Nothing
+		// Move Left
+		if(cursors.left.isDown) {
+			player.body.velocity.x = -playerSpeed;
+			faceRight = false;
+		}
+		// Move Right
+		else if(cursors.right.isDown) {
+			player.body.velocity.x = playerSpeed;
+			faceRight = true;
+		}
+		// IDLE ANIMATION
+		else {}
+		// Jump
+		if (cursors.up.isDown && player.body.touching.down) {
+			player.body.velocity.y = jumpVelocity;
+		}
+		// Death
+		if (player.health <= 0) {
+			this.game.state.start("GameOver", true, false, score);
+		    //this.game.state.start("GameTitle");
+		}
     },
 }
