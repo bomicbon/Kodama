@@ -31,10 +31,13 @@ function wateringcanShooter(game, player, collisionGroup) {
         if(this.delayCount < this.delay) {
             ++this.delayCount;
         }
-        this.projList.forEach(function(item) {
+        for(var i = 0; i < this.projList.length; ++i) {
             //if collide, call hitCollision
-            this.g.physics.arcade.collide(item, this.cGroup, this.hitCollision, null, this);
-        }, this);
+            if(this.g.physics.arcade.collide(this.projList.getAt(i),
+                 this.cGroup, this.hitCollision, null, this)) {
+                --i;
+            }
+        }
     }
 
     this.spawnWater = function () {
@@ -117,7 +120,7 @@ function wateringcanShooter(game, player, collisionGroup) {
         }
         */
 
-        this.projList.removeChild(body1);
+        this.projList.removeChild(body1, true);
     }
 
 

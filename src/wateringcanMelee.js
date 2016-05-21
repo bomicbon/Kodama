@@ -30,11 +30,13 @@ function wateringcanMelee(game, player, collisionGroup) {
         }
         //list of bodies to remove
         //var removeList = [];
-        this.projList.forEach(function(item) {
-            if (item.y >= this.p.y - 5) {
-                this.projList.removeChild(item);
+        for(var i = 0; i < this.projList.length; ++i) {
+            object = this.projList.getAt(i);
+            if (object.y >= this.p.y - 5) {
+                object.destroy();
+                --i;
             }
-        }, this);
+        }
         /*
         for(var i = 0; i < removeList.length; ++i) {
             this.projList.removeChild(removeList[i]);
