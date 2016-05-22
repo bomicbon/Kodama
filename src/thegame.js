@@ -143,7 +143,7 @@ theGame.prototype = {
 		gasG.create();
 		
 		//tree Group
-		treeG = new treeGroup(this.game, player, wcShooter.projList);
+		treeG = new treeGroup(this.game, player, wcShooter);
 		treeG.create();
 
   	    //damage system code

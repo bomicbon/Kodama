@@ -8,7 +8,7 @@ function treeGroup(game, player, water) {
     this.health = 0;
     this.maxHealth = 100;
     //waterHeal is how fast the water will grow the tree
-    this.waterHeal = 0.2;
+    this.waterHeal = 5;
     
     this.create = function() {
         this.add(300, 300,1,1);
@@ -16,7 +16,7 @@ function treeGroup(game, player, water) {
     
     this.update = function() {
         //if water overlaps with a tree, call overlapping function
-        this.g.physics.arcade.overlap(this.treeGroup, this.wGroup, this.overlapping, null, this);
+        this.g.physics.arcade.collide(this.treeGroup, this.wGroup.projList, this.overlapping, null, this);
         for (var i = 0; i < this.treeGroup.length; i++) {
             object = this.treeGroup.getAt(i);
             if (object.health == this.maxHealth) {
@@ -31,10 +31,12 @@ function treeGroup(game, player, water) {
         tree.scale.setTo(width, heigth) 
         this.g.physics.arcade.enable(tree);
         tree.health = this.health;
-        tree.immovable = true;
+        tree.body.immovable = true;
     }
     
     this.overlapping = function(tree, water) {
+        //water hit animation
+        this.wGroup.hitCollision(water, null);
         //add to tree health when water overlaps with it
         //console.log(tree.health);
         tree.health += this.waterHeal;
