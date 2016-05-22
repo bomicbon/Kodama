@@ -34,6 +34,9 @@ var level_Two = function(game) {
 	level4 = level3-levelI;
 	level5 = level4-levelI;
 	level6 = level5-levelI;
+	timer = 0;
+	scale = 0;
+	gasG = null;
 }
 level_Two.prototype = {
     create: function() {
@@ -56,18 +59,19 @@ level_Two.prototype = {
 		cursors = this.game.input.keyboard.createCursorKeys();
 		number = Math.floor(Math.random()*10);
 		
+		//gas Group
+		gasG = new gasGroup(this.game, player);
+		gasG.create();
+		
+		
 		// Flower Code
-		for (var i = 0; i < 12; i++) {
-		    flower = this.game.add.sprite(100*i, 560, 'flower');
-		    flower.anchor.setTo(0.5, 0.5);
-		    flower.scale.setTo(2.0, 2.0);
-		}
-		// Flower Code
-		for (var i = 0; i < 12; i++) {
-		    flower = this.game.add.sprite(100*i, 560, 'flower');
-		    flower.anchor.setTo(0.5, 0.5);
-		    flower.scale.setTo(1.0, 1.0);
-		}
+		flower1 = this.game.add.sprite(100, 560, 'flower');
+		flower1.anchor.setTo(0.5, 0.5);
+		flower1.scale.setTo(1.0, 1.0);
+		flower2 = this.game.add.sprite(200, 560, 'flower');
+		flower1.anchor.setTo(0.5, 0.5);
+		flower2.scale.setTo(2.0, 2.0);
+		
 		// Grounds
 		ground = this.game.add.physicsGroup();
 		for (var i = 0; i < 13; i++) {
@@ -99,8 +103,21 @@ level_Two.prototype = {
 		}
 		// Death
 		if (player.health <= 0) {
+			scale = 0;
 			this.game.state.start("GameOver", true, false, score);
 		    //this.game.state.start("GameTitle");
 		}
+		//Flower Growth
+		timer++;
+		if (timer==50){
+			timer = 0;
+			scale +=0.05;
+		}
+		
+		
+		flower1.scale.setTo(1.0+scale, 1.0+scale);
+		flower2.scale.setTo(1.0+scale, 1.0+scale);
+		player.scale.setTo(1.3+scale, 1.3+scale);
+		gasG.update();
     },
 }

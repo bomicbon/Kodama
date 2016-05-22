@@ -10,8 +10,14 @@ function gasGroup(game, player) {
     this.speed = 50;
     this.gravity = 0;
     
+    //Testing timer & scale variables.
+    this.timer = 0;
+    this.scale = 0;
+    
     this.create = function() {
-        this.add(300, 300,1,1);
+        for (var i = 0; i < 5; i++) {
+            this.add(150+Math.random()*500, 150+Math.random()*200,1,1);
+        }
     }
     
     this.update = function() {
@@ -19,11 +25,19 @@ function gasGroup(game, player) {
             object = this.enemyGroup.getAt(i);
             this.overlapping(object);
             this.movement(object);
-            
+            // Health
             if(object.health <= 0){
                 object.destroy();
                 --i;
             }
+            // Scale Testing
+            timer++;
+            if (timer==50) {
+                scale += 0.05;
+                timer = 0;
+            }
+            //this.enemyGroup.scale.setTo(width+scale, height+scale);
+            
         }
     }
     
