@@ -115,22 +115,6 @@ theGame.prototype = {
 		
 		ground.setAll('body.immovable', true);
 	
-		// Flower Code - no collisions yet
-		flower = this.game.add.physicsGroup();
-		
-		
-		for(var i = 0; i < 13; i++) {
-			flower.create(800+1000*i, level0-20, 'flower');
-		}
-		flower.create(160, level2-20, 'flower'); 
-		flower.create(620, level6-20, 'flower'); 
-		flower.create(870, level2-20, 'flower');
-		flower.create(1400, level4-20, 'flower');
-		flower.create(2100, level4-20, 'flower');
-		flower.create(2320, level1-20, 'flower');
-		flower.create(2550, level6-10-20, 'flower');
-		
-		flower.setAll('body.immovable', true);
 		
 		// Animal Code
 		animal = this.game.add.physicsGroup();

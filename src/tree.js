@@ -11,17 +11,23 @@ function treeGroup(game, player, water) {
     this.waterHeal = 0.2;
     
     this.create = function() {
-        this.add(300, 300,1,10);
+        this.add(300, 300,1,1);
     }
     
     this.update = function() {
         //if water overlaps with a tree, call overlapping function
         this.g.physics.arcade.overlap(this.treeGroup, this.wGroup, this.overlapping, null, this);
+        for (var i = 0; i < this.treeGroup.length; i++) {
+            object = this.treeGroup.getAt(i);
+            if (object.health == this.maxHealth) {
+                object.loadTexture('flower', 0);
+            }
+        }
     }
     
     //add an tree given x, y, width, height
     this.add = function(x, y, width, heigth) {
-        var tree = this.treeGroup.create(x,y, 'flower');       
+        var tree = this.treeGroup.create(x,y, 'flower_black');       
         tree.scale.setTo(width, heigth) 
         this.g.physics.arcade.enable(tree);
         tree.health = this.health;

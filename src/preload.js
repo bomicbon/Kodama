@@ -28,6 +28,7 @@ preload.prototype = {
 		this.game.load.image("godmode", "assets/img/godmode.png");
 		this.game.load.image("gameover", "assets/img/gameover.png");
 		this.game.load.image("quit", "assets/img/quit.png");
+		this.game.load.image("flower_black", "assets/img/flower_black.png");
 	},
   	create: function(){
 		this.game.state.start("GameTitle");

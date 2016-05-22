@@ -32,7 +32,7 @@ function gasGroup(game, player) {
             }
             // Scale Testing
             this.timer++;
-            if (this.timer==50) {
+            if (this.timer==100) {
                 this.scale += 0.05;
                 this.timer = 0;
             }
