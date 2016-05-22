@@ -9,15 +9,15 @@ function treeGroup(game, player, water) {
     this.health = 0;
     this.maxHealth = 100;
     //waterHeal is how fast the water will grow the tree
-    this.waterHeal = 40;
+    this.waterHeal = 70;
     this.delta = 0; // the value passed in to the temperature in game.js
     delta_timer = 0; // how long delay is before incrementing temperature delta
     delta_value = 1; // temperature delta upon tree activation
+    this.all_watered = null // bool for whether all plants have been activated
     
     
     this.create = function() {
-        this.add(300, 300,1,1);
-        for (var i = 0; i < 50; i++) {
+        for (var i = 0; i < 3; i++) {
             this.add (Math.random() * 100 + 100*i, 660, 1, 1);
         }
     }
@@ -31,7 +31,7 @@ function treeGroup(game, player, water) {
             if (object.health == this.maxHealth) {
                 object.loadTexture('flower', 0);
                 delta_timer++;
-                if (delta_timer == 10000) {
+                if (delta_timer == delta_value + 5) {
                     delta_value += 1;
                 }
                 this.delta = delta_value;
@@ -40,6 +40,10 @@ function treeGroup(game, player, water) {
             //object.body.velocity.y = gravity;
             
         }
+        if (delta_timer==this.treeGroup.length) {
+            this.all_watered = true;
+        }
+        delta_timer = 0;
     }
     
     //add an tree given x, y, width, height

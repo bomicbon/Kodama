@@ -17,6 +17,7 @@
         <script src="src/level2.js"></script>
         <script src="src/godmode.js"></script>
 		<script src="src/thegame.js"></script>
+		<script src="src/stage_cleared.js"></script>
 		<script src="src/gameover.js"></script>
 		<script src="src/enemy.js"></script>
     		<style>
@@ -33,6 +34,7 @@
 				game.state.add("level2", level_Two);
 				game.state.add("GodMode", godmode);
 				game.state.add("TheGame",theGame);
+				game.state.add("StageCleared", stage_cleared);
 				game.state.add("GameOver",gameOver);
 				game.state.start("Boot");
 			})();    

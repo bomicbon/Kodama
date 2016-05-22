@@ -95,6 +95,10 @@ theTutorial.prototype = {
         //E: used fixedToCamera instead
 		//temperature_reading.x = this.game.camera.x + 550;
 		//temperature_reading.y = this.game.camera.y + 50;
+		if(treeG.all_watered) {
+			treeG.all_watered = false;
+			this.game.state.start("StageCleared", true, false, score);
+		}
 		
 		
 		//this.game.stage.backgroundColor =  8762849 + pollution_timer + 10*temperature;
