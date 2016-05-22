@@ -30,6 +30,7 @@ var theGame = function(game){
 	
 	oilG = null;
 	gasG = null;
+	treeG = null;
 	dmgSystem = null;
 	projGroup = [];
 	enemyGroup = [];
@@ -156,6 +157,10 @@ theGame.prototype = {
 		//gas Group
 		gasG = new gasGroup(this.game, player);
 		gasG.create();
+		
+		//tree Group
+		treeG = new treeGroup(this.game, player, wcShooter.projList);
+		treeG.create();
 
   	    //damage system code
 		enemyGroup.push(oilG);
@@ -222,6 +227,7 @@ theGame.prototype = {
 		wcShooter.update();
 		wcMelee.update();
 		enemies.update();
+		treeG.update();
 		dmgSystem.update();
 	}
 	

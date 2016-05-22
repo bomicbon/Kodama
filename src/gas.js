@@ -5,6 +5,7 @@ function gasGroup(game, player) {
     this.enemyGroup = this.g.add.group();
     
     this.health = 50;
+    this.maxhealth = this.health;
     this.damage = 0.2;
     this.speed = 50;
     this.gravity = 0;
@@ -18,10 +19,15 @@ function gasGroup(game, player) {
             object = this.enemyGroup.getAt(i);
             this.overlapping(object);
             this.movement(object);
+            
+            if(object.health <= 0){
+                object.destroy();
+                --i;
+            }
         }
     }
     
-    //add an oil slick given x, y, width, height
+    //add an gas given x, y, width, height
     this.add = function(x, y, width, heigth) {
         var gas = this.enemyGroup.create(x,y, 'oil');       
         gas.scale.setTo(width, heigth) 
@@ -43,9 +49,15 @@ function gasGroup(game, player) {
         }
     }
     
-    this.movement = function(body) {
-        if(this.g.physics.arcade.distanceBetween(body, this.p) > 8) {
-            this.g.physics.arcade.moveToObject(body, this.p, this.speed);
+    this.movement = function(object) {
+        //if the gas enemy is too far, move toward the player
+        if(this.g.physics.arcade.distanceBetween(object, this.p) > 10) {
+            this.g.physics.arcade.moveToObject(object, this.p, this.speed);
+        }
+        //if the gas enemy is on the player, set velocity to 0
+        else{
+            object.body.velocity.x = 0;
+            object.body.velocity.y = 0;
         }
     }
 }

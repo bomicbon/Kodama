@@ -3,6 +3,8 @@ function DamageSystem(game, player, enemyList, projectileList) {
     this.p = player;
     this.eGroup = enemyList;
     this.pGroup = projectileList;
+    
+    //## READ ME PLEASE ##
     //enemyList is a list of groups of enemies
     //it must have a "enemyGroup", "damage", and "health" variable inside the class
 
