@@ -31,12 +31,12 @@ function gasGroup(game, player) {
                 --i;
             }
             // Scale Testing
-            timer++;
-            if (timer==50) {
-                scale += 0.05;
-                timer = 0;
+            this.timer++;
+            if (this.timer==50) {
+                this.scale += 0.05;
+                this.timer = 0;
             }
-            //this.enemyGroup.scale.setTo(width+scale, height+scale);
+            object.scale.setTo(1.0+this.scale, 1.0+this.scale);
             
         }
     }
