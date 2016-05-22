@@ -143,7 +143,7 @@ theGame.prototype = {
 		gasG.create();
 		
 		//tree Group
-		treeG = new treeGroup(this.game, player, wcShooter);
+		treeG = new treeGroup(this.game, player, wcShooter, ground);
 		treeG.create();
 
   	    //damage system code
@@ -177,7 +177,7 @@ theGame.prototype = {
 		//temperature_reading.y = this.game.camera.y + 50;
 		
 		
-		this.game.stage.backgroundColor =  8762849 + pollution_timer + 10*temperature;
+		//this.game.stage.backgroundColor =  8762849 + pollution_timer + 10*temperature;
 	    this.game.physics.arcade.collide(player, ground);
 		player.body.velocity.x = 0;
 		if(cursors.left.isDown && cursors.right.isDown) {

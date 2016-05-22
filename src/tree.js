@@ -4,14 +4,22 @@ function treeGroup(game, player, water) {
     
     this.wGroup = water;
     this.treeGroup = this.g.add.group();
+    this.groundGroup = ground;
     
     this.health = 0;
     this.maxHealth = 100;
     //waterHeal is how fast the water will grow the tree
-    this.waterHeal = 5;
+    this.waterHeal = 40;
+    this.delta = 0; // the value passed in to the temperature in game.js
+    delta_timer = 0; // how long delay is before incrementing temperature delta
+    delta_value = 1; // temperature delta upon tree activation
+    
     
     this.create = function() {
         this.add(300, 300,1,1);
+        for (var i = 0; i < 50; i++) {
+            this.add (Math.random() * 100 + 100*i, 660, 1, 1);
+        }
     }
     
     this.update = function() {
@@ -19,9 +27,18 @@ function treeGroup(game, player, water) {
         this.g.physics.arcade.collide(this.treeGroup, this.wGroup.projList, this.overlapping, null, this);
         for (var i = 0; i < this.treeGroup.length; i++) {
             object = this.treeGroup.getAt(i);
+            // Tree fully healed
             if (object.health == this.maxHealth) {
                 object.loadTexture('flower', 0);
+                delta_timer++;
+                if (delta_timer == 10000) {
+                    delta_value += 1;
+                }
+                this.delta = delta_value;
             }
+            object.body.velocity.x = 0;
+            //object.body.velocity.y = gravity;
+            
         }
     }
     
@@ -48,4 +65,6 @@ function treeGroup(game, player, water) {
         var percentHealed = tree.health / this.maxHealth;
         tree.tint = percentHealed.toFixed(2) * 0xFFFFFF;
     }
+    
+
 }
