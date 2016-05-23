@@ -30,10 +30,13 @@ var theGame = function(game){
 	
 	oilG = null;
 	gasG = null;
+	gasSystem = null;
 	treeG = null;
 	dmgSystem = null;
 	projGroup = [];
 	enemyGroup = [];
+	
+	boss = null;
 	
 	//platform y values
 	levelI = 110; //space between levels
@@ -93,8 +96,8 @@ theGame.prototype = {
 		}
 		
 		//Follower Code
-		followerSystem = new FollowerSystem(this.game, player, jumpVelocity, ground);
-		followerSystem.create();
+		//followerSystem = new FollowerSystem(this.game, player, jumpVelocity, ground);
+		//followerSystem.create();
 		
 		//watering can melee code
 		wcMelee = new wateringcanMelee(this.game, player, ground);
@@ -112,6 +115,10 @@ theGame.prototype = {
 		gasG = new gasGroup(this.game, player);
 		gasG.create();
 		
+		//gas system
+		gasSystem = new gasSpawnerSystem(this.game, gasG);
+		gasSystem.create();
+		
 		//tree Group
 		treeG = new treeGroup(this.game, player, wcShooter, ground);
 		treeG.create();
@@ -126,6 +133,9 @@ theGame.prototype = {
 		//enemy code
 		enemies = new enemy(this.game, ground);
 		enemies.create();
+		
+		//boss code
+		boss = new Boss(this.game, player, wcShooter, gasSystem);
 		
 		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, temperature, {
   			font: "65px Arial",
@@ -149,24 +159,36 @@ theGame.prototype = {
 		
 		//this.game.stage.backgroundColor =  8762849 + pollution_timer + 10*temperature;
 	    this.game.physics.arcade.collide(player, ground);
-		player.body.velocity.x = 0;
-		if(cursors.left.isDown && cursors.right.isDown) {
+		
+		//player.knocked is used to stop the player from moving while in the "knocked" state
+		//set knocked to true when it gets hurt and generate knockback with like velocity
+		if(player.body.touching.down) {
+			player.knocked = false;
+		}
+		if(player.knocked == false) {
+			player.body.velocity.x = 0;
+			if(cursors.left.isDown && cursors.right.isDown) {
 			//
-		}
-		else if(cursors.left.isDown) {
-			player.body.velocity.x = -playerSpeed;
-			faceRight = false;
-		}
-		else if(cursors.right.isDown) {
-			player.body.velocity.x = playerSpeed;
-			faceRight = true;
-		}
-		else {
-			//put idle animation in here
+			}
+			else if(cursors.left.isDown) {
+				player.body.velocity.x = -playerSpeed;
+				faceRight = false;
+			}
+			else if(cursors.right.isDown) {
+				player.body.velocity.x = playerSpeed;
+				faceRight = true;
+			}
+			else {
+				//put idle animation in here
+			}
+			
+			if (cursors.up.isDown && player.body.touching.down) {
+				player.body.velocity.y = jumpVelocity;
+			}
 		}
 		
-		if (cursors.up.isDown && player.body.touching.down) {
-			player.body.velocity.y = jumpVelocity;
+		if(player.body.x > boss.startPosition - 200) {
+			boss.create();
 		}
 
 		if (player.health <= 0) {
@@ -175,14 +197,20 @@ theGame.prototype = {
 		}
 		
 		//Enemies update needs to be before the follower update
+		
 		oilG.update();
 		gasG.update();
-		followerSystem.update();
+		gasSystem.update();
+		//followerSystem.update();
 		wcShooter.update();
 		wcMelee.update();
 		enemies.update();
 		treeG.update();
 		dmgSystem.update();
+		
+		boss.update();
+		
+		
 	}
 	
 }

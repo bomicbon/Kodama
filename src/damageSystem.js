@@ -38,7 +38,7 @@ function DamageSystem(game, player, enemyList, projectileList) {
         //if they do collide, this.hitCollision is called
         for (var i = 0; i < this.pGroup.length; ++i) {
             for (var j = 0; j < this.eGroup.length; ++j) {
-                this.g.physics.arcade.collide(this.eGroup[j].enemyGroup, this.pGroup[i].projList, this.hitCollision, null,
+                this.g.physics.arcade.overlap(this.eGroup[j].enemyGroup, this.pGroup[i].projList, this.hitCollision, null,
                     { this: this, eGroup: this.eGroup[j], pGroup: this.pGroup[i] });
 
                 //this.g.physics.arcade.collide(this.p, this.eGroup[j], this.hitPlayer, null, this);

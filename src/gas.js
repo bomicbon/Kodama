@@ -11,8 +11,8 @@ function gasGroup(game, player) {
     this.gravity = 0;
     
     //Testing timer & scale variables.
-    this.timer = 0;
-    this.scale = 0;
+    //this.timer = 0;
+    //this.scale = 0;
     
     this.create = function() {
         for (var i = 0; i < 5; i++) {
@@ -31,12 +31,13 @@ function gasGroup(game, player) {
                 --i;
             }
             // Scale Testing
-            this.timer++;
-            if (this.timer==100) {
-                this.scale += 0.05;
-                this.timer = 0;
+            object.timer++;
+            if (object.timer==5) {
+                object.scaleValue += 0.01;
+                object.scale.setTo(object.scaleValue, object.scaleValue);
+                object.timer = 0;
             }
-            object.scale.setTo(1.0+this.scale, 1.0+this.scale);
+            //object.scale.setTo(1.0+this.scale, 1.0+this.scale);
             
         }
     }
@@ -45,10 +46,13 @@ function gasGroup(game, player) {
     this.add = function(x, y, width, heigth) {
         var gas = this.enemyGroup.create(x,y, 'oil');       
         gas.scale.setTo(width, heigth) 
+        gas.scaleValue = width;
+        gas.timer = 0;
         this.g.physics.arcade.enable(gas);
         gas.body.gravity.y = this.gravity;
         gas.damage = this.damage;
         gas.health = this.health;
+        return gas;
     }
     
     //overlap function called from the update function 
@@ -73,5 +77,37 @@ function gasGroup(game, player) {
             object.body.velocity.x = 0;
             object.body.velocity.y = 0;
         }
+    }
+}
+
+function gasSpawnerSystem(game, gasClass) {
+    this.g = game;
+    
+    this.spawnerGroup = this.g.add.group();
+    this.gClass = gasClass;
+    
+    this.spawnTime = 200;
+    
+    this.create = function() {
+        this.add(100,300);
+        
+    }
+    
+    this.add = function(x,y) {
+        var sprite = this.spawnerGroup.create(x, y, "follower");
+        this.g.physics.arcade.enable(sprite);
+        sprite.counter = 0;
+        return sprite;
+        
+    }
+    
+    this.update = function() {
+        this.spawnerGroup.forEach(function(spawner) {
+            spawner.counter += 1;
+            if(spawner.counter > this.spawnTime) {
+                spawner.counter = 0;
+                gasClass.add(spawner.x, spawner.y, 1, 1);
+            }
+        }, this);
     }
 }
