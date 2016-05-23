@@ -33,7 +33,7 @@ function gasGroup(game, player) {
             // Scale Testing
             object.timer++;
             if (object.timer==5) {
-                object.scaleValue += 0.01;
+                object.scaleValue += 0.005;
                 object.scale.setTo(object.scaleValue, object.scaleValue);
                 object.timer = 0;
             }
@@ -44,9 +44,9 @@ function gasGroup(game, player) {
     
     //add an gas given x, y, width, height
     this.add = function(x, y, width, heigth) {
-        var gas = this.enemyGroup.create(x,y, 'oil');       
+        var gas = this.enemyGroup.create(x,y, 'gas');       
         gas.scale.setTo(width, heigth) 
-        gas.scaleValue = width;
+        gas.scaleValue = 0.1;
         gas.timer = 0;
         this.g.physics.arcade.enable(gas);
         gas.body.gravity.y = this.gravity;
@@ -106,7 +106,7 @@ function gasSpawnerSystem(game, gasClass) {
             spawner.counter += 1;
             if(spawner.counter > this.spawnTime) {
                 spawner.counter = 0;
-                gasClass.add(spawner.x, spawner.y, 1, 1);
+                gasClass.add(spawner.x, spawner.y, 0.1, 0.1);
             }
         }, this);
     }
