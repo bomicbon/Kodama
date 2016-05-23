@@ -24,9 +24,9 @@ function treeGroup(game, player, water, slime, temperature) {
             this.add (Math.random() * 100 + 100*i, 660, 1, 1);
         }
         */
-        this.add(1750, 400, 1, 10);
-        this.add(500, 400, 1, 10);
-        this.add(2750, 400, 1, 10);
+        this.add(1750, 495, 1, 10);
+        this.add(400, 495, 1, 10);
+        this.add(3000, 495, 1, 10);
     }
     
     this.update = function() {
@@ -66,9 +66,9 @@ function treeGroup(game, player, water, slime, temperature) {
     }
     
     //add an tree given x, y, width, height
-    this.add = function(x, y, width, heigth) {
+    this.add = function(x, y, width, height) {
         var tree = this.treeGroup.create(x,y, 'flower_black');       
-        tree.scale.setTo(width, heigth) 
+        tree.scale.setTo(1, 1) 
         this.g.physics.arcade.enable(tree);
         tree.health = this.health;
         tree.body.immovable = true;

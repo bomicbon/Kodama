@@ -12,10 +12,7 @@ var theGame = function(game){
 	animal = null;
 	faceRight = true;
 	
-	attackDelay = true; //prevent spamming different type of attacks
-	
 	jumpVelocity = -500;
-	//jumpV should be -435 on first heatup so that bonus platforms cannot be reached
 	
 	gravity = 1000;
 	worldWidth = 3800;
@@ -59,7 +56,7 @@ theGame.prototype = {
 		cursors = this.game.input.keyboard.createCursorKeys();
 		this.game.world.setBounds(0, 0, worldWidth, worldHeight);
 		this.game.physics.arcade.enable(player);
-		player.scale.setTo(1.3, 1.3);
+		player.scale.setTo(1, 1);
 		player.body.syncBounds = false;
 		this.game.camera.follow(player);
 		player.body.bounce.y = 0.1;
@@ -160,8 +157,6 @@ theGame.prototype = {
         //E: used fixedToCamera instead
 		//temperature_reading.x = this.game.camera.x + 550;
 		//temperature_reading.y = this.game.camera.y + 50;
-		
-		
 		//this.game.stage.backgroundColor =  8762849 + pollution_timer + 10*temperature;
 	    this.game.physics.arcade.collide(player, ground);
 		
@@ -201,6 +196,10 @@ theGame.prototype = {
 		    //this.game.state.start("GameTitle");
 		}
 		
+		if (faceRight == true)
+			player.loadTexture('player');
+		else
+			player.loadTexture('player_left');
 		//Enemies update needs to be before the follower update
 		
 		oilG.update();

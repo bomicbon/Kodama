@@ -19,10 +19,10 @@ function wateringcanShooter(game, player, collisionGroup) {
 
     this.create = function () {
         //looks for key input and spawns a new projectile
-        this.key = this.g.input.keyboard.addKey(Phaser.Keyboard.X);
+        this.key = this.g.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         this.key.onDown.add(this.spawnWater, this);
 
-        this.g.input.keyboard.removeKeyCapture(Phaser.Keyboard.X);
+        this.g.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
     }
     
 
@@ -46,13 +46,11 @@ function wateringcanShooter(game, player, collisionGroup) {
         // 2. if else statement basically waits for water sprite to be out of bounds before player can shoot again...
         
         //if delay is passed
-        //if(this.delayCount >= this.delay && attackDelay) {
-        	//attackDelay = false;
             //this.delayCount = 0;
             
             //shoot projectile to left
             if (!faceRight){
-           		var projL = this.g.add.sprite(this.p.body.x + this.p.body.halfWidth, this.p.body.y, 'water');
+           		var projL = this.g.add.sprite(this.p.body.x-30 + this.p.body.halfWidth, this.p.body.y+20, 'water');
 	            this.g.physics.arcade.enable(projL);
 	            projL.body.gravity.y = this.gravity;
 	            projL.body.velocity.x = (-1) * this.speed;
@@ -69,7 +67,7 @@ function wateringcanShooter(game, player, collisionGroup) {
            
            //shoot projectile to right
             else{
-            	var projR = this.g.add.sprite(this.p.body.x + this.p.body.halfWidth, this.p.body.y, 'water');
+            	var projR = this.g.add.sprite(this.p.body.x+15 + this.p.body.halfWidth, this.p.body.y+20, 'water');
 	            this.g.physics.arcade.enable(projR);
 	            projR.body.gravity.y = this.gravity;
 	            projR.body.velocity.x = this.speed;
@@ -85,9 +83,6 @@ function wateringcanShooter(game, player, collisionGroup) {
             }
                         
             
-        //}
-        //else
-        //attackDelay = true;
     }
 
     //this is a the collision event for when the projectile hits a wall
