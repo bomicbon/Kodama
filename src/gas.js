@@ -45,7 +45,7 @@ function gasGroup(game, player) {
     //add an gas given x, y, width, height
     this.add = function(x, y, width, heigth) {
         var gas = this.enemyGroup.create(x,y, 'gas');       
-        gas.scale.setTo(width, heigth) 
+        gas.scale.setTo(0.1, 0.1) 
         gas.scaleValue = 0.1;
         gas.timer = 0;
         this.g.physics.arcade.enable(gas);
