@@ -66,10 +66,17 @@ function Boss(game, player, water, gasSpawner, trees) {
             this.leftSpawner.x = this.sprite.x;
             this.rightSpawner.x = this.sprite.x + this.sprite.width/2;
             
+            //prevent player from leaving camera
+            if(this.p.x - this.p.width/2 <= this.g.camera.x) {
+                this.p.x = this.g.camera.x + this.p.width/2;
+            }
+            
             //check for collision between player and boss, and boss and water
             this.g.physics.arcade.collide(this.sprite, this.p, this.hurtPlayer, null, this);
             this.g.physics.arcade.collide(this.sprite, this.wGroup, this.damageBoss, null, this);
             this.g.physics.arcade.overlap(this.sprite, trees, this.treeDamage, null, this);
+            
+
         }
         
     }
