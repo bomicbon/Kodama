@@ -16,6 +16,7 @@ function treeGroup(game, player, water, slime) {
     this.all_watered = null // bool for whether all plants have been activated
     
     
+    
     this.create = function() {
         for (var i = 0; i < 3; i++) {
             this.add (Math.random() * 100 + 100*i, 660, 1, 1);
@@ -37,6 +38,12 @@ function treeGroup(game, player, water, slime) {
                     delta_value += 1;
                 }
                 this.delta = delta_value;
+                
+                if(object.firstMax == false) {
+                    object.firstMax = true;
+                    //REDUCE TOXICITY
+                    // where urian
+                }
             }
             else if(object.health < this.maxHealth / 2) {
                 object.loadTexture('flower_black', 0);
@@ -60,6 +67,7 @@ function treeGroup(game, player, water, slime) {
         this.g.physics.arcade.enable(tree);
         tree.health = this.health;
         tree.body.immovable = true;
+        tree.firstMax = false;
     }
     
     this.overlapping = function(tree, water) {
