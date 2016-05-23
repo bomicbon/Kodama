@@ -28,7 +28,7 @@ function gasGroup(game, player) {
     this.update = function() {
         for(var i = 0; i < this.enemyGroup.length; ++i) {
             object = this.enemyGroup.getAt(i);
-            this.overlapping(object);
+            this.g.physics.arcade.overlap(object, this.p, this.overlapping, null, this);
             this.movement(object);
             // Health
             if(object.health <= 0){
@@ -69,14 +69,12 @@ function gasGroup(game, player) {
     
     //overlap function called from the update function 
     //also halves the players movement speed
-    this.overlapping = function(body) {
-        if(Phaser.Rectangle.intersects(this.p.body.sprite.getBounds(),body.getBounds())) {
+    this.overlapping = function(gas, player) {
             //subtract player health when touched
-            this.p.health -= body.damage;
+        this.p.health -= gas.damage;
             
-            this.p.body.velocity.x /= 2;
+        //this.p.body.velocity.x /= 2;
             
-        }
     }
     
     this.movement = function(object) {

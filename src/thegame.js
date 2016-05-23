@@ -100,10 +100,12 @@ theGame.prototype = {
 	
 		
 		// Animal Code
+		/*
 		animal = this.game.add.physicsGroup();
 		for (var i = 0; i < 13; i++) {
 			animal.create(800+1500*i, 470, 'animal');
 		}
+		*/
 		
 		//Follower Code
 		//followerSystem = new FollowerSystem(this.game, player, jumpVelocity, ground);
@@ -198,7 +200,7 @@ theGame.prototype = {
 			boss.create();
 		}
 
-		if (player.health <= 0) {
+		if (player.health < 1) {
 			this.game.state.start("GameOver", true, false, score);
 		    //this.game.state.start("GameTitle");
 		}
