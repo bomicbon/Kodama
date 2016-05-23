@@ -6,6 +6,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     
     this.health = 1000;
     this.damage = 5;
+    this.speed = 20;
     
     //where the boss spawns
     this.startPosition = this.g.world.width - 100;
@@ -64,7 +65,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
                 this.g.state.start("StageCleared", true, false);
             }
             //move sprite and its gas spawners
-            this.sprite.body.velocity.x = -20;
+            this.sprite.body.velocity.x = -this.speed;
             
             this.leftSpawner.x = this.sprite.x;
             this.rightSpawner.x = this.sprite.x + this.sprite.width/2;

@@ -176,15 +176,22 @@ theGame.prototype = {
 		}
 		if(player.knocked == false) {
 			player.body.velocity.x = 0;
+			var minSpeed = boss.speed + 10;
 			if(cursors.left.isDown && cursors.right.isDown) {
 			//
 			}
 			else if(cursors.left.isDown) {
 				player.body.velocity.x = -playerSpeed + (temperature - 60) * 10;
+				if(player.body.velocity.x > -minSpeed) {
+					player.body.velocity.x = -minSpeed;
+				}
 				faceRight = false;
 			}
 			else if(cursors.right.isDown) {
 				player.body.velocity.x = playerSpeed - (temperature - 60) * 10;
+				if(player.body.velocity.x < minSpeed) {
+					player.body.velocity.x = minSpeed;
+				}
 				faceRight = true;
 			}
 			else {
