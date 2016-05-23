@@ -5,7 +5,7 @@ var boot = function(game){
 boot.prototype = {
 	preload: function(){
           this.game.load.image("loading","assets/img/loading.png");
-          this.game.stage.backgroundColor = '#85b5e1';
+          this.game.stage.backgroundColor = '#c0efff';
 	},
   	create: function(){
 		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;

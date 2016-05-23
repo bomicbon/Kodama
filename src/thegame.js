@@ -14,7 +14,7 @@ var theGame = function(game){
 	
 	attackDelay = true; //prevent spamming different type of attacks
 	
-	jumpVelocity = -475;
+	jumpVelocity = -500;
 	//jumpV should be -435 on first heatup so that bonus platforms cannot be reached
 	
 	gravity = 1000;
@@ -39,7 +39,7 @@ var theGame = function(game){
 	boss = null;
 	
 	//platform y values
-	levelI = 110; //space between levels
+	levelI = 115; //space between levels
 	level0 = 690;
 	level1 = level0-levelI;
 	level2 = level1-levelI;
@@ -73,18 +73,27 @@ theGame.prototype = {
 		ground = this.game.add.physicsGroup();
 		for (var i = 0; i < 13; i++) {
 			ground.create(300 * i, level0, 'ground'); // ground
+			this.add.sprite(300 * i, level0-13,"groundI");
 		}
 		
-		//platforms before wall 1
+		//"real" platform is the center image, its background image surrounds it
+		this.add.sprite(598, level1-13,"platformIM");
 		ground.create(600, level1, 'platformM'); //up arrow jump tutorial image next to this, also space image to attack first monster 
-
+		this.add.sprite(818, level2-13,"platformIM");
 		ground.create(820, level2, 'platformM'); 
-		ground.create(1000, level1, 'platformL'); 
-		ground.create(1300, level2, 'platformL'); 
+		this.add.sprite(1098, level1-13,"platformIS");
+		ground.create(1100, level1, 'platformS'); 
+		this.add.sprite(1298, level2-13,"platformIS");
+		ground.create(1300, level2, 'platformS'); 
+		this.add.sprite(1898, level2-13,"platformIM");
 		ground.create(1900, level2, 'platformM'); 
+		this.add.sprite(2198, level1-13,"platformIL");
 		ground.create(2200, level1, 'platformL'); 
+		this.add.sprite(2448, level2-13,"platformIM");
 		ground.create(2450, level2, 'platformM'); 
+		this.add.sprite(2848, level1-13,"platformIS");
 		ground.create(2850, level1, 'platformS'); 
+		this.add.sprite(3398, level2-13,"platformIS");
 		ground.create(3400, level2, 'platformS'); 
 		
 		ground.setAll('body.immovable', true);

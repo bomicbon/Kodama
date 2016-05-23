@@ -13,9 +13,13 @@ preload.prototype = {
 		this.game.load.image("platformL", "assets/img/platformL.png");
 		this.game.load.image("platformM", "assets/img/platformM.png");
 		this.game.load.image("platformS", "assets/img/platformS.png");
+		this.game.load.image("platformIL", "assets/img/platformIL.png");
+		this.game.load.image("platformIM", "assets/img/platformIM.png");
+		this.game.load.image("platformIS", "assets/img/platformIS.png");
 		this.game.load.image("platformWall", "assets/img/platformWall.png");
 		this.game.load.image("gas", "assets/img/gas.png");
 		this.game.load.image("ground", "assets/img/ground.png");
+		this.game.load.image("groundI", "assets/img/groundI.png");
 		this.game.load.image("follower", "assets/img/follower.png");
 		this.game.load.image("flower", "assets/img/flower.png");
 		this.game.load.image("animal", "assets/img/squirrel.png");
