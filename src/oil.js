@@ -20,8 +20,9 @@ function oilGroup(game, player, ground) {
     this.oilTimer = 0;
     
     this.create = function() {
+        /*
         this.add(400,400, 1, 1); // U: I set it to normal dimensions...
-        this.add(300, 0,1,1);
+       // this.add(300, 0,1,1);
         this.add(600, 0, 1, 1);
         this.add(700, 0, 1, 1);
         this.add(1200, 400, 1, 1);
@@ -30,6 +31,7 @@ function oilGroup(game, player, ground) {
         this.add(2000, 0, 1, 1);
         this.add(2600, 0, 1, 1);
         this.add(3050, 0, 1, 1);
+        */
         for(var i = 0; i < 5; ++i) {
             this.add(3600+ i*20, 0, 1, 1);
         }        
@@ -62,6 +64,8 @@ function oilGroup(game, player, ground) {
         oil.counter = this.counter;
         oil.stepTime = this.stepTime;
         oil.body.bounce.setTo(this.oilBounce, this.oilBounce)
+        //direction tells which way the oil will go (used in spawner)
+        oil.direction = -1;
         return oil;
     }
     
@@ -120,7 +124,63 @@ function oilGroup(game, player, ground) {
         
         //changing code to test for slime hitting tree
         if(body.body.touching.down) {
-            body.body.velocity.x = -50;
+            body.body.velocity.x = 50 * body.direction;
         }
+    }
+}
+
+function oilSpawner(game, player, slime, water) {
+    //spawner health
+    this.health = 50;
+    
+    //time between spawns
+    this.spawnTime = 60 * 3;
+    
+    this.spawnerGroup = game.add.group();
+    
+    this.create = function() {
+        this.add(700, 495, -1);
+        this.add(1800, 400, -1);
+        this.add(2800, 495, 1);
+    }
+    
+    this.add = function(x,y, direction) {
+        var spawner = this.spawnerGroup.create(x,y,'follower');
+        game.physics.arcade.enable(spawner);
+        spawner.counter = 0;
+        spawner.anchor.setTo(0.5);
+        spawner.health = this.health;
+        spawner.body.immovable = true;
+        //negative direction spawns oil moving left, positive is right
+        spawner.direction = direction;
+        return spawner;
+        
+    }
+    
+    this.update = function() {
+        game.physics.arcade.collide(this.spawnerGroup, water.projList, this.damage, null, this);
+        
+        for(var i = 0; i < this.spawnerGroup.length; ++i) {
+            var spawner = this.spawnerGroup.getAt(i);
+            spawner.counter += 1;
+            //spawns a oil at the spawner after the timer is up
+            if(spawner.counter > this.spawnTime) {
+                spawner.counter = 0;
+                var slimeSprite = slime.add(spawner.x, spawner.y, 1, 1);
+                slimeSprite.direction = spawner.direction;
+            }
+            //destory if health less 0
+            if(spawner.health <= 0) {
+                spawner.destroy();
+                --i;
+            }
+        }
+    }
+    
+    //called when water hits the spawner
+    this.damage = function(spawner, waterBody) {
+        spawner.health -= waterBody.damage;
+        
+        water.hitCollision(waterBody, null);
     }
 }

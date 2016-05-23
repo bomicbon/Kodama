@@ -15,7 +15,7 @@ var theGame = function(game){
 	jumpVelocity = -500;
 	
 	gravity = 1000;
-	worldWidth = 3800;
+	worldWidth = 4200;
 	worldHeight = 720;
 
 	playerSpeed = 250;
@@ -26,6 +26,7 @@ var theGame = function(game){
 	wcShooter = null;
 	
 	oilG = null;
+	oilSystem = null;
 	gasG = null;
 	gasSystem = null;
 	treeG = null;
@@ -68,9 +69,11 @@ theGame.prototype = {
 		
 	// Ground Code
 		ground = this.game.add.physicsGroup();
-		for (var i = 0; i < 13; i++) {
+		//E: use ground length to determine how far the ground goes
+		var groundLength = 15;
+		for (var i = 0; i < groundLength; i++) {
 			ground.create(300 * i, level0, 'ground'); // ground
-			this.add.sprite(300 * i, level0-13,"groundI");
+			this.add.sprite(300 * i, level0-groundLength,"groundI");
 		}
 		
 		//"real" platform is the center image, its background image surrounds it
@@ -118,12 +121,16 @@ theGame.prototype = {
 		oilG = new oilGroup(this.game, player, ground);
 		oilG.create();
 		
+		//oil Syste
+		oilSystem = new oilSpawner(this.game, player, oilG, wcShooter);
+		oilSystem.create();
+		
 		//gas Group
 		gasG = new gasGroup(this.game, player);
 		gasG.create();
 		
 		//gas system
-		gasSystem = new gasSpawnerSystem(this.game, gasG);
+		gasSystem = new gasSpawnerSystem(this.game, gasG, wcShooter);
 		gasSystem.create();
 		
 		//tree Group
@@ -203,6 +210,7 @@ theGame.prototype = {
 		//Enemies update needs to be before the follower update
 		
 		oilG.update();
+		oilSystem.update();
 		gasG.update();
 		gasSystem.update();
 		//followerSystem.update();

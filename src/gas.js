@@ -10,6 +10,9 @@ function gasGroup(game, player) {
     this.speed = 50;
     this.gravity = 0;
     
+    //determines how long gas lives until destroy
+    this.lifetime = 60 * 15;
+    
     //Testing timer & scale variables.
     //this.timer = 0;
     //this.scale = 0;
@@ -34,10 +37,16 @@ function gasGroup(game, player) {
             }
             // Scale Testing
             object.timer++;
-            if (object.timer==5) {
+            //E: changed object timer to work with lifetime
+            if (object.timer%5 == 0) {
                 object.scaleValue += 0.005;
                 object.scale.setTo(object.scaleValue, object.scaleValue);
-                object.timer = 0;
+                //object.timer = 0;
+            }
+            
+            if(object.timer > this.lifetime) {
+                object.destroy();
+                --i;
             }
             //object.scale.setTo(1.0+this.scale, 1.0+this.scale);
             
@@ -83,17 +92,21 @@ function gasGroup(game, player) {
     }
 }
 
-function gasSpawnerSystem(game, gasClass) {
+function gasSpawnerSystem(game, gasClass, water) {
     this.g = game;
+    //spawner health
+    this.health = 80;
     
     this.spawnerGroup = this.g.add.group();
     this.gClass = gasClass;
     
-    this.spawnTime = 200;
+    //spawn time rate
+    this.spawnTime = 60 * 4;
     
     this.create = function() {
         //this.add(100,300);
-        
+        this.add(1300, 400);
+        this.add(2500, 355);
     }
     
     this.add = function(x,y) {
@@ -101,17 +114,35 @@ function gasSpawnerSystem(game, gasClass) {
         this.g.physics.arcade.enable(sprite);
         sprite.counter = 0;
         sprite.anchor.setTo(0.5);
+        sprite.health = this.health;
+        sprite.body.immovable = true;
         return sprite;
         
     }
     
     this.update = function() {
-        this.spawnerGroup.forEach(function(spawner) {
+        game.physics.arcade.collide(this.spawnerGroup, water.projList, this.damage, null, this);
+        
+        for(var i = 0; i < this.spawnerGroup.length; ++i) {
+            var spawner = this.spawnerGroup.getAt(i);
             spawner.counter += 1;
+            //spawns a gas at the spawner when the timer is up
             if(spawner.counter > this.spawnTime) {
                 spawner.counter = 0;
                 gasClass.add(spawner.x, spawner.y, 0.1, 0.1);
             }
-        }, this);
+            //if the spawner dies, destroy
+            if(spawner.health <= 0) {
+                spawner.destroy();
+                --i;
+            }
+        }
+    }
+    
+    //called when water hits the spawner
+    this.damage = function(spawner, waterBody) {
+        spawner.health -= waterBody.damage;
+        
+        water.hitCollision(waterBody, null);
     }
 }

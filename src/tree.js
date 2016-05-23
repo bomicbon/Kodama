@@ -24,9 +24,9 @@ function treeGroup(game, player, water, slime, temperature) {
             this.add (Math.random() * 100 + 100*i, 660, 1, 1);
         }
         */
-        this.add(1750, 495, 1, 10);
         this.add(400, 495, 1, 10);
-        this.add(3000, 495, 1, 10);
+        this.add(1550, 495, 1, 10);
+        this.add(3100, 495, 1, 10);
     }
     
     this.update = function() {
