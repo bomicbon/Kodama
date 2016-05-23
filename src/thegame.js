@@ -14,7 +14,7 @@ var theGame = function(game){
 	
 	attackDelay = true; //prevent spamming different type of attacks
 	
-	jumpVelocity = -450;
+	jumpVelocity = -475;
 	//jumpV should be -435 on first heatup so that bonus platforms cannot be reached
 	
 	gravity = 1000;
@@ -36,7 +36,7 @@ var theGame = function(game){
 	enemyGroup = [];
 	
 	//platform y values
-	levelI = 90; //space between levels
+	levelI = 110; //space between levels
 	level0 = 690;
 	level1 = level0-levelI;
 	level2 = level1-levelI;
@@ -72,45 +72,15 @@ theGame.prototype = {
 		}
 		
 		//platforms before wall 1
-		ground.create(300, level1, 'platformL'); //up arrow jump tutorial image next to this, also space image to attack first monster 
-		ground.create(150, level2, 'platformS'); 
-		ground.create(50, level3, 'platformS'); 
-		ground.create(180, level4, 'platformL'); 
-		ground.create(40, level6+80, 'platformS'); //bonus
-		ground.create(580, level3, 'platformM'); //put tree on this 
-		ground.create(480, level5, 'platformM'); 
-		ground.create(600, level6, 'platformS'); 
-		ground.create(700, level5+35, 'platformWall');
-		//platforms before wall 2
-		ground.create(800, level6, 'platformM'); 
-		ground.create(1000, level5, 'platformM'); 
-		ground.create(1250, level6-10, 'platformS'); //bonus
-		ground.create(820, level4, 'platformS'); 
-		ground.create(1000, level3, 'platformS'); 
+		ground.create(600, level1, 'platformM'); //up arrow jump tutorial image next to this, also space image to attack first monster 
+
 		ground.create(820, level2, 'platformM'); 
 		ground.create(1000, level1, 'platformL'); 
 		ground.create(1300, level2, 'platformL'); 
-		ground.create(1650, level3, 'platformS'); 
-		ground.create(1350, level4, 'platformL');
-		ground.create(1650, level5, 'platformM');
-		ground.create(1600, level6, 'platformS');
-		ground.create(1900, level5+35, 'platformWall');
-		//platforms before wall 3
-		ground.create(1900, level4, 'platformL'); 
-		ground.create(1900, level2-10, 'platformM'); //bonus
+		ground.create(1900, level2, 'platformM'); 
 		ground.create(2200, level1, 'platformL'); 
 		ground.create(2450, level2, 'platformM'); 
-		ground.create(2550, level3, 'platformS');
-		ground.create(2400, level4, 'platformM');  
-		ground.create(2250, level5, 'platformS'); 
-		ground.create(2400, level6-10, 'platformL'); //bonus
-		ground.create(2750, level3, 'platformL'); 
-		ground.create(2850, level1-10, 'platformS'); //bonus
-		ground.create(3050, level4, 'platformS'); 
-		ground.create(3100, level5+25, 'platformWall'); 
-		//boss area platforms
-		ground.create(3200, level4, 'platformS'); 
-		ground.create(3300, level3, 'platformS'); 
+		ground.create(2850, level1, 'platformS'); 
 		ground.create(3400, level2, 'platformS'); 
 		
 		ground.setAll('body.immovable', true);

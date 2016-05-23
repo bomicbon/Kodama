@@ -19,6 +19,7 @@ preload.prototype = {
 		this.game.load.image("flower", "assets/img/flower.png");
 		this.game.load.image("animal", "assets/img/squirrel.png");
 		this.game.load.image("oil", "assets/img/oil.png");
+		this.game.load.image("pipe", "assets/img/pipe.png");
 		this.game.load.image("water", "assets/img/water.png");
 		this.game.load.spritesheet('splash', 'assets/img/splash.png', 24, 24, 10);
 		this.game.load.image("enemy", "assets/img/box.png");
