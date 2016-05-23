@@ -1,6 +1,7 @@
-function treeGroup(game, player, water, slime) {
+function treeGroup(game, player, water, slime, temperature) {
     this.p = player;
     this.g = game;
+    this.temp = temperature;
     
     this.wGroup = water;
     this.treeGroup = this.g.add.group();
@@ -18,10 +19,14 @@ function treeGroup(game, player, water, slime) {
     
     
     this.create = function() {
+        /*
         for (var i = 0; i < 3; i++) {
             this.add (Math.random() * 100 + 100*i, 660, 1, 1);
         }
-        this.add(700, 500, 1, 1);
+        */
+        this.add(1750, 400, 1, 10);
+        this.add(500, 400, 1, 10);
+        this.add(2750, 400, 1, 10);
     }
     
     this.update = function() {
@@ -41,8 +46,8 @@ function treeGroup(game, player, water, slime) {
                 
                 if(object.firstMax == false) {
                     object.firstMax = true;
-                    //REDUCE TOXICITY
-                    // where urian
+                    this.temp -= 20;
+                    this.p.health += 20;
                 }
             }
             else if(object.health < this.maxHealth / 2) {

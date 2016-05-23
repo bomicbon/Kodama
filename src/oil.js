@@ -62,6 +62,7 @@ function oilGroup(game, player, ground) {
         oil.counter = this.counter;
         oil.stepTime = this.stepTime;
         oil.body.bounce.setTo(this.oilBounce, this.oilBounce)
+        return oil;
     }
     
     //overlap function called from the update function 

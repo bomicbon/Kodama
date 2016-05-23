@@ -1,14 +1,14 @@
-function Boss(game, player, water, gasSpawner, trees) {
+function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.g = game;
     this.p = player;
     this.water = water;
     this.wGroup = water.projList;
     
-    this.health = 100;
+    this.health = 1000;
     this.damage = 5;
     
     //where the boss spawns
-    this.startPosition = 1000;
+    this.startPosition = this.g.world.width - 100;
     
     //boss sprite
     this.sprite = null;
@@ -24,6 +24,9 @@ function Boss(game, player, water, gasSpawner, trees) {
     var rightSpawnY = null;
     
     this.bossGroup = this.g.add.group();
+    
+    this.slimeTime = 60 * 4;
+    this.slimeCounter = 0;
         
     this.create = function() {
         if(this.sprite == null) {
@@ -76,7 +79,22 @@ function Boss(game, player, water, gasSpawner, trees) {
             this.g.physics.arcade.collide(this.sprite, this.wGroup, this.damageBoss, null, this);
             this.g.physics.arcade.overlap(this.sprite, trees, this.treeDamage, null, this);
             
-
+            this.slimeCounter += 1;
+            if(this.slimeCounter > this.slimeTime) {
+                this.slimeCounter = 0;
+                var slime1 = slimes.add(this.sprite.x, this.sprite.y, 1, 1);
+                slime1.body.velocity.x = -100;
+                slime1.body.velocity.y = -300;
+                
+                var slime2 = slimes.add(this.sprite.x, this.sprite.y, 1, 1);
+                slime2.body.velocity.x = -50;
+                slime2.body.velocity.y = -300;
+                
+                var slime3 = slimes.add(this.sprite.x, this.sprite.y, 1, 1);
+                slime3.body.velocity.x = -150;
+                slime3.body.velocity.y = -300;
+                
+            }
         }
         
     }
@@ -92,13 +110,13 @@ function Boss(game, player, water, gasSpawner, trees) {
     
     //called when water hits boss
     this.damageBoss = function(boss, water) {
-        this.health -= 20;
+        this.health -= 10;
         this.water.hitCollision(water, null);
     }
     
     //called when tree hits boss
     this.treeDamage = function(boss, tree) {
-        this.health -= 10 * tree.health;
+        this.health -= 2.5 * tree.health;
         tree.health = 0;
 
     }

@@ -60,6 +60,7 @@ theGame.prototype = {
 		this.game.world.setBounds(0, 0, worldWidth, worldHeight);
 		this.game.physics.arcade.enable(player);
 		player.scale.setTo(1.3, 1.3);
+		player.body.syncBounds = false;
 		this.game.camera.follow(player);
 		player.body.bounce.y = 0.1;
 		player.body.gravity.y = gravity;
@@ -120,7 +121,7 @@ theGame.prototype = {
 		gasSystem.create();
 		
 		//tree Group
-		treeG = new treeGroup(this.game, player, wcShooter, oilG.enemyGroup);
+		treeG = new treeGroup(this.game, player, wcShooter, oilG.enemyGroup, temperature);
 		treeG.create();
 
   	    //damage system code
@@ -135,7 +136,7 @@ theGame.prototype = {
 		enemies.create();
 		
 		//boss code
-		boss = new Boss(this.game, player, wcShooter, gasSystem, treeG.treeGroup);
+		boss = new Boss(this.game, player, wcShooter, gasSystem, oilG, treeG.treeGroup);
 		
 		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, temperature, {
   			font: "65px Arial",
@@ -146,12 +147,7 @@ theGame.prototype = {
 		temperature_reading.fixedToCamera = true;
 	},
 	update: function() {
-		pollution_timer++;
-		if (pollution_timer == 500) {
-			temperature += 1;
-			pollution_timer = 0;
-		}
-		temperature_reading.setText(temperature);
+		
         //E: used fixedToCamera instead
 		//temperature_reading.x = this.game.camera.x + 550;
 		//temperature_reading.y = this.game.camera.y + 50;
@@ -171,11 +167,11 @@ theGame.prototype = {
 			//
 			}
 			else if(cursors.left.isDown) {
-				player.body.velocity.x = -playerSpeed;
+				player.body.velocity.x = -playerSpeed + (temperature - 60) * 10;
 				faceRight = false;
 			}
 			else if(cursors.right.isDown) {
-				player.body.velocity.x = playerSpeed;
+				player.body.velocity.x = playerSpeed - (temperature - 60) * 10;
 				faceRight = true;
 			}
 			else {
@@ -205,10 +201,17 @@ theGame.prototype = {
 		wcShooter.update();
 		//wcMelee.update();
 		enemies.update();
-		treeG.update();
+		treeG.update(temperature);
 		dmgSystem.update();
 		
 		boss.update();
+		
+		pollution_timer++;
+		if (pollution_timer == 500) {
+			temperature += 1;
+			pollution_timer = 0;
+		}
+		temperature_reading.setText(temperature);
 		
 		
 	}

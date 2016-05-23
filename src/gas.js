@@ -49,6 +49,7 @@ function gasGroup(game, player) {
         var gas = this.enemyGroup.create(x,y, 'gas');       
         gas.scale.setTo(0.1, 0.1) 
         gas.scaleValue = 0.1;
+        gas.anchor.setTo(0.5);
         gas.timer = 0;
         this.g.physics.arcade.enable(gas);
         gas.body.gravity.y = this.gravity;
@@ -71,8 +72,8 @@ function gasGroup(game, player) {
     
     this.movement = function(object) {
         //if the gas enemy is too far, move toward the player
-        if(this.g.physics.arcade.distanceBetween(object, this.p) > 10) {
-            this.g.physics.arcade.moveToObject(object, this.p, this.speed);
+        if(this.g.physics.arcade.distanceBetween(object, this.p.body) > 10) {
+            this.g.physics.arcade.moveToObject(object, this.p.body, this.speed);
         }
         //if the gas enemy is on the player, set velocity to 0
         else{
@@ -91,7 +92,7 @@ function gasSpawnerSystem(game, gasClass) {
     this.spawnTime = 200;
     
     this.create = function() {
-        this.add(100,300);
+        //this.add(100,300);
         
     }
     
@@ -99,6 +100,7 @@ function gasSpawnerSystem(game, gasClass) {
         var sprite = this.spawnerGroup.create(x, y, "follower");
         this.g.physics.arcade.enable(sprite);
         sprite.counter = 0;
+        sprite.anchor.setTo(0.5);
         return sprite;
         
     }
