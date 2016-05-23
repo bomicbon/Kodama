@@ -31,8 +31,8 @@ function treeGroup(game, player, water, slime, temperature) {
     
     this.update = function() {
         //if water overlaps with a tree, call overlapping function
-        this.g.physics.arcade.collide(this.treeGroup, this.wGroup.projList, this.overlapping, null, this);
-        this.g.physics.arcade.collide(this.treeGroup, slime, this.slimeDamage, null, this);
+        this.g.physics.arcade.overlap(this.treeGroup, this.wGroup.projList, this.overlapping, null, this);
+        this.g.physics.arcade.overlap(this.treeGroup, slime, this.slimeDamage, null, this);
         for (var i = 0; i < this.treeGroup.length; i++) {
             object = this.treeGroup.getAt(i);
             // Tree fully healed
@@ -76,29 +76,36 @@ function treeGroup(game, player, water, slime, temperature) {
     }
     
     this.overlapping = function(tree, water) {
-        //water hit animation
-        this.wGroup.hitCollision(water, null);
-        //add to tree health when water overlaps with it
-        //console.log(tree.health);
-        tree.health += this.waterHeal;
-        if(tree.health > this.maxHealth){
-            tree.health = this.maxHealth;
+        var treeMid = tree.x + tree.width/2;
+        if(treeMid - 25 < water.x && treeMid + 25 > water.x
+            && water.y > tree.y + tree.height/2) {
+            //water hit animation
+            this.wGroup.hitCollision(water, null);
+            //add to tree health when water overlaps with it
+            //console.log(tree.health);
+            tree.health += this.waterHeal;
+            if(tree.health > this.maxHealth){
+                tree.health = this.maxHealth;
+            }
+            
+            //changes tint depending on its health
+            var percentHealed = tree.health / this.maxHealth;
+            tree.tint = percentHealed.toFixed(2) * 0xFFFFFF;
         }
-        
-        //changes tint depending on its health
-        var percentHealed = tree.health / this.maxHealth;
-        tree.tint = percentHealed.toFixed(2) * 0xFFFFFF;
     }
     
     this.slimeDamage = function(tree, slime) {
-        tree.health -= 5;
-        if(tree.health <= 0) {
-            tree.health = 0;
+        var treeMid = tree.x + tree.width/2;
+        if(treeMid - 25 < slime.x && treeMid + 25 > slime.x) {
+            tree.health -= 5;
+            if(tree.health <= 0) {
+                tree.health = 0;
+            }
+            
+            var sign = Math.sign(slime.x - tree.x);
+            slime.body.velocity.x = sign * 200;
+            slime.body.velocity.y = -100;
         }
-        
-        var sign = Math.sign(slime.x - tree.x);
-        slime.body.velocity.x = sign * 200;
-        slime.body.velocity.y = -100;
     }
     
 
