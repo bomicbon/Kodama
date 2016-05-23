@@ -100,8 +100,8 @@ theGame.prototype = {
 		//followerSystem.create();
 		
 		//watering can melee code
-		wcMelee = new wateringcanMelee(this.game, player, ground);
-		wcMelee.create();
+		//wcMelee = new wateringcanMelee(this.game, player, ground);
+		//wcMelee.create();
 
   	    //watering can shooter code
 		wcShooter = new wateringcanShooter(this.game, player, ground);
@@ -120,14 +120,14 @@ theGame.prototype = {
 		gasSystem.create();
 		
 		//tree Group
-		treeG = new treeGroup(this.game, player, wcShooter, ground);
+		treeG = new treeGroup(this.game, player, wcShooter, oilG.enemyGroup);
 		treeG.create();
 
   	    //damage system code
 		enemyGroup.push(oilG);
 		enemyGroup.push(gasG);
 		projGroup.push(wcShooter);
-		projGroup.push(wcMelee);
+		//projGroup.push(wcMelee);
 		dmgSystem = new DamageSystem(this.game, player, enemyGroup, projGroup);
 		
 		//enemy code
@@ -135,7 +135,7 @@ theGame.prototype = {
 		enemies.create();
 		
 		//boss code
-		boss = new Boss(this.game, player, wcShooter, gasSystem);
+		boss = new Boss(this.game, player, wcShooter, gasSystem, treeG.treeGroup);
 		
 		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, temperature, {
   			font: "65px Arial",
@@ -203,7 +203,7 @@ theGame.prototype = {
 		gasSystem.update();
 		//followerSystem.update();
 		wcShooter.update();
-		wcMelee.update();
+		//wcMelee.update();
 		enemies.update();
 		treeG.update();
 		dmgSystem.update();

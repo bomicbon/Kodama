@@ -1,10 +1,10 @@
-function Boss(game, player, water, gasSpawner) {
+function Boss(game, player, water, gasSpawner, trees) {
     this.g = game;
     this.p = player;
     this.water = water;
     this.wGroup = water.projList;
     
-    this.health = 1000;
+    this.health = 100;
     this.damage = 5;
     
     //where the boss spawns
@@ -41,29 +41,35 @@ function Boss(game, player, water, gasSpawner) {
             camera.deadzone = new Phaser.Rectangle(camera.width * 5/8, 0, camera.width / 4, 10);
             
             //gas spawners
-            this.leftSpawner = gasSpawner.add(leftSpawnX, leftSpawnY, 1, 1);
-            this.bossGroup.add(this.leftSpawner);
             leftSpawnX = this.sprite.x;
             leftSpawnY = this.sprite.y;
+            this.leftSpawner = gasSpawner.add(leftSpawnX, leftSpawnY, 1, 1);
+            //this.bossGroup.add(this.leftSpawner);
             
-            this.rightSpawner = gasSpawner.add(rightSpawnX, rightSpawnY, 1, 1);
-            this.bossGroup.add(this.rightSpawner);
             rightSpawnX = this.sprite.x + 50;
             rightSpawnY = this.sprite.y;
+            this.rightSpawner = gasSpawner.add(rightSpawnX, rightSpawnY, 1, 1);
+           // this.bossGroup.add(this.rightSpawner);
+            
+            this.bossGroup.sort();
         }
     }
     
     this.update = function() {        
         if(this.sprite != null) {
+            if(this.health <= 0) {
+                this.g.state.start("StageCleared", true, false);
+            }
             //move sprite and its gas spawners
             this.sprite.body.velocity.x = -20;
             
             this.leftSpawner.x = this.sprite.x;
-            this.rightSpawner.x = this.sprite.x + 50;
+            this.rightSpawner.x = this.sprite.x + this.sprite.width/2;
             
             //check for collision between player and boss, and boss and water
             this.g.physics.arcade.collide(this.sprite, this.p, this.hurtPlayer, null, this);
             this.g.physics.arcade.collide(this.sprite, this.wGroup, this.damageBoss, null, this);
+            this.g.physics.arcade.overlap(this.sprite, trees, this.treeDamage, null, this);
         }
         
     }
@@ -73,13 +79,20 @@ function Boss(game, player, water, gasSpawner) {
         this.p.health -= this.damage;
         //knockback
         this.p.body.velocity.x = -300;
+        this.p.body.velocity.y = -100;
         this.p.knocked = true;
     }
     
     //called when water hits boss
     this.damageBoss = function(boss, water) {
-        this.health -= 10;
-        
+        this.health -= 20;
         this.water.hitCollision(water, null);
+    }
+    
+    //called when tree hits boss
+    this.treeDamage = function(boss, tree) {
+        this.health -= 10 * tree.health;
+        tree.health = 0;
+
     }
 }

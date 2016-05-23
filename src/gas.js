@@ -15,9 +15,11 @@ function gasGroup(game, player) {
     //this.scale = 0;
     
     this.create = function() {
+        /*
         for (var i = 0; i < 5; i++) {
             this.add(150+Math.random()*500, 150+Math.random()*200,1,1);
         }
+        */
     }
     
     this.update = function() {

@@ -1,4 +1,4 @@
-function treeGroup(game, player, water) {
+function treeGroup(game, player, water, slime) {
     this.p = player;
     this.g = game;
     
@@ -9,7 +9,7 @@ function treeGroup(game, player, water) {
     this.health = 0;
     this.maxHealth = 100;
     //waterHeal is how fast the water will grow the tree
-    this.waterHeal = 70;
+    this.waterHeal = 10;
     this.delta = 0; // the value passed in to the temperature in game.js
     delta_timer = 0; // how long delay is before incrementing temperature delta
     delta_value = 1; // temperature delta upon tree activation
@@ -20,11 +20,13 @@ function treeGroup(game, player, water) {
         for (var i = 0; i < 3; i++) {
             this.add (Math.random() * 100 + 100*i, 660, 1, 1);
         }
+        this.add(700, 500, 1, 1);
     }
     
     this.update = function() {
         //if water overlaps with a tree, call overlapping function
         this.g.physics.arcade.collide(this.treeGroup, this.wGroup.projList, this.overlapping, null, this);
+        this.g.physics.arcade.collide(this.treeGroup, slime, this.slimeDamage, null, this);
         for (var i = 0; i < this.treeGroup.length; i++) {
             object = this.treeGroup.getAt(i);
             // Tree fully healed
@@ -36,7 +38,12 @@ function treeGroup(game, player, water) {
                 }
                 this.delta = delta_value;
             }
-            object.body.velocity.x = 0;
+            else if(object.health < this.maxHealth / 2) {
+                object.loadTexture('flower_black', 0);
+            }
+            
+            //E: we don't need to change velocity since its immovable
+            //object.body.velocity.x = 0;
             //object.body.velocity.y = gravity;
             
         }
@@ -68,6 +75,17 @@ function treeGroup(game, player, water) {
         //changes tint depending on its health
         var percentHealed = tree.health / this.maxHealth;
         tree.tint = percentHealed.toFixed(2) * 0xFFFFFF;
+    }
+    
+    this.slimeDamage = function(tree, slime) {
+        tree.health -= 5;
+        if(tree.health <= 0) {
+            tree.health = 0;
+        }
+        
+        var sign = Math.sign(slime.x - tree.x);
+        slime.body.velocity.x = sign * 200;
+        slime.body.velocity.y = -100;
     }
     
 

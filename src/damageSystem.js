@@ -55,6 +55,9 @@ function DamageSystem(game, player, enemyList, projectileList) {
     // it will also call the projectile's "hitCollision" function
     this.hitCollision = function (enemy, projectile) {
         enemy.health -= projectile.damage;
+        var sign = Math.sign(enemy.x - projectile.x);
+        enemy.body.velocity.x = sign * 200;
+        enemy.body.velocity.y = -200;
         /*if (enemy.health <= 0) {
             this.eGroup.enemyGroup.removeChild(enemy);
         }

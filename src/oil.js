@@ -61,6 +61,7 @@ function oilGroup(game, player, ground) {
         oil.health = this.health;
         oil.counter = this.counter;
         oil.stepTime = this.stepTime;
+        oil.body.bounce.setTo(this.oilBounce, this.oilBounce)
     }
     
     //overlap function called from the update function 
@@ -93,21 +94,32 @@ function oilGroup(game, player, ground) {
     this.movement = function(body) {
         this.g.physics.arcade.collide(body, this.ground);
         body.body.collideWorldBounds = true; // Collisions
-        body.body.bounce.setTo(this.oilBounce, this.oilBounce); // Bounciness
+        
+        //Ethan: bounciness should only be set once unless your changing it over time.
+        //body.body.bounce.setTo(this.oilBounce, this.oilBounce); // Bounciness
+        
+        /*
         ++this.oilTimer; // Times duration of movement
         if (this.oilTimer > this.oilDelay) { // Resets the timer
             this.oilTimer = 0;
         }
-        if (this.oilTimer > 0.5*this.oilDelay ) {
+        if (this.oilTimer > 0.5*this.oilDelay) {
             body.body.velocity.x = this.oilSpeed;
         }
         else {
             body.body.velocity.x = 0;
             this.oilStepCount++;
+
         }
         if(this.oilStepCount == this.oilStepMax) {
             this.oilSpeed = this.oilSpeed * -1;
             this.oilStepCount = 0;
+        }
+        */
+        
+        //changing code to test for slime hitting tree
+        if(body.body.touching.down) {
+            body.body.velocity.x = -50;
         }
     }
 }
