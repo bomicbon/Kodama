@@ -1,6 +1,10 @@
 <!doctype html>
 <html>
 	<head>
+    	
+	
+    </head>
+    <body>
     	<script src="phaser.min.js"></script>
     	<script src="src/boot.js"></script>
 		<script src="src/preload.js"></script>
@@ -25,7 +29,7 @@
     		</style>
 		<script>
 			(function() {
-				var game = new Phaser.Game(600, 480, Phaser.CANVAS, "game");
+				var game = new Phaser.Game(600, 480, Phaser.CANVAS, '');
 				game.state.add("Boot",boot);
 				game.state.add("Preload",preload);
 				game.state.add("TheTutorial", theTutorial);
@@ -39,8 +43,5 @@
 				game.state.start("Boot");
 			})();    
 		</script>
-	
-    </head>
-    <body>
     </body>
 </html>

@@ -8,9 +8,9 @@ boot.prototype = {
           this.game.stage.backgroundColor = '#c0efff';
 	},
   	create: function(){
-		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+		this.scale.scaleMode = Phaser.ScaleManager.NO_SCALE;
 		this.scale.pageAlignHorizontally = true;
-		this.scale.setScreenSize();
+		this.scale.setScreenSize(true);
 		this.game.state.start("Preload");
 	}
 }
