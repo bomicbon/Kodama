@@ -41,10 +41,6 @@ var theGame = function(game){
 	level0 = 690;
 	level1 = level0-levelI;
 	level2 = level1-levelI;
-	level3 = level2-levelI;
-	level4 = level3-levelI;
-	level5 = level4-levelI;
-	level6 = level5-levelI;
 }
 
 theGame.prototype = {
@@ -52,7 +48,7 @@ theGame.prototype = {
   		
   		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		number = Math.floor(Math.random()*10);
-		player = this.game.add.sprite(playerX,playerY,"player");
+		player = this.game.add.sprite(playerX,playerY,'player');
 		player.anchor.setTo(0.5,0.5);
 		cursors = this.game.input.keyboard.createCursorKeys();
 		this.game.world.setBounds(0, 0, worldWidth, worldHeight);
@@ -63,8 +59,9 @@ theGame.prototype = {
 		player.body.bounce.y = 0.1;
 		player.body.gravity.y = gravity;
 		player.body.collideWorldBounds = true;
-
 		player.health = playerHealth;
+		
+		this.setAnimations();
 		
 		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, startingTemp, {
   			font: "65px Arial",
@@ -106,27 +103,9 @@ theGame.prototype = {
 		this.add.sprite(2848, level1-15,"platformIS");
 		ground.create(2850, level1, 'platformS'); 
 		this.add.sprite(3398, level2-15,"platformIS");
-		ground.create(3400, level2, 'platformS'); 
+		ground.create(3400, level1, 'platformS'); 
 		
 		ground.setAll('body.immovable', true);
-	
-		
-		// Animal Code
-		/*
-		animal = this.game.add.physicsGroup();
-		for (var i = 0; i < 13; i++) {
-			animal.create(800+1500*i, 470, 'animal');
-		}
-		*/
-		
-		//Follower Code
-		//followerSystem = new FollowerSystem(this.game, player, jumpVelocity, ground);
-		//followerSystem.create();
-		
-		//watering can melee code
-		//wcMelee = new wateringcanMelee(this.game, player, ground);
-		//wcMelee.create();
-		
 
   	    //watering can shooter code
 		wcShooter = new wateringcanShooter(this.game, player, ground, temperature_reading);
@@ -181,7 +160,7 @@ theGame.prototype = {
 			player.body.velocity.x = 0;
 			var minSpeed = boss.speed + 10;
 			if(cursors.left.isDown && cursors.right.isDown) {
-			//
+			
 			}
 			else if(cursors.left.isDown) {
 				player.body.velocity.x = -playerSpeed + (temperature_reading.temp - startingTemp) * 2;
@@ -189,6 +168,8 @@ theGame.prototype = {
 					player.body.velocity.x = -minSpeed;
 				}
 				faceRight = false;
+				player.animations.play('walk_left'); 
+				
 			}
 			else if(cursors.right.isDown) {
 				player.body.velocity.x = playerSpeed - (temperature_reading.temp - startingTemp) * 2;
@@ -196,6 +177,7 @@ theGame.prototype = {
 					player.body.velocity.x = minSpeed;
 				}
 				faceRight = true;
+        		player.animations.play('walk_right'); 
 			}
 			else {
 				//put idle animation in here
@@ -215,10 +197,11 @@ theGame.prototype = {
 		    //this.game.state.start("GameTitle");
 		}
 		
-		if (faceRight == true)
-			player.loadTexture('player');
-		else
-			player.loadTexture('player_left');
+		
+		if (faceRight && !cursors.left.isDown && !cursors.right.isDown)
+			player.animations.play('idle_right'); 
+		else if (!faceRight && !cursors.left.isDown && !cursors.right.isDown)
+			player.animations.play('idle_left'); 
 		//Enemies update needs to be before the follower update
 		
 		slimeG.update();
@@ -241,7 +224,14 @@ theGame.prototype = {
 		}
 		temperature_reading.setText(temperature_reading.temp);
 		
-		
-	}
+	},
 	
+	
+	 setAnimations: function() {
+        // Animations
+        player.animations.add('walk_right', [0, 1, 2, 3, 2, 1], 15, true); 
+        player.animations.add('idle_right', [4, 5, 6, 7, 6, 5, 4], 10, true); 
+        player.animations.add('walk_left', [12, 13, 14, 15, 14, 13], 15, true); 
+        player.animations.add('idle_left', [8, 9, 10, 11, 10, 9], 10, true); 
+    }
 }

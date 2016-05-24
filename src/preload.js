@@ -9,8 +9,7 @@ preload.prototype = {
 		// 
 		this.game.load.image("gametitle", "assets/img/gametitle.png");
 		this.game.load.image("play", "assets/img/play.png");
-		this.game.load.image("player", "assets/img/player.png");
-		this.game.load.image("player_left", "assets/img/player_left.png");
+		this.game.load.spritesheet('player', 'assets/img/player.png', 44, 65, 16);
 		this.game.load.image("platformL", "assets/img/platformL.png");
 		this.game.load.image("platformM", "assets/img/platformM.png");
 		this.game.load.image("platformS", "assets/img/platformS.png");
@@ -23,8 +22,6 @@ preload.prototype = {
 		this.game.load.image("groundI", "assets/img/groundI.png");
 		this.game.load.image("follower", "assets/img/follower.png");
 		this.game.load.image("flower", "assets/img/flower.png");
-		this.game.load.image("animal", "assets/img/squirrel.png");
-		this.game.load.image("oil", "assets/img/oil.png");
 		this.game.load.image("pipe", "assets/img/pipe.png");
 		this.game.load.image("water", "assets/img/water.png");
 		this.game.load.spritesheet('splash', 'assets/img/splash.png', 24, 24, 10);
