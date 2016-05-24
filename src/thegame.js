@@ -79,23 +79,23 @@ theGame.prototype = {
 		}
 		
 		//"real" platform is the center image, its background image surrounds it
-		this.add.sprite(598, level1-13,"platformIM");
+		this.add.sprite(598, level1-15,"platformIM");
 		ground.create(600, level1, 'platformM'); //up arrow jump tutorial image next to this, also space image to attack first monster 
-		this.add.sprite(818, level2-13,"platformIM");
+		this.add.sprite(818, level2-15,"platformIM");
 		ground.create(820, level2, 'platformM'); 
-		this.add.sprite(1098, level1-13,"platformIS");
+		this.add.sprite(1098, level1-15,"platformIS");
 		ground.create(1100, level1, 'platformS'); 
-		this.add.sprite(1298, level2-13,"platformIS");
+		this.add.sprite(1298, level2-15,"platformIS");
 		ground.create(1300, level2, 'platformS'); 
-		this.add.sprite(1898, level2-13,"platformIM");
+		this.add.sprite(1898, level2-15,"platformIM");
 		ground.create(1900, level2, 'platformM'); 
-		this.add.sprite(2198, level1-13,"platformIL");
+		this.add.sprite(2198, level1-15,"platformIL");
 		ground.create(2200, level1, 'platformL'); 
-		this.add.sprite(2448, level2-13,"platformIM");
+		this.add.sprite(2448, level2-15,"platformIM");
 		ground.create(2450, level2, 'platformM'); 
-		this.add.sprite(2848, level1-13,"platformIS");
+		this.add.sprite(2848, level1-15,"platformIS");
 		ground.create(2850, level1, 'platformS'); 
-		this.add.sprite(3398, level2-13,"platformIS");
+		this.add.sprite(3398, level2-15,"platformIS");
 		ground.create(3400, level2, 'platformS'); 
 		
 		ground.setAll('body.immovable', true);

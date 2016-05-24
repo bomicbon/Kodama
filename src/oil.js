@@ -52,7 +52,11 @@ function oilGroup(game, player, ground) {
     
     //add an oil slick given x, y, width, height
     this.add = function(x, y, width, heigth) {
-        var oil = this.enemyGroup.create(x,y, 'oil');       
+        var oil = this.enemyGroup.create(x,y, 'slime');        
+  
+		oil.animations.add('slime'); 
+        oil.animations.play('slime', 15, true);
+       
         oil.scale.setTo(width, heigth) 
         this.g.physics.arcade.enable(oil);
         oil.body.gravity.y = this.gravity;
