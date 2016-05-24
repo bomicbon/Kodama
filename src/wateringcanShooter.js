@@ -1,4 +1,4 @@
-function wateringcanShooter(game, player, collisionGroup) {
+function wateringcanShooter(game, player, collisionGroup, temperature) {
     this.p = player;
     this.g = game;
     this.cGroup = collisionGroup;
@@ -38,6 +38,8 @@ function wateringcanShooter(game, player, collisionGroup) {
                 --i;
             }
         }
+        
+        this.scale = 2 - (temperature - 60) * 0.04; 
     }
 
     this.spawnWater = function () {

@@ -46,7 +46,7 @@ function treeGroup(game, player, water, slime, temperature) {
                 
                 if(object.firstMax == false) {
                     object.firstMax = true;
-                    this.temp -= 20;
+                    temperature -= 20;
                     this.p.health += 20;
                 }
             }

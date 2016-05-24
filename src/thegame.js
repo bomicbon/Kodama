@@ -63,6 +63,8 @@ theGame.prototype = {
 		player.body.bounce.y = 0.1;
 		player.body.gravity.y = gravity;
 		player.body.collideWorldBounds = true;
+		
+		temperature = 60;
 
 		player.health = playerHealth;
 		
@@ -116,7 +118,7 @@ theGame.prototype = {
 		//wcMelee.create();
 
   	    //watering can shooter code
-		wcShooter = new wateringcanShooter(this.game, player, ground);
+		wcShooter = new wateringcanShooter(this.game, player, ground, temperature);
 		wcShooter.create();
 		
 		//oils group
@@ -163,9 +165,6 @@ theGame.prototype = {
 	},
 	update: function() {
 		
-        //E: used fixedToCamera instead
-		//temperature_reading.x = this.game.camera.x + 550;
-		//temperature_reading.y = this.game.camera.y + 50;
 		//this.game.stage.backgroundColor =  8762849 + pollution_timer + 10*temperature;
 	    this.game.physics.arcade.collide(player, ground);
 		
@@ -181,14 +180,14 @@ theGame.prototype = {
 			//
 			}
 			else if(cursors.left.isDown) {
-				player.body.velocity.x = -playerSpeed + (temperature - 60) * 10;
+				player.body.velocity.x = -playerSpeed + (temperature - 60) * 2;
 				if(player.body.velocity.x > -minSpeed) {
 					player.body.velocity.x = -minSpeed;
 				}
 				faceRight = false;
 			}
 			else if(cursors.right.isDown) {
-				player.body.velocity.x = playerSpeed - (temperature - 60) * 10;
+				player.body.velocity.x = playerSpeed - (temperature - 60) * 2;
 				if(player.body.velocity.x < minSpeed) {
 					player.body.velocity.x = minSpeed;
 				}
@@ -226,7 +225,7 @@ theGame.prototype = {
 		wcShooter.update();
 		//wcMelee.update();
 		enemies.update();
-		treeG.update(temperature);
+		treeG.update();
 		dmgSystem.update();
 		
 		boss.update();
