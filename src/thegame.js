@@ -1,9 +1,9 @@
 var theGame = function(game){
 	player = null;
 	score = 0;
-	temperature = 60;
 	pollution_timer = 0;
 	temperature_reading = null;
+	startingTemp = 65;
 	
 	cursors = null;
 	ground = null;
@@ -63,10 +63,20 @@ theGame.prototype = {
 		player.body.bounce.y = 0.1;
 		player.body.gravity.y = gravity;
 		player.body.collideWorldBounds = true;
-		
-		temperature = 60;
 
 		player.health = playerHealth;
+		
+		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, startingTemp, {
+  			font: "65px Arial",
+  			fill: "000000",
+  			align: "center"
+  		});
+		//.temp is the current temp
+		temperature_reading.temp = startingTemp;
+		//nTemp is used for getting the initial temperature when temp_reading is passed to a function
+		temperature_reading.nTemp = startingTemp;
+		temperature_reading.anchor.setTo(0.5, 0.5);
+		temperature_reading.fixedToCamera = true;
 		
 		
 	// Ground Code
@@ -116,9 +126,10 @@ theGame.prototype = {
 		//watering can melee code
 		//wcMelee = new wateringcanMelee(this.game, player, ground);
 		//wcMelee.create();
+		
 
   	    //watering can shooter code
-		wcShooter = new wateringcanShooter(this.game, player, ground, temperature);
+		wcShooter = new wateringcanShooter(this.game, player, ground, temperature_reading);
 		wcShooter.create();
 		
 		//slimes group
@@ -138,7 +149,7 @@ theGame.prototype = {
 		gasSystem.create();
 		
 		//tree Group
-		treeG = new treeGroup(this.game, player, wcShooter, slimeG.enemyGroup, temperature);
+		treeG = new treeGroup(this.game, player, wcShooter, slimeG.enemyGroup, temperature_reading);
 		treeG.create();
 
   	    //damage system code
@@ -154,14 +165,7 @@ theGame.prototype = {
 		
 		//boss code
 		boss = new Boss(this.game, player, wcShooter, gasSystem, slimeG, treeG.treeGroup);
-		
-		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, temperature, {
-  			font: "65px Arial",
-  			fill: "000000",
-  			align: "center"
-  		});
-		temperature_reading.anchor.setTo(0.5, 0.5);
-		temperature_reading.fixedToCamera = true;
+
 	},
 	update: function() {
 		
@@ -180,14 +184,14 @@ theGame.prototype = {
 			//
 			}
 			else if(cursors.left.isDown) {
-				player.body.velocity.x = -playerSpeed + (temperature - 60) * 2;
+				player.body.velocity.x = -playerSpeed + (temperature_reading.temp - startingTemp) * 2;
 				if(player.body.velocity.x > -minSpeed) {
 					player.body.velocity.x = -minSpeed;
 				}
 				faceRight = false;
 			}
 			else if(cursors.right.isDown) {
-				player.body.velocity.x = playerSpeed - (temperature - 60) * 2;
+				player.body.velocity.x = playerSpeed - (temperature_reading.temp - startingTemp) * 2;
 				if(player.body.velocity.x < minSpeed) {
 					player.body.velocity.x = minSpeed;
 				}
@@ -232,10 +236,10 @@ theGame.prototype = {
 		
 		pollution_timer++;
 		if (pollution_timer == 500) {
-			temperature += 1;
+			temperature_reading.temp += 1;
 			pollution_timer = 0;
 		}
-		temperature_reading.setText(temperature);
+		temperature_reading.setText(temperature_reading.temp);
 		
 		
 	}

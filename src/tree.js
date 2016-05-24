@@ -1,7 +1,6 @@
-function treeGroup(game, player, water, slime, temperature) {
+function treeGroup(game, player, water, slime, temperature_reading) {
     this.p = player;
     this.g = game;
-    this.temp = temperature;
     
     this.wGroup = water;
     this.treeGroup = this.g.add.group();
@@ -46,7 +45,7 @@ function treeGroup(game, player, water, slime, temperature) {
                 
                 if(object.firstMax == false) {
                     object.firstMax = true;
-                    temperature -= 20;
+                    temperature_reading.temp -= 20;
                     this.p.health += 20;
                 }
             }

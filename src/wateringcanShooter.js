@@ -1,4 +1,4 @@
-function wateringcanShooter(game, player, collisionGroup, temperature) {
+function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
     this.p = player;
     this.g = game;
     this.cGroup = collisionGroup;
@@ -45,7 +45,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature) {
             }
         }
         
-        this.scale = 2 - (temperature - 60) * 0.04; 
+        this.scale = 2 - (temperature_reading.temp - temperature_reading.nTemp) * 0.04; 
         
     }
 
