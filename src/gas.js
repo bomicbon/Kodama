@@ -73,7 +73,7 @@ function gasGroup(game, player) {
             //subtract player health when touched
         this.p.health -= gas.damage;
             
-        //this.p.body.velocity.x /= 2;
+        this.p.body.velocity.x /= 2;
             
     }
     
@@ -100,6 +100,7 @@ function gasSpawnerSystem(game, gasClass, water) {
     
     //spawn time rate
     this.spawnTime = 60 * 4;
+    this.spawnRange = 600;
     
     this.create = function() {
         //this.add(100,300);
@@ -120,19 +121,20 @@ function gasSpawnerSystem(game, gasClass, water) {
     
     this.update = function() {
         game.physics.arcade.collide(this.spawnerGroup, water.projList, this.damage, null, this);
-        
         for(var i = 0; i < this.spawnerGroup.length; ++i) {
             var spawner = this.spawnerGroup.getAt(i);
-            spawner.counter += 1;
-            //spawns a gas at the spawner when the timer is up
-            if(spawner.counter > this.spawnTime) {
-                spawner.counter = 0;
-                gasClass.add(spawner.x, spawner.y, 0.1, 0.1);
-            }
-            //if the spawner dies, destroy
-            if(spawner.health <= 0) {
-                spawner.destroy();
-                --i;
+            if(game.physics.arcade.distanceBetween(spawner,player) < this.spawnRange) {
+                spawner.counter += 1;
+                //spawns a gas at the spawner when the timer is up
+                if(spawner.counter > this.spawnTime) {
+                    spawner.counter = 0;
+                    gasClass.add(spawner.x, spawner.y, 0.1, 0.1);
+                }
+                //if the spawner dies, destroy
+                if(spawner.health <= 0) {
+                    spawner.destroy();
+                    --i;
+                }
             }
         }
     }

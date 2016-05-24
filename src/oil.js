@@ -4,7 +4,6 @@ function oilGroup(game, player, ground) {
     this.ground = ground;
     
     this.enemyGroup = this.g.add.group();
-    this.removeList = [];
     
     this.counter = 0;
     this.stepTime = 20;
@@ -39,17 +38,15 @@ function oilGroup(game, player, ground) {
     
     //loops through the oil group and checks for overlap with a player
     this.update = function() {
-        this.removeList = [];
-        this.enemyGroup.forEach(function(object) {
+        for(var i = 0; i < this.enemyGroup.length; ++i) {
+           var object = this.enemyGroup.getAt(i);
            if(object.health <= 0) {
-                this.removeList.push(object);
+                object.destroy();
+                --i;
            }
            this.overlapping(object);
            this.movement(object); // Movement Code
            
-        }, this);
-        for(var i = 0; i < this.removeList.length; ++i) {
-            this.enemyGroup.removeChild(this.removeList[i]);
         }
     }
     
@@ -136,6 +133,8 @@ function oilSpawner(game, player, slime, water) {
     //time between spawns
     this.spawnTime = 60 * 3;
     
+    this.spawnRange = 500;
+    
     this.spawnerGroup = game.add.group();
     
     this.create = function() {
@@ -162,17 +161,19 @@ function oilSpawner(game, player, slime, water) {
         
         for(var i = 0; i < this.spawnerGroup.length; ++i) {
             var spawner = this.spawnerGroup.getAt(i);
-            spawner.counter += 1;
-            //spawns a oil at the spawner after the timer is up
-            if(spawner.counter > this.spawnTime) {
-                spawner.counter = 0;
-                var slimeSprite = slime.add(spawner.x, spawner.y, 1, 1);
-                slimeSprite.direction = spawner.direction;
-            }
-            //destory if health less 0
-            if(spawner.health <= 0) {
-                spawner.destroy();
-                --i;
+            if(game.physics.arcade.distanceBetween(spawner,player) < this.spawnRange) {
+                spawner.counter += 1;
+                //spawns a oil at the spawner after the timer is up
+                if(spawner.counter > this.spawnTime) {
+                    spawner.counter = 0;
+                    var slimeSprite = slime.add(spawner.x, spawner.y, 1, 1);
+                    slimeSprite.direction = spawner.direction;
+                }
+                //destory if health less 0
+                if(spawner.health <= 0) {
+                    spawner.destroy();
+                    --i;
+                }
             }
         }
     }

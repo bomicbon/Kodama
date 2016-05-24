@@ -78,7 +78,7 @@ function treeGroup(game, player, water, slime, temperature) {
     this.overlapping = function(tree, water) {
         var treeMid = tree.x + tree.width/2;
         if(treeMid - 25 < water.x && treeMid + 25 > water.x
-            && water.y > tree.y + tree.height/2) {
+            && water.y > tree.y + tree.height*3/4) {
             //water hit animation
             this.wGroup.hitCollision(water, null);
             //add to tree health when water overlaps with it
@@ -98,6 +98,7 @@ function treeGroup(game, player, water, slime, temperature) {
         var treeMid = tree.x + tree.width/2;
         if(treeMid - 25 < slime.x && treeMid + 25 > slime.x) {
             tree.health -= 5;
+            slime.health -= 10;
             if(tree.health <= 0) {
                 tree.health = 0;
             }
