@@ -111,7 +111,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     
     //called when water hits boss
     this.damageBoss = function(boss, water) {
-        this.health -= 10;
+        this.health -= water.damage;
         this.water.hitCollision(water, null);
     }
     
@@ -120,5 +120,11 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
         this.health -= 2.5 * tree.health;
         tree.health = 0;
 
+    }
+    
+    this.isAlive = function() {
+        if(sprite == null) return false;
+        if(sprite.health < 1) return false;
+        return true;
     }
 }

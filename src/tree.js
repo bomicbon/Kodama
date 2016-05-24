@@ -10,7 +10,7 @@ function treeGroup(game, player, water, slime, temperature) {
     this.health = 0;
     this.maxHealth = 100;
     //waterHeal is how fast the water will grow the tree
-    this.waterHeal = 10;
+    this.waterHeal = 5;
     this.delta = 0; // the value passed in to the temperature in game.js
     delta_timer = 0; // how long delay is before incrementing temperature delta
     delta_value = 1; // temperature delta upon tree activation
@@ -77,8 +77,8 @@ function treeGroup(game, player, water, slime, temperature) {
     
     this.overlapping = function(tree, water) {
         var treeMid = tree.x + tree.width/2;
-        if(treeMid - 25 < water.x && treeMid + 25 > water.x
-            && water.y > tree.y + tree.height*3/4) {
+        if(treeMid - 30 < water.x && treeMid + 30 > water.x
+            && water.y > tree.y + tree.height - 40) {
             //water hit animation
             this.wGroup.hitCollision(water, null);
             //add to tree health when water overlaps with it
@@ -98,7 +98,7 @@ function treeGroup(game, player, water, slime, temperature) {
         var treeMid = tree.x + tree.width/2;
         if(treeMid - 25 < slime.x && treeMid + 25 > slime.x) {
             tree.health -= 5;
-            slime.health -= 10;
+            slime.health -= 8;
             if(tree.health <= 0) {
                 tree.health = 0;
             }

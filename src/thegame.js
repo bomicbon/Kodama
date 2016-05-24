@@ -25,8 +25,8 @@ var theGame = function(game){
 
 	wcShooter = null;
 	
-	oilG = null;
-	oilSystem = null;
+	slimeG = null;
+	slimeSystem = null;
 	gasG = null;
 	gasSystem = null;
 	treeG = null;
@@ -121,13 +121,13 @@ theGame.prototype = {
 		wcShooter = new wateringcanShooter(this.game, player, ground, temperature);
 		wcShooter.create();
 		
-		//oils group
-		oilG = new oilGroup(this.game, player, ground);
-		oilG.create();
+		//slimes group
+		slimeG = new slimeGroup(this.game, player, ground);
+		slimeG.create();
 		
-		//oil Syste
-		oilSystem = new oilSpawner(this.game, player, oilG, wcShooter);
-		oilSystem.create();
+		//slime Syste
+		slimeSystem = new slimeSpawner(this.game, player, slimeG, wcShooter);
+		slimeSystem.create();
 		
 		//gas Group
 		gasG = new gasGroup(this.game, player);
@@ -138,11 +138,11 @@ theGame.prototype = {
 		gasSystem.create();
 		
 		//tree Group
-		treeG = new treeGroup(this.game, player, wcShooter, oilG.enemyGroup, temperature);
+		treeG = new treeGroup(this.game, player, wcShooter, slimeG.enemyGroup, temperature);
 		treeG.create();
 
   	    //damage system code
-		enemyGroup.push(oilG);
+		enemyGroup.push(slimeG);
 		enemyGroup.push(gasG);
 		projGroup.push(wcShooter);
 		//projGroup.push(wcMelee);
@@ -153,7 +153,7 @@ theGame.prototype = {
 		enemies.create();
 		
 		//boss code
-		boss = new Boss(this.game, player, wcShooter, gasSystem, oilG, treeG.treeGroup);
+		boss = new Boss(this.game, player, wcShooter, gasSystem, slimeG, treeG.treeGroup);
 		
 		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, temperature, {
   			font: "65px Arial",
@@ -217,8 +217,8 @@ theGame.prototype = {
 			player.loadTexture('player_left');
 		//Enemies update needs to be before the follower update
 		
-		oilG.update();
-		oilSystem.update();
+		slimeG.update();
+		slimeSystem.update();
 		gasG.update();
 		gasSystem.update();
 		//followerSystem.update();

@@ -4,12 +4,12 @@ function wateringcanShooter(game, player, collisionGroup, temperature) {
     this.cGroup = collisionGroup;
 
     this.speed = 200;
-    this.damage = 10;
+    this.damage = 5;
     this.gravity = 1300;
     this.initUpVelocity = -300;
     this.scale = 2.0; // Bigger Water
     
-    this.delay = 20;
+    this.delay = 5;
     this.delayCount = 0;
 
     this.key = null;
@@ -19,18 +19,24 @@ function wateringcanShooter(game, player, collisionGroup, temperature) {
 
     this.create = function () {
         //looks for key input and spawns a new projectile
+       
         this.key = this.g.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        this.key.onDown.add(this.spawnWater, this);
 
+        //this.key.onHold.add(this.spawnWater, this);
         this.g.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
+        
     }
     
 
     this.update = function () {
         //add to counter for delay counter
-        if(this.delayCount < this.delay) {
-            ++this.delayCount;
+        this.key = this.g.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        ++this.delayCount;
+        if(this.delayCount > this.delay && this.key.isDown) {
+            this.delayCount = 0;
+            this.spawnWater();
         }
+        this.g.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
         for(var i = 0; i < this.projList.length; ++i) {
             //if collide, call hitCollision
             if(this.g.physics.arcade.collide(this.projList.getAt(i),
@@ -40,6 +46,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature) {
         }
         
         this.scale = 2 - (temperature - 60) * 0.04; 
+        
     }
 
     this.spawnWater = function () {

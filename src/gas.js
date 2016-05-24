@@ -4,7 +4,7 @@ function gasGroup(game, player) {
     
     this.enemyGroup = this.g.add.group();
     
-    this.health = 50;
+    this.health = 40;
     this.maxhealth = this.health;
     this.damage = 0.2;
     this.speed = 50;
@@ -82,7 +82,7 @@ function gasGroup(game, player) {
         if(this.g.physics.arcade.distanceBetween(object, this.p.body) > 10) {
             this.g.physics.arcade.moveToObject(object, this.p.body, this.speed);
         }
-        //if the gas enemy is on the player, set velocity to 0
+        //if the gas enemy is on the player, set gas velocity to 0
         else{
             object.body.velocity.x = 0;
             object.body.velocity.y = 0;
@@ -104,7 +104,7 @@ function gasSpawnerSystem(game, gasClass, water) {
     
     this.create = function() {
         //this.add(100,300);
-        this.add(1300, 400);
+        this.add(1350, 400);
         this.add(2500, 355);
     }
     
