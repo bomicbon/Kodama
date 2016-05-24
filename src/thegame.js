@@ -128,7 +128,7 @@ theGame.prototype = {
 		gasSystem.create();
 		
 		//tree Group
-		treeG = new treeGroup(this.game, player, wcShooter, slimeG.enemyGroup, temperature_reading);
+		treeG = new treeGroup(this.game, player, wcShooter, slimeG.enemyGroup, gasG.enemyGroup, temperature_reading);
 		treeG.create();
 
   	    //damage system code

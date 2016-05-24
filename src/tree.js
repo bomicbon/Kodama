@@ -1,10 +1,9 @@
-function treeGroup(game, player, water, slime, temperature_reading) {
+function treeGroup(game, player, water, slime, gas, temperature_reading) {
     this.p = player;
     this.g = game;
     
     this.wGroup = water;
     this.treeGroup = this.g.add.group();
-    this.groundGroup = ground;
     
     this.health = 0;
     this.maxHealth = 100;
@@ -14,6 +13,9 @@ function treeGroup(game, player, water, slime, temperature_reading) {
     delta_timer = 0; // how long delay is before incrementing temperature delta
     delta_value = 1; // temperature delta upon tree activation
     this.all_watered = null // bool for whether all plants have been activated
+    
+    //shield barrier for first water
+    this.shield = null;
     
     
     
@@ -33,24 +35,26 @@ function treeGroup(game, player, water, slime, temperature_reading) {
         this.g.physics.arcade.overlap(this.treeGroup, this.wGroup.projList, this.overlapping, null, this);
         this.g.physics.arcade.overlap(this.treeGroup, slime, this.slimeDamage, null, this);
         for (var i = 0; i < this.treeGroup.length; i++) {
-            object = this.treeGroup.getAt(i);
+            tree = this.treeGroup.getAt(i);
             // Tree fully healed
-            if (object.health == this.maxHealth) {
-                object.loadTexture('flower', 0);
+            if (tree.health == this.maxHealth) {
+                tree.loadTexture('flower', 0);
                 delta_timer++;
                 if (delta_timer == delta_value + 5) {
                     delta_value += 1;
                 }
                 this.delta = delta_value;
                 
-                if(object.firstMax == false) {
-                    object.firstMax = true;
+                if(tree.firstMax == false) {
+                    tree.firstMax = true;
                     temperature_reading.temp -= 20;
                     this.p.health += 20;
+                    tree.health += 100;
+                    this.explosion(tree);
                 }
             }
-            else if(object.health < this.maxHealth / 2) {
-                object.loadTexture('flower_black', 0);
+            else if(tree.health < this.maxHealth / 2) {
+                tree.loadTexture('flower_black', 0);
             }
             
             //E: we don't need to change velocity since its immovable
@@ -62,6 +66,23 @@ function treeGroup(game, player, water, slime, temperature_reading) {
             this.all_watered = true;
         }
         delta_timer = 0;
+        
+        if(this.shield != null) {
+            for(var i = 0; i < slime.length; ++i) {
+                var s = slime.getAt(i);
+                if(this.g.physics.arcade.overlap(this.shield, s)) {
+                    s.destroy();
+                    --i;
+                }
+            }
+            for(var i = 0; i < gas.length; ++i) {
+                var g = gas.getAt(i);
+                if(this.g.physics.arcade.overlap(this.shield, g)) {
+                    g.destroy();
+                    --i;
+                }
+            }
+        }
     }
     
     //add an tree given x, y, width, height
@@ -107,6 +128,21 @@ function treeGroup(game, player, water, slime, temperature_reading) {
             slime.body.velocity.y = -100;
         }
     }
-    
+
+    //called when the tree first watered, destroy enemy in area    
+    this.explosion = function(tree) {
+        var shield = this.g.add.sprite(tree.x + tree.width/2, tree.y + tree.height, "shield");
+        this.shield = shield;
+        this.g.physics.arcade.enable(shield);
+        shield.immovable = true;
+        shield.anchor.setTo(0.5, 1);
+        shield.scale.setTo(0);
+        
+        //tween that scales and lowers opacity over a time of 2 and 3 seconds.
+        this.g.add.tween(shield.scale).to({x: 1, y: 1}, 3000, Phaser.Easing.Exponential.Out, true);
+        this.g.add.tween(shield).to({alpha: 0}, 2000, Phaser.Easing.Exponential.In, true);
+        //then destroyed after 4 seconds
+        this.g.time.events.add(Phaser.Timer.SECOND * 4, function() {shield.destroy();}, this);
+    }
 
 }
