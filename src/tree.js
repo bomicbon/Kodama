@@ -59,13 +59,16 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
                         temperature_reading.temp -= 20;
                         this.p.health += 20;
                         this.explosion(tree);
+                        //this.waterG.shotSize++;
                     }
+                    
                 }
                 
                 else if(tree.health < this.maxHealth / 2) {
                     tree.loadTexture('flower_black', 0);
 
                 }
+                
                 
             }
             

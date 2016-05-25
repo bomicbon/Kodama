@@ -18,6 +18,8 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
     this.bounds = Phaser.Rectangle.clone(this.g.world.bounds);
     this.shot = null;// has a shot been fired? (bool)
     
+    this.shotSize = 0; // how heavy the sound will be LOL
+    
     this.create = function () {
         //looks for key input and spawns a new projectile
        

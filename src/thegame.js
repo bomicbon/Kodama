@@ -51,6 +51,9 @@ var theGame = function(game){
 	
 	// Sounds
 	sound_shoot = null;
+	sound_shootM = null;
+	sound_shootL = null;
+	sound_shootXL = null;
 	sound_footstep = null;
 	sound_tree_healed = null;
 }
@@ -162,6 +165,9 @@ theGame.prototype = {
 		// Sounds
 		sound_footstep = this.game.add.audio('footstep');
 		sound_shoot = this.game.add.audio('shoot');
+		sound_shootM = this.game.add.audio('shootM');
+		sound_shootL = this.game.add.audio('shootL');
+		sound_shootXL = this.game.add.audio('shootXL');
 		sound_tree_healed = this.game.add.audio('tree_healed');
 		
 		// Tutorial Arrows
@@ -270,8 +276,24 @@ theGame.prototype = {
 		temperature_reading.setText(temperature_reading.temp);
 		
 		
+		
 		// Sound
-		if (wcShooter.shot == true) {
+		if (temperature_reading.temp<temperature_reading.nTemp && temperature_reading.temp > 45) {
+			if(wcShooter.shot == true) {
+				sound_shootM.play();
+			}
+		}
+		else if (temperature_reading.temp < 45 && temperature_reading.temp > 25) {
+			if (wcShooter.shot) {
+				sound_shootL.play();
+			}
+		}
+		else if (temperature_reading.temp < 25 && temperature_reading.temp > 5) {
+			if (wcShooter.shot) {
+				sound_shootXL.play()
+			}
+		}
+		else if (wcShooter.shot) {
 			sound_shoot.play();
 		}
 		if (treeG.tree_healed) {
