@@ -6,7 +6,7 @@ preload.prototype = {
           loadingBar.anchor.setTo(0.5,0.5);
           this.load.setPreloadSprite(loadingBar);
 		
-		// 
+		// Images
 		this.game.load.image("gametitle", "assets/img/gametitle.png");
 		this.game.load.image("play", "assets/img/play.png");
 		this.game.load.spritesheet('player', 'assets/img/player.png', 44, 65, 16);
@@ -37,6 +37,10 @@ preload.prototype = {
 		this.game.load.image("stagecleared", "assets/img/stage_cleared.png");
 		
 		this.game.load.image("blob", "assets/img/blob.png");
+		
+		// SOUND
+		this.game.load.audio('footstep', 'assets/sound/footstep.wav');
+		this.game.load.audio('shoot', 'assets/sound/shoot.wav');
 	},
   	create: function(){
 		this.game.state.start("GameTitle");
