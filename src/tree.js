@@ -37,9 +37,9 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
             this.add (Math.random() * 100 + 100*i, 660, 1, 1);
         }
         */
-        this.add(400, 495, 1, 10);
-        this.add(1550, 495, 1, 10);
-        this.add(3100, 495, 1, 10);
+        this.add(450, 690, 1, 10);
+        this.add(1600, 495, 1, 10);
+        this.add(3150, 495, 1, 10);
      
     }
     
@@ -50,6 +50,7 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
             this.g.physics.arcade.overlap(this.treeGroup, this.wGroup.projList, this.overlapping, null, this);
             for (var i = 0; i < this.treeGroup.length; i++) {
                 tree = this.treeGroup.getAt(i);
+                
                 // Tree fully healed /*
                 if (tree.health == 100) { //100
                 	stage3 = true;
@@ -67,6 +68,7 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
                         this.explosion(tree);
                     }
                 }
+                /*
                 else if (tree.health >= 66 && tree.health <= 99){
                 	stage2 = true;
                 	stage1 = false;
@@ -106,7 +108,7 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
                	 	
                	 }
                 
-                
+                */
             }
             
             if (delta_timer==this.treeGroup.length) {
@@ -122,35 +124,38 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     this.add = function(x, y, width, height) {
         var tree = this.treeGroup.create(x,y, 'tree'); 
         tree.scale.setTo(1, 1) 
+        tree.anchor.setTo(0.5,1);
         this.g.physics.arcade.enable(tree);
         tree.health = this.health;
         tree.body.immovable = true;
         tree.firstMax = false;
         
          // Animations
-        tree.animations.add('dead', [0], 15, true);
-        tree.animations.add('grow1', [3], 15, false);
-        tree.animations.add('grow2', [6], 15, false);
-        tree.animations.add('grow3', [9], 15, false);
-        //tree.animations.add('shrink1', [3, 2, 1, 0], 15, false, true);
-       // tree.animations.add('shrink2', [6, 5, 4], 15, false, true);
-       // tree.animations.add('shrink3', [9, 8, 7], 15, false, true);
+        tree.animations.add('grow1', [1, 2, 3], 15, false);
+        tree.animations.add('grow2', [4, 5, 6], 15, false);
+        tree.animations.add('grow3', [7, 8, 9], 15, false);
+        tree.animations.add('shrink1', [3, 2, 1, 0], 15, false);
+        tree.animations.add('shrink2', [6, 5, 4], 15, false);
+        tree.animations.add('shrink3', [9, 8, 7], 15, false);
         
     }
 
     
     this.overlapping = function(tree, water) {
-        var treeMid = tree.x + tree.width/2;
+        var treeMid = tree.x;
         if(treeMid - 30 < water.x && treeMid + 30 > water.x
-            && water.y > tree.y + tree.height - 40) {
+            && water.y > tree.y - 40) {
             //water hit animation
             this.wGroup.hitCollision(water, null);
             //add to tree health when water overlaps with it
             //console.log(tree.health);
+            var prevHealth = tree.health;
             tree.health += this.waterHeal;
             if(tree.health > this.maxHealth){
                 tree.health = this.maxHealth;
             }
+            
+            this.treeAnimation(prevHealth, tree.health, tree);
             
             //changes tint depending on its health
             var percentHealed = tree.health / this.maxHealth;
@@ -159,10 +164,13 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     }
     
     this.slimeDamage = function(tree, slime) {
-        var treeMid = tree.x + tree.width/2;
+        var treeMid = tree.x;
         if(treeMid - 25 < slime.x && treeMid + 25 > slime.x) {
             if(this.inBossFight == false) {
+                var prevHealth = tree.health;
                 tree.health -= 5;
+                
+                this.treeAnimation(prevHealth, tree.health, tree);
             }
             slime.health -= 8;
             if(tree.health <= 0) {
@@ -198,7 +206,7 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     
     //called when the tree first watered, destroy enemy in area    
     this.explosion = function(tree) {
-        var shield = this.g.add.sprite(tree.x + tree.width/2, tree.y + tree.height, "shield");
+        var shield = this.g.add.sprite(tree.x, tree.y, "shield");
         this.shield = shield;
         this.g.physics.arcade.enable(shield);
         shield.immovable = true;
@@ -212,6 +220,28 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
         this.g.time.events.add(Phaser.Timer.SECOND * 4, function() {shield.destroy();}, this);
         this.playSound();
         
+    }
+    
+    this.treeAnimation = function(prevHealth, newHealth, tree) {
+        if(prevHealth < this.maxHealth / 3 && newHealth >= this.maxHealth / 3) {
+            tree.animations.play('grow1');
+        }
+        else if(prevHealth < this.maxHealth * 2 / 3 && newHealth >= this.maxHealth * 2 / 3) {
+            tree.animations.play('grow2');
+        }
+        else if(prevHealth < this.maxHealth && newHealth == this.maxHealth) {
+            tree.animations.play('grow3');
+        }
+        //check shrink
+        else if(prevHealth == this.maxHealth && newHealth < this.maxHealth) {
+            tree.animations.play('shrink3');
+        }
+        else if(prevHealth > this.maxHealth * 2 / 3 && newHealth <= this.maxHealth * 2 / 3) {
+            tree.animations.play('shrink2');
+        }
+        else if(prevHealth > this.maxHealth / 3 && newHealth <= this.maxHealth / 3) {
+            tree.animations.play('shrink1');
+        }
     }
     
     this.playSound = function() {
