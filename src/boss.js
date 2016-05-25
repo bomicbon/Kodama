@@ -68,7 +68,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             trees.inBossFight = true;
             var scaleX = this.health / (this.maxHealth + 100) * this.scaleX;
             var scaleY = this.health / (this.maxHealth + 100) * this.scaleY;
-            //this.sprite.y = this.sprite.y + scaleY / this.scaleY;
+            this.sprite.y = (this.scaleY - scaleY) * 400 + 300;
             this.sprite.scale.setTo(scaleX, scaleY);
             if(this.health <= 0) {
                 this.g.state.start("StageCleared", true, false);
@@ -77,7 +77,10 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             this.sprite.body.velocity.x = -this.speed;
             
             this.leftSpawner.x = this.sprite.x;
-            this.rightSpawner.x = this.sprite.x + this.sprite.width/2;
+            this.leftSpawner.y = this.sprite.y;
+
+            this.rightSpawner.x = this.sprite.x + this.sprite.width;
+            this.rightSpawner.y = this.sprite.y
             
             //prevent player from leaving camera
             if(this.p.x - this.p.width/2 <= this.g.camera.x) {
