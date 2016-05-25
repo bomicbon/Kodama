@@ -84,6 +84,9 @@ function slimeGroup(game, player, ground) {
             //subtract player health when touched
             this.p.health -= body.damage;
             //console.log(this.p.health);
+            
+            //make slime take slight dmg as well
+            body.health -= 0.15;
 
             if(body.counter > body.stepTime * 2) {
                 body.counter = 0;

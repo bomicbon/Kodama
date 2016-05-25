@@ -17,7 +17,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.startY = 680;
     
     //used in harmony with the x component sprite scale change
-    this.deadZX = this.g.camera.width * 8 / 9;
+    this.deadZX = this.g.camera.width * 9/10;
     
     //boss sprite
     this.sprite = null;
@@ -37,7 +37,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
         if (this.sprite == null) {
             this.g.camera.unfollow();
         
-            this.sprite = this.bossGroup.create(this.startPosition, this.startY,'blob');
+            this.sprite = this.bossGroup.create(this.startPosition + 300, this.startY,'blob');
             this.sprite.scale.setTo(this.scaleX, this.scaleY);
             this.g.physics.arcade.enable(this.sprite);
             this.sprite.anchor.setTo(0.5, 1);
@@ -64,10 +64,16 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.update = function() {        
         if (this.sprite != null) {
             //change scale depending on its health
-            var scaleX = this.health / (this.maxHealth + 100) * this.scaleX;
-            var scaleY = this.health / (this.maxHealth + 100) * this.scaleY;
+            var scaleX = this.health / this.maxHealth * this.scaleX;
+            if(scaleX < this.scaleX / 8) {
+                scaleX = this.scaleX / 8;
+            }
+            var scaleY = this.health / this.maxHealth * this.scaleY;
+            if(scaleY < this.scaleY / 8) {
+                scaleY = this.scaleY / 8;
+            }
             //change x of object to compensate for the scale down
-            this.g.camera.deadzone.x = this.deadZX - (this.scaleY - scaleY) * 300;
+            this.g.camera.deadzone.x = this.deadZX - (this.scaleY - scaleY) * 200;
             this.sprite.scale.setTo(scaleX, scaleY);
 
 
