@@ -110,6 +110,9 @@ theGame.prototype = {
 		ground.create(3400, level1, 'platformS'); 
 		
 		ground.setAll('body.immovable', true);
+		ground.setAll('body.checkCollision.down', false);
+		ground.setAll('body.checkCollision.left', false);
+		ground.setAll('body.checkCollision.right', false);
 
   	    //watering can shooter code
 		wcShooter = new wateringcanShooter(this.game, player, ground, temperature_reading);
@@ -132,7 +135,7 @@ theGame.prototype = {
 		gasSystem.create();
 		
 		//tree Group
-		treeG = new treeGroup(this.game, player, wcShooter, slimeG.enemyGroup, temperature_reading);
+		treeG = new treeGroup(this.game, player, wcShooter, slimeG.enemyGroup, gasG.enemyGroup, temperature_reading);
 		treeG.create();
 
   	    //damage system code
