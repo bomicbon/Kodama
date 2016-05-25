@@ -278,6 +278,7 @@ theGame.prototype = {
 		
 		
 		// Sound
+<<<<<<< HEAD
 		if (temperature_reading.temp<temperature_reading.nTemp && temperature_reading.temp > 45) {
 			if(wcShooter.shot == true) {
 				sound_shootM.play();
@@ -296,6 +297,12 @@ theGame.prototype = {
 		else if (wcShooter.shot) {
 			sound_shoot.play();
 		}
+		//Urian i cant take this shot noise
+		//if (wcShooter.shot == true) {
+	//		sound_shoot.play();
+//		}
+		//Also this should go under the tree class
+		/*
 		if (treeG.tree_healed) {
 			sound_tree_healed.play();
 			sound_delay++;
@@ -303,6 +310,7 @@ theGame.prototype = {
 				treeG.tree_healed = false;
 			}
 		}
+		*/
 		
 	},
 	

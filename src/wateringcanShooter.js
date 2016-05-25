@@ -18,7 +18,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
     this.bounds = Phaser.Rectangle.clone(this.g.world.bounds);
     this.shot = null;// has a shot been fired? (bool)
     
-    this.shotSize = 0; // how heavy the sound will be LOL
+    this.waterSound = null;
     
     this.create = function () {
         //looks for key input and spawns a new projectile
@@ -28,6 +28,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
         //this.key.onHold.add(this.spawnWater, this);
         this.g.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
         //sound_shoot = this.g.add.audio('shoot', 'assets/sound/shoot.wav');
+        this.waterSound = this.g.add.audio('water_splash');
         
         
     }
@@ -111,28 +112,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
         splash_obj.animations.add('splash'); // add the animation ability 'splash'
         splash_obj.animations.play('splash', 30, false, true);
         
-        /* Why are we rotating the water object???
-        var hitSprite = this.g.add.sprite(body1.body.x, body1.body.y, 'water');
-        hitSprite.scale.setTo(this.scale, this.scale);
-        hitSprite.anchor.setTo(0.5,0.5);
-        */
-        
-        /*
-        Commented out.
-        if(body1.body.touching.up) {
-            hitSprite.angle = 180;
-        }
-        else if(body1.body.touching.left) {
-            hitSprite.angle = 90;
-        }
-        else if(body1.body.touching.right) {
-            hitSprite.angle = -90;
-            hitSprite.x += hitSprite.width;
-        }
-        else {
-            hitSprite.y += hitSprite.height;
-        }
-        */
+        this.waterSound.play();
 
         this.projList.removeChild(body1, true);
     }
