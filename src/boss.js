@@ -13,20 +13,20 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.scaleY = 1.0;
         
     //where the boss spawns
-    this.startPosition = this.g.world.width - 100;
+    this.startPosition = 1000; //this.g.world.width - 100;
+    this.startY = 680;
+    
+    //used in harmony with the x component sprite scale change
+    this.deadZX = this.g.camera.width * 8 / 9;
     
     //boss sprite
     this.sprite = null;
     
     //a gas spawner on the left of the boss
     this.leftSpawner = null;
-    var leftSpawnX = null;
-    var leftSpawnY = null;
     
     //a gas spawner on the right of the boss
     this.rightSpawner = null;
-    var rightSpawnX = null;
-    var rightSpawnY = null;
     
     this.bossGroup = this.g.add.group();
     
@@ -34,53 +34,54 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.slimeCounter = 0;
         
     this.create = function() {
-        if(this.sprite == null) {
+        if (this.sprite == null) {
             this.g.camera.unfollow();
         
-            this.sprite = this.bossGroup.create(this.startPosition, 300,'blob');
+            this.sprite = this.bossGroup.create(this.startPosition, this.startY,'blob');
             this.sprite.scale.setTo(this.scaleX, this.scaleY);
             this.g.physics.arcade.enable(this.sprite);
+            this.sprite.anchor.setTo(0.5, 1);
             this.sprite.body.gravity.y = 0;
             this.sprite.body.immovable = true;
             
             //set camera onto boss
             var camera = this.g.camera;
             camera.follow(this.sprite);
-            camera.deadzone = new Phaser.Rectangle(camera.width * 5/8, 0, camera.width / 4, 10);
+            camera.deadzone = new Phaser.Rectangle(this.deadZX, 0, camera.width / 4, 10);
             
             //gas spawners
-            leftSpawnX = this.sprite.x;
-            leftSpawnY = this.sprite.y;
-            this.leftSpawner = gasSpawner.add(leftSpawnX, leftSpawnY, 1, 1);
+            this.leftSpawner = gasSpawner.add(0, 0, 1, 1);
             //this.bossGroup.add(this.leftSpawner);
             
-            rightSpawnX = this.sprite.x + 50;
-            rightSpawnY = this.sprite.y;
-            this.rightSpawner = gasSpawner.add(rightSpawnX, rightSpawnY, 1, 1);
+            this.rightSpawner = gasSpawner.add(0, 0, 1, 1);
            // this.bossGroup.add(this.rightSpawner);
-            
+
+            trees.inBossFight = true;
             this.bossGroup.sort();
         }
     }
     
     this.update = function() {        
-        if(this.sprite != null) {
-            trees.inBossFight = true;
+        if (this.sprite != null) {
+            //change scale depending on its health
             var scaleX = this.health / (this.maxHealth + 100) * this.scaleX;
             var scaleY = this.health / (this.maxHealth + 100) * this.scaleY;
-            this.sprite.y = (this.scaleY - scaleY) * 400 + 300;
+            //change x of object to compensate for the scale down
+            this.g.camera.deadzone.x = this.deadZX - (this.scaleY - scaleY) * 300;
             this.sprite.scale.setTo(scaleX, scaleY);
+
+
             if(this.health <= 0) {
                 this.g.state.start("StageCleared", true, false);
             }
             //move sprite and its gas spawners
             this.sprite.body.velocity.x = -this.speed;
             
-            this.leftSpawner.x = this.sprite.x;
-            this.leftSpawner.y = this.sprite.y;
+            this.leftSpawner.x = this.sprite.x - this.sprite.width / 2;
+            this.leftSpawner.y = this.sprite.y - this.sprite.height;
 
-            this.rightSpawner.x = this.sprite.x + this.sprite.width;
-            this.rightSpawner.y = this.sprite.y
+            this.rightSpawner.x = this.sprite.x + this.sprite.width / 2;
+            this.rightSpawner.y = this.sprite.y - this.sprite.height;
             
             //prevent player from leaving camera
             if(this.p.x - this.p.width/2 <= this.g.camera.x) {
