@@ -221,6 +221,8 @@ theGame.prototype = {
 			if (cursors.up.isDown && player.body.touching.down) {
 				player.body.velocity.y = jumpVelocity;
 			}
+			
+			// Tutorial Arrows
 			if(player.body.y<620) {
 				U_arrow.alpha = 0.7;
 			}
