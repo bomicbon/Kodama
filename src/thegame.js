@@ -152,8 +152,8 @@ theGame.prototype = {
 		dmgSystem = new DamageSystem(this.game, player, enemyGroup, projGroup);
 		
 		//enemy code
-		enemies = new enemy(this.game, ground);
-		enemies.create();
+		//enemies = new enemy(this.game, ground);
+		//enemies.create();
 		
 		//boss code
 		boss = new Boss(this.game, player, wcShooter, gasSystem, slimeG, treeG);
@@ -254,7 +254,7 @@ theGame.prototype = {
 		//followerSystem.update();
 		wcShooter.update();
 		//wcMelee.update();
-		enemies.update();
+		//enemies.update();
 		treeG.update();
 		dmgSystem.update();
 		

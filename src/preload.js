@@ -26,6 +26,8 @@ preload.prototype = {
 		this.game.load.image("water", "assets/img/water.png");
 		this.game.load.spritesheet('splash', 'assets/img/splash.png', 24, 24, 10);
 		this.game.load.spritesheet('slime', 'assets/img/slime.png', 50, 36, 4);
+		this.game.load.spritesheet('kaboom', 'assets/img/explode.png', 128, 128, 16);
+		
 		this.game.load.image("enemy", "assets/img/box.png");
 		this.game.load.image("tutorial", "assets/img/tutorial.png");
 		this.game.load.image("level1", "assets/img/level1.png");
