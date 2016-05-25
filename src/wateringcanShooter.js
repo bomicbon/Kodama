@@ -28,6 +28,8 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
         //this.key.onHold.add(this.spawnWater, this);
         this.g.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
         //sound_shoot = this.g.add.audio('shoot', 'assets/sound/shoot.wav');
+        
+        
         this.waterSound = this.g.add.audio('water_splash');
         
         

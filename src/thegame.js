@@ -278,7 +278,6 @@ theGame.prototype = {
 		
 		
 		// Sound
-<<<<<<< HEAD
 		if (temperature_reading.temp<temperature_reading.nTemp && temperature_reading.temp > 45) {
 			if(wcShooter.shot == true) {
 				sound_shootM.play();
@@ -302,7 +301,11 @@ theGame.prototype = {
 	//		sound_shoot.play();
 //		}
 		//Also this should go under the tree class
-		/*
+		
+		// RE: THIS is the tree Healed sound. 
+		// For some reason I haven't been able to fit the sound code in their respective js files
+		// Thats why they are here.
+		
 		if (treeG.tree_healed) {
 			sound_tree_healed.play();
 			sound_delay++;
@@ -310,7 +313,7 @@ theGame.prototype = {
 				treeG.tree_healed = false;
 			}
 		}
-		*/
+		
 		
 	},
 	
