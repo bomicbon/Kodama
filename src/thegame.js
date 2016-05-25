@@ -48,6 +48,7 @@ var theGame = function(game){
 	U_arrow = null;
 	arrow_x = 150;
 	arrow_y = 600;
+	arrow_alpha = 0.8; // how transparent when they appear (1.0 is max)
 	
 	// Sounds
 	sound_shoot = null;
@@ -56,6 +57,10 @@ var theGame = function(game){
 	sound_shootXL = null;
 	sound_footstep = null;
 	sound_tree_healed = null;
+	
+	//Health Bar
+	this.myHealthBar = null;
+	barConfig = null;
 }
 
 theGame.prototype = {
@@ -183,6 +188,27 @@ theGame.prototype = {
 		R_arrow.alpha = 0;
 		L_arrow.alpha = 0;
 		U_arrow.alpha = 0;
+		
+		// Health Bar Configurations
+		var barConfig = {
+			x: this.game.camera.x+140, 
+			y: this.game.camera.y+30,
+			width: 250,
+		    height: 20,
+		    bg: {
+		      color: '#A3A3A3'
+		    },
+		    bar: {
+		      color: '#5CD683'
+		    },
+		    animationDuration: 200,
+		    flipped: false
+			
+		};
+		// Health Bar Initializations
+    	this.myHealthBar = new HealthBar(this.game, barConfig);
+    	this.myHealthBar.setPercent(player.health);
+    	this.myHealthBar.setFixedToCamera(true);
 	},
 	update: function() {
 		
@@ -207,7 +233,7 @@ theGame.prototype = {
 				}
 				faceRight = false;
 				player.animations.play('walk_left'); 
-				L_arrow.alpha = 0.7; // Tutorial Arrow
+				L_arrow.alpha = arrow_alpha; // Tutorial Arrow
 				
 			}
 			else if(cursors.right.isDown) {
@@ -217,7 +243,7 @@ theGame.prototype = {
 				}
 				faceRight = true;
         		player.animations.play('walk_right'); 
-        		R_arrow.alpha = 0.7; // Tutorial Arrow
+        		R_arrow.alpha = arrow_alpha; // Tutorial Arrow
 			}
 			else {
 				//put idle animation in here
@@ -232,7 +258,7 @@ theGame.prototype = {
 			
 			// Tutorial Arrows
 			if(player.body.y<620) {
-				U_arrow.alpha = 0.7;
+				U_arrow.alpha = arrow_alpha;
 			}
 			else {
 				U_arrow.alpha = 0;
@@ -313,7 +339,8 @@ theGame.prototype = {
 				treeG.tree_healed = false;
 			}
 		}
-		
+		// Health Bar updating
+		this.myHealthBar.setPercent(player.health);
 		
 	},
 	

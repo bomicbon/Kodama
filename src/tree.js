@@ -38,8 +38,8 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
         }
         */
         this.add(450, 690, 1, 10);
-        this.add(1600, 495, 1, 10);
-        this.add(3150, 495, 1, 10);
+        this.add(1600, 690, 1, 10);
+        this.add(3150, 690, 1, 10);
      
     }
     

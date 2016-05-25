@@ -14,7 +14,7 @@ function DamageSystem(game, player, enemyList, projectileList) {
 
     //this text simply displays the player hp on the top left of the screen
     this.visualText = this.g.add.text(this.g.camera.x + 10, this.g.camera.y + 10, this.p.health,
-        {font: "65px Arial",
+        {font: "1px Arial", 
             fill: "000000",
             align: "center"
         });
