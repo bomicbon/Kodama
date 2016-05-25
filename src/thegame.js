@@ -48,7 +48,7 @@ var theGame = function(game){
 	U_arrow = null;
 	arrow_x = 150;
 	arrow_y = 600;
-	arrow_alpha = 0.8; // how transparent when they appear (1.0 is max)
+	arrow_alpha = 1.0; // how transparent when they appear (1.0 is max)
 	
 	// Sounds
 	sound_shoot = null;
@@ -184,9 +184,9 @@ theGame.prototype = {
 		R_arrow = this.game.add.sprite(arrow_x, arrow_y, 'right_arrow');
 		L_arrow = this.game.add.sprite(arrow_x, arrow_y, 'left_arrow');
 		U_arrow = this.game.add.sprite(arrow_x, arrow_y, 'up_arrow');
-		R_arrow.scale.setTo(2.0, 2.0);
-		L_arrow.scale.setTo(2.0, 2.0);
-		U_arrow.scale.setTo(2.0, 2.0);
+		R_arrow.scale.setTo(1.0, 1.0);
+		L_arrow.scale.setTo(1.0, 1.0);
+		U_arrow.scale.setTo(1.0, 1.0);
 		R_arrow.anchor.setTo(0.5, 0.5);
 		L_arrow.anchor.setTo(0.5, 0.5);
 		U_arrow.anchor.setTo(0.5, 0.5);
@@ -196,7 +196,7 @@ theGame.prototype = {
 		
 		// Health Bar border
 		health_bar_border = this.game.add.sprite(this.game.camera.x+140, this.game.camera.y+30, 'health_bar_border');
-		health_bar_border.scale.setTo(0.95, 0.5);
+		health_bar_border.scale.setTo(0.95, 0.4);
 		health_bar_border.anchor.setTo(0.5, 0.5);
 		health_bar_border.alpha = 0.9;
 		health_bar_border.fixedToCamera = true;
