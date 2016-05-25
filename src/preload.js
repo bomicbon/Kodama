@@ -38,6 +38,8 @@ preload.prototype = {
 		this.game.load.image("blob", "assets/img/blob.png");
 		this.game.load.image("shield", "assets/img/shield.png");
 		this.game.load.image("right_arrow", "assets/img/right_arrow.png");
+		this.game.load.image("left_arrow", "assets/img/left_arrow.png");
+		this.game.load.image("up_arrow", "assets/img/up_arrow.png");
 		
 		// SOUND
 		this.game.load.audio('footstep', 'assets/sound/footstep.wav');

@@ -44,7 +44,9 @@ var theGame = function(game){
 	
 	// Tutorial Arrows
 	R_arrow = null;
-	arrow_x = 100;
+	L_arrow = null;
+	U_arrow = null;
+	arrow_x = 150;
 	arrow_y = 600;
 	
 	// Sounds
@@ -162,9 +164,17 @@ theGame.prototype = {
 		
 		// Tutorial Arrows
 		R_arrow = this.game.add.sprite(arrow_x, arrow_y, 'right_arrow');
+		L_arrow = this.game.add.sprite(arrow_x, arrow_y, 'left_arrow');
+		U_arrow = this.game.add.sprite(arrow_x, arrow_y, 'up_arrow');
 		R_arrow.scale.setTo(2.0, 2.0);
+		L_arrow.scale.setTo(2.0, 2.0);
+		U_arrow.scale.setTo(2.0, 2.0);
 		R_arrow.anchor.setTo(0.5, 0.5);
+		L_arrow.anchor.setTo(0.5, 0.5);
+		U_arrow.anchor.setTo(0.5, 0.5);
 		R_arrow.alpha = 0;
+		L_arrow.alpha = 0;
+		U_arrow.alpha = 0;
 	},
 	update: function() {
 		
@@ -189,6 +199,7 @@ theGame.prototype = {
 				}
 				faceRight = false;
 				player.animations.play('walk_left'); 
+				L_arrow.alpha = 0.7; // Tutorial Arrow
 				
 			}
 			else if(cursors.right.isDown) {
@@ -204,10 +215,17 @@ theGame.prototype = {
 				//put idle animation in here
 				// Tutorial Arrows
 				R_arrow.alpha = 0;
+				L_arrow.alpha = 0;
 			}
 			
 			if (cursors.up.isDown && player.body.touching.down) {
 				player.body.velocity.y = jumpVelocity;
+			}
+			if(player.body.y<620) {
+				U_arrow.alpha = 0.7;
+			}
+			else {
+				U_arrow.alpha = 0;
 			}
 		}
 		
