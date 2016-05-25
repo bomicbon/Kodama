@@ -16,7 +16,8 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
     this.projList = this.g.add.group();
     
     this.bounds = Phaser.Rectangle.clone(this.g.world.bounds);
-
+    this.shot = null;// has a shot been fired? (bool)
+    
     this.create = function () {
         //looks for key input and spawns a new projectile
        
@@ -24,6 +25,8 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
 
         //this.key.onHold.add(this.spawnWater, this);
         this.g.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
+        //sound_shoot = this.g.add.audio('shoot', 'assets/sound/shoot.wav');
+        
         
     }
     
@@ -35,6 +38,10 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
         if(this.delayCount > this.delay && this.key.isDown) {
             this.delayCount = 0;
             this.spawnWater();
+            this.shot = true; //if spawnwater then shot is true
+        }
+        if (this.delayCount < this.delay && this.delayCount != 0) {
+            this.shot = false;
         }
         this.g.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
         for(var i = 0; i < this.projList.length; ++i) {
@@ -50,6 +57,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
     }
 
     this.spawnWater = function () {
+         
         // I removed the delay cuz basically
         // 1. delay count doesn't do anything
         // 2. if else statement basically waits for water sprite to be out of bounds before player can shoot again...

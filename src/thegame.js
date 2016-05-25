@@ -41,6 +41,10 @@ var theGame = function(game){
 	level0 = 690;
 	level1 = level0-levelI;
 	level2 = level1-levelI;
+	
+	// Sounds
+	sound_shoot = null;
+	sound_footstep = null;
 }
 
 theGame.prototype = {
@@ -146,7 +150,15 @@ theGame.prototype = {
 		enemies.create();
 		
 		//boss code
+<<<<<<< HEAD
 		boss = new Boss(this.game, player, wcShooter, gasSystem, slimeG, treeG);
+=======
+		boss = new Boss(this.game, player, wcShooter, gasSystem, slimeG, treeG.treeGroup);
+		
+		// Sounds
+		sound_footstep = this.game.add.audio('footstep');
+		sound_shoot = this.game.add.audio('shoot');
+>>>>>>> origin/master
 
 	},
 	update: function() {
@@ -227,6 +239,11 @@ theGame.prototype = {
 		}
 		temperature_reading.setText(temperature_reading.temp);
 		
+		
+		// Sound
+		if (wcShooter.shot == true) {
+			sound_shoot.play();
+		}
 	},
 	
 	
@@ -236,5 +253,6 @@ theGame.prototype = {
         player.animations.add('idle_right', [4, 5, 6, 7, 6, 5, 4], 10, true); 
         player.animations.add('walk_left', [12, 13, 14, 15, 14, 13], 15, true); 
         player.animations.add('idle_left', [8, 9, 10, 11, 10, 9], 10, true); 
-    }
+    },
+    
 }
