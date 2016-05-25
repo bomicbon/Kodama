@@ -62,6 +62,10 @@ var theGame = function(game){
 	this.myHealthBar = null;
 	barConfig = null;
 	health_bar_border = null;
+	
+	// Toxicity Bar
+	this.myToxicityBar = null;
+	t_barConfig = null;
 }
 
 theGame.prototype = {
@@ -84,7 +88,7 @@ theGame.prototype = {
 		this.setAnimations();
 		
 		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, startingTemp, {
-  			font: "65px Arial",
+  			font: "1px Arial", //TOXICITY BAR
   			fill: "000000",
   			align: "center"
   		});
@@ -190,17 +194,19 @@ theGame.prototype = {
 		L_arrow.alpha = 0;
 		U_arrow.alpha = 0;
 		
-		// Health Bar Configurations
+		// Health Bar border
 		health_bar_border = this.game.add.sprite(this.game.camera.x+140, this.game.camera.y+30, 'health_bar_border');
-		health_bar_border.scale.setTo(0.95, 0.7);
+		health_bar_border.scale.setTo(0.95, 0.5);
 		health_bar_border.anchor.setTo(0.5, 0.5);
 		health_bar_border.alpha = 0.9;
 		health_bar_border.fixedToCamera = true;
+		
+		//Health Bar Configurations
 		var barConfig = {
 			x: this.game.camera.x+140, 
 			y: this.game.camera.y+30,
 			width: 250,
-		    height: 20,
+		    height: 8,
 		    bg: {
 		      color: '#A3A3A3'
 		    },
@@ -211,10 +217,30 @@ theGame.prototype = {
 		    flipped: false
 			
 		};
+		
 		// Health Bar Initializations
     	this.myHealthBar = new HealthBar(this.game, barConfig);
     	this.myHealthBar.setPercent(player.health);
     	this.myHealthBar.setFixedToCamera(true);
+    	
+    	// Toxicity Bar Configurations
+    	var t_barConfig = {
+    		x: this.game.camera.x+510,
+    		y: this.game.camera.y+30,
+    		width: 200,
+    		height: 7,
+    		bg: {
+    			color: '#A3A3A3'
+    		},
+    		bar: {
+    			color: '#CC2F2F'
+    		},
+    		animationDuration: 200,
+    		flipped: true
+    	};
+    	this.myToxicityBar = new HealthBar(this.game, t_barConfig);
+    	this.myToxicityBar.setPercent(100*temperature_reading.temp/80);
+    	this.myToxicityBar.setFixedToCamera(true);
 	},
 	update: function() {
 		
@@ -345,8 +371,9 @@ theGame.prototype = {
 				treeG.tree_healed = false;
 			}
 		}
-		// Health Bar updating
+		// Updating Bars
 		this.myHealthBar.setPercent(player.health);
+		this.myToxicityBar.setPercent(100*temperature_reading.temp/80);
 		
 	},
 	
