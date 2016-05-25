@@ -37,14 +37,13 @@ preload.prototype = {
 		this.game.load.image("stagecleared", "assets/img/stage_cleared.png");
 		
 		this.game.load.image("blob", "assets/img/blob.png");
-<<<<<<< HEAD
+
+		this.game.load.image("shield", "assets/img/shield.png");
 		
 		// SOUND
 		this.game.load.audio('footstep', 'assets/sound/footstep.wav');
 		this.game.load.audio('shoot', 'assets/sound/shoot.wav');
-=======
-		this.game.load.image("shield", "assets/img/shield.png");
->>>>>>> 4e8bc2ca18b4cacc4f9ef0b6c518eba793fb20a9
+
 	},
   	create: function(){
 		this.game.state.start("GameTitle");

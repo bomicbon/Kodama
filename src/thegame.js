@@ -150,15 +150,11 @@ theGame.prototype = {
 		enemies.create();
 		
 		//boss code
-<<<<<<< HEAD
 		boss = new Boss(this.game, player, wcShooter, gasSystem, slimeG, treeG);
-=======
-		boss = new Boss(this.game, player, wcShooter, gasSystem, slimeG, treeG.treeGroup);
 		
 		// Sounds
 		sound_footstep = this.game.add.audio('footstep');
 		sound_shoot = this.game.add.audio('shoot');
->>>>>>> origin/master
 
 	},
 	update: function() {
