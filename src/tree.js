@@ -14,6 +14,14 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     delta_value = 1; // temperature delta upon tree activation
     this.all_watered = null // bool for whether all plants have been activated
     
+    tree_healed_count = 0;
+    tree_healed_count_prev = 0;
+    
+    //Sound
+    this.tree_healed = null;
+    sound_delay = 0;
+    sound_length = 100;
+    
     //shield barrier for first water
     this.shield = null;
     
@@ -151,6 +159,19 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
         this.g.add.tween(shield).to({alpha: 0}, 2000, Phaser.Easing.Exponential.In, true);
         //then destroyed after 4 seconds
         this.g.time.events.add(Phaser.Timer.SECOND * 4, function() {shield.destroy();}, this);
+        this.playSound();
+        
+    }
+    
+    this.playSound = function() {
+        tree_healed_count++;
+        if (tree_healed_count != tree_healed_count_prev) {
+            tree_healed_count_prev = tree_healed_count;
+            this.tree_healed = true;
+        }
+        else {
+            this.tree_healed = false;
+        }
     }
 
 }

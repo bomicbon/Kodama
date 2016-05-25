@@ -52,6 +52,7 @@ var theGame = function(game){
 	// Sounds
 	sound_shoot = null;
 	sound_footstep = null;
+	sound_tree_healed = null;
 }
 
 theGame.prototype = {
@@ -161,6 +162,7 @@ theGame.prototype = {
 		// Sounds
 		sound_footstep = this.game.add.audio('footstep');
 		sound_shoot = this.game.add.audio('shoot');
+		sound_tree_healed = this.game.add.audio('tree_healed');
 		
 		// Tutorial Arrows
 		R_arrow = this.game.add.sprite(arrow_x, arrow_y, 'right_arrow');
@@ -271,6 +273,13 @@ theGame.prototype = {
 		// Sound
 		if (wcShooter.shot == true) {
 			sound_shoot.play();
+		}
+		if (treeG.tree_healed) {
+			sound_tree_healed.play();
+			sound_delay++;
+			if (sound_delay > sound_length) {
+				treeG.tree_healed = false;
+			}
 		}
 		
 	},
