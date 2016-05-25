@@ -17,7 +17,7 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     //shield barrier for first water
     this.shield = null;
     
-    
+    this.inBossFight = false;
     
     this.create = function() {
         /*
@@ -31,57 +31,42 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     }
     
     this.update = function() {
-        //if water overlaps with a tree, call overlapping function
-        this.g.physics.arcade.overlap(this.treeGroup, this.wGroup.projList, this.overlapping, null, this);
         this.g.physics.arcade.overlap(this.treeGroup, slime, this.slimeDamage, null, this);
-        for (var i = 0; i < this.treeGroup.length; i++) {
-            tree = this.treeGroup.getAt(i);
-            // Tree fully healed
-            if (tree.health == this.maxHealth) {
-                tree.loadTexture('flower', 0);
-                delta_timer++;
-                if (delta_timer == delta_value + 5) {
-                    delta_value += 1;
+        if(this.inBossFight == false) {
+            //if water overlaps with a tree, call overlapping function
+            this.g.physics.arcade.overlap(this.treeGroup, this.wGroup.projList, this.overlapping, null, this);
+            for (var i = 0; i < this.treeGroup.length; i++) {
+                tree = this.treeGroup.getAt(i);
+                // Tree fully healed
+                if (tree.health == this.maxHealth) {
+                    tree.loadTexture('flower', 0);
+                    delta_timer++;
+                    if (delta_timer == delta_value + 5) {
+                        delta_value += 1;
+                    }
+                    this.delta = delta_value;
+                        
+                    if(tree.firstMax == false) {
+                        tree.firstMax = true;
+                        temperature_reading.temp -= 20;
+                        this.p.health += 20;
+                        this.explosion(tree);
+                    }
                 }
-                this.delta = delta_value;
                 
-                if(tree.firstMax == false) {
-                    tree.firstMax = true;
-                    temperature_reading.temp -= 20;
-                    this.p.health += 20;
-                    tree.health += 100;
-                    this.explosion(tree);
+                else if(tree.health < this.maxHealth / 2) {
+                    tree.loadTexture('flower_black', 0);
+
                 }
-            }
-            else if(tree.health < this.maxHealth / 2) {
-                tree.loadTexture('flower_black', 0);
+                
             }
             
-            //E: we don't need to change velocity since its immovable
-            //object.body.velocity.x = 0;
-            //object.body.velocity.y = gravity;
+            if (delta_timer==this.treeGroup.length) {
+                this.all_watered = true;
+            }
+            delta_timer = 0;
             
-        }
-        if (delta_timer==this.treeGroup.length) {
-            this.all_watered = true;
-        }
-        delta_timer = 0;
-        
-        if(this.shield != null) {
-            for(var i = 0; i < slime.length; ++i) {
-                var s = slime.getAt(i);
-                if(this.g.physics.arcade.overlap(this.shield, s)) {
-                    s.destroy();
-                    --i;
-                }
-            }
-            for(var i = 0; i < gas.length; ++i) {
-                var g = gas.getAt(i);
-                if(this.g.physics.arcade.overlap(this.shield, g)) {
-                    g.destroy();
-                    --i;
-                }
-            }
+            this.checkShield();
         }
     }
     
@@ -117,7 +102,9 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     this.slimeDamage = function(tree, slime) {
         var treeMid = tree.x + tree.width/2;
         if(treeMid - 25 < slime.x && treeMid + 25 > slime.x) {
-            tree.health -= 5;
+            if(this.inBossFight == false) {
+                tree.health -= 5;
+            }
             slime.health -= 8;
             if(tree.health <= 0) {
                 tree.health = 0;
@@ -129,6 +116,27 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
         }
     }
 
+    //update function to destroy enemies overlapping shield
+    this.checkShield = function() {
+        if(this.shield != null) {
+            for(var i = 0; i < slime.length; ++i) {
+                var s = slime.getAt(i);
+                if(this.g.physics.arcade.overlap(this.shield, s)) {
+                    s.destroy();
+                    --i;
+                }
+            }
+            for(var i = 0; i < gas.length; ++i) {
+                var g = gas.getAt(i);
+                if(this.g.physics.arcade.overlap(this.shield, g)) {
+                    g.destroy();
+                    --i;
+                }
+            }
+        }
+    }
+    
+    
     //called when the tree first watered, destroy enemy in area    
     this.explosion = function(tree) {
         var shield = this.g.add.sprite(tree.x + tree.width/2, tree.y + tree.height, "shield");

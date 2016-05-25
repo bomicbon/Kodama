@@ -143,7 +143,7 @@ function slimeSpawner(game, player, slime, water) {
         this.add(700, 495, -1);
         this.add(2000, 400, -1);
         this.add(2900, 495, 1);
-        this.add(3200, 495, -1);
+        this.add(3300, 495, -1);
     }
     
     this.add = function(x,y, direction) {

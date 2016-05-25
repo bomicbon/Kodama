@@ -103,7 +103,7 @@ theGame.prototype = {
 		this.add.sprite(2848, level1-15,"platformIS");
 		ground.create(2850, level1, 'platformS'); 
 		this.add.sprite(3398, level2-15,"platformIS");
-		ground.create(3400, level1, 'platformS'); 
+		ground.create(3400, level2, 'platformS'); 
 		
 		ground.setAll('body.immovable', true);
 		ground.setAll('body.checkCollision.down', false);
@@ -146,7 +146,7 @@ theGame.prototype = {
 		enemies.create();
 		
 		//boss code
-		boss = new Boss(this.game, player, wcShooter, gasSystem, slimeG, treeG.treeGroup);
+		boss = new Boss(this.game, player, wcShooter, gasSystem, slimeG, treeG);
 
 	},
 	update: function() {

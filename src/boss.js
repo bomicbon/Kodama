@@ -4,10 +4,14 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.water = water;
     this.wGroup = water.projList;
     
-    this.health = 1000;
-    this.damage = 5;
-    this.speed = 20;
+    this.health = 2000;
+    this.damage = 20;
+    this.speed = 30;
+    this.maxHealth = this.health;
     
+    this.scaleX = 0.7;
+    this.scaleY = 1.0;
+        
     //where the boss spawns
     this.startPosition = this.g.world.width - 100;
     
@@ -34,7 +38,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             this.g.camera.unfollow();
         
             this.sprite = this.bossGroup.create(this.startPosition, 300,'blob');
-            this.sprite.scale.setTo(0.7, 1);
+            this.sprite.scale.setTo(this.scaleX, this.scaleY);
             this.g.physics.arcade.enable(this.sprite);
             this.sprite.body.gravity.y = 0;
             this.sprite.body.immovable = true;
@@ -61,6 +65,11 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     
     this.update = function() {        
         if(this.sprite != null) {
+            trees.inBossFight = true;
+            var scaleX = this.health / (this.maxHealth + 100) * this.scaleX;
+            var scaleY = this.health / (this.maxHealth + 100) * this.scaleY;
+            //this.sprite.y = this.sprite.y + scaleY / this.scaleY;
+            this.sprite.scale.setTo(scaleX, scaleY);
             if(this.health <= 0) {
                 this.g.state.start("StageCleared", true, false);
             }
@@ -78,7 +87,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             //check for collision between player and boss, and boss and water
             this.g.physics.arcade.collide(this.sprite, this.p, this.hurtPlayer, null, this);
             this.g.physics.arcade.collide(this.sprite, this.wGroup, this.damageBoss, null, this);
-            this.g.physics.arcade.overlap(this.sprite, trees, this.treeDamage, null, this);
+            this.g.physics.arcade.overlap(this.sprite, trees.treeGroup, this.treeDamage, null, this);
             
             this.slimeCounter += 1;
             if(this.slimeCounter > this.slimeTime) {
@@ -113,12 +122,15 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.damageBoss = function(boss, water) {
         this.health -= water.damage;
         this.water.hitCollision(water, null);
+        console.log(this.health);
     }
     
     //called when tree hits boss
     this.treeDamage = function(boss, tree) {
-        this.health -= 2.5 * tree.health;
+        this.health -= 4 * tree.health;
         tree.health = 0;
+        tree.loadTexture('flower_black', 0);
+        console.log(this.health);
 
     }
     
