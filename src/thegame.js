@@ -42,6 +42,11 @@ var theGame = function(game){
 	level1 = level0-levelI;
 	level2 = level1-levelI;
 	
+	// Tutorial Arrows
+	R_arrow = null;
+	arrow_x = 100;
+	arrow_y = 600;
+	
 	// Sounds
 	sound_shoot = null;
 	sound_footstep = null;
@@ -49,7 +54,6 @@ var theGame = function(game){
 
 theGame.prototype = {
   	create: function(){
-  		
   		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		number = Math.floor(Math.random()*10);
 		player = this.game.add.sprite(playerX,playerY,'player');
@@ -155,7 +159,12 @@ theGame.prototype = {
 		// Sounds
 		sound_footstep = this.game.add.audio('footstep');
 		sound_shoot = this.game.add.audio('shoot');
-
+		
+		// Tutorial Arrows
+		R_arrow = this.game.add.sprite(arrow_x, arrow_y, 'right_arrow');
+		R_arrow.scale.setTo(2.0, 2.0);
+		R_arrow.anchor.setTo(0.5, 0.5);
+		R_arrow.alpha = 0;
 	},
 	update: function() {
 		
@@ -189,9 +198,12 @@ theGame.prototype = {
 				}
 				faceRight = true;
         		player.animations.play('walk_right'); 
+        		R_arrow.alpha = 0.45; // Tutorial Arrow
 			}
 			else {
 				//put idle animation in here
+				// Tutorial Arrows
+				R_arrow.alpha = 0;
 			}
 			
 			if (cursors.up.isDown && player.body.touching.down) {
@@ -240,6 +252,7 @@ theGame.prototype = {
 		if (wcShooter.shot == true) {
 			sound_shoot.play();
 		}
+		
 	},
 	
 	

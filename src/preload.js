@@ -35,10 +35,9 @@ preload.prototype = {
 		this.game.load.image("quit", "assets/img/quit.png");
 		this.game.load.image("flower_black", "assets/img/flower_black.png");
 		this.game.load.image("stagecleared", "assets/img/stage_cleared.png");
-		
 		this.game.load.image("blob", "assets/img/blob.png");
-
 		this.game.load.image("shield", "assets/img/shield.png");
+		this.game.load.image("right_arrow", "assets/img/right_arrow.png");
 		
 		// SOUND
 		this.game.load.audio('footstep', 'assets/sound/footstep.wav');
