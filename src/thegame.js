@@ -229,7 +229,7 @@ theGame.prototype = {
 		boss.update();
 		
 		pollution_timer++;
-		if (pollution_timer == 500) {
+		if (pollution_timer == 300) {
 			temperature_reading.temp += 1;
 			pollution_timer = 0;
 		}
