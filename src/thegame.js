@@ -271,9 +271,12 @@ theGame.prototype = {
 		
 		
 		// Sound
-		if (wcShooter.shot == true) {
-			sound_shoot.play();
-		}
+		//Urian i cant take this shot noise
+		//if (wcShooter.shot == true) {
+	//		sound_shoot.play();
+//		}
+		//Also this should go under the tree class
+		/*
 		if (treeG.tree_healed) {
 			sound_tree_healed.play();
 			sound_delay++;
@@ -281,6 +284,7 @@ theGame.prototype = {
 				treeG.tree_healed = false;
 			}
 		}
+		*/
 		
 	},
 	

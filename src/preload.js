@@ -48,6 +48,7 @@ preload.prototype = {
 		this.game.load.audio('footstep', 'assets/sound/footstep.wav');
 		this.game.load.audio('shoot', 'assets/sound/shoot.wav');
 		this.game.load.audio('tree_healed', 'assets/sound/tree_healed.wav');
+		this.game.load.audio('water_splash', 'assets/sound/splat.wav');
 
 	},
   	create: function(){
