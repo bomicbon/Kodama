@@ -110,8 +110,8 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
                 tree.health = 0;
             }
             
-            var sign = Math.sign(slime.x - tree.x);
-            slime.body.velocity.x = sign * 200;
+            //var sign = Math.sign(slime.x - tree.x + tree.width/2);
+            slime.body.velocity.x = -slime.direction * 200;
             slime.body.velocity.y = -100;
         }
     }
