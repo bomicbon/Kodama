@@ -61,6 +61,7 @@ var theGame = function(game){
 	//Health Bar
 	this.myHealthBar = null;
 	barConfig = null;
+	health_bar_border = null;
 }
 
 theGame.prototype = {
@@ -190,6 +191,11 @@ theGame.prototype = {
 		U_arrow.alpha = 0;
 		
 		// Health Bar Configurations
+		health_bar_border = this.game.add.sprite(this.game.camera.x+140, this.game.camera.y+30, 'health_bar_border');
+		health_bar_border.scale.setTo(0.95, 0.7);
+		health_bar_border.anchor.setTo(0.5, 0.5);
+		health_bar_border.alpha = 0.9;
+		health_bar_border.fixedToCamera = true;
 		var barConfig = {
 			x: this.game.camera.x+140, 
 			y: this.game.camera.y+30,
