@@ -198,7 +198,7 @@ theGame.prototype = {
 				}
 				faceRight = true;
         		player.animations.play('walk_right'); 
-        		R_arrow.alpha = 0.45; // Tutorial Arrow
+        		R_arrow.alpha = 0.7; // Tutorial Arrow
 			}
 			else {
 				//put idle animation in here

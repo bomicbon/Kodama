@@ -16,10 +16,6 @@
 		<script src="src/tree.js"></script>
 		<script src="src/boss.js"></script>
         <script src="src/damageSystem.js"></script>
-        <script src="src/thetutorial.js"></script>
-        <script src="src/level1.js"></script>
-        <script src="src/level2.js"></script>
-        <script src="src/godmode.js"></script>
 		<script src="src/thegame.js"></script>
 		<script src="src/stage_cleared.js"></script>
 		<script src="src/gameover.js"></script>
@@ -32,11 +28,7 @@
 				var game = new Phaser.Game(640, 480, Phaser.CANVAS, '');
 				game.state.add("Boot",boot);
 				game.state.add("Preload",preload);
-				game.state.add("TheTutorial", theTutorial);
 				game.state.add("GameTitle",gameTitle);
-				game.state.add("level1", level_One);
-				game.state.add("level2", level_Two);
-				game.state.add("GodMode", godmode);
 				game.state.add("TheGame",theGame);
 				game.state.add("StageCleared", stage_cleared);
 				game.state.add("GameOver",gameOver);
