@@ -64,6 +64,7 @@ var theGame = function(game){
 	sound_shootXL = null;
 	sound_footstep = null;
 	sound_tree_healed = null;
+	sound_jump = null;
 	
 	//Health Bar
 	this.myHealthBar = null;
@@ -206,6 +207,7 @@ theGame.prototype = {
 		sound_shootL = this.game.add.audio('shootL');
 		sound_shootXL = this.game.add.audio('shootXL');
 		sound_tree_healed = this.game.add.audio('tree_healed');
+		sound_jump = this.game.add.audio('jump');
 		
 		// Tutorial Arrows
 		R_arrow = this.game.add.sprite(arrow_x, arrow_y, 'right_arrow');
@@ -321,6 +323,7 @@ theGame.prototype = {
 			
 			if (cursors.up.isDown && player.body.touching.down) {
 				player.body.velocity.y = jumpVelocity;
+				sound_jump.play();
 			}
 			
 			// Tutorial Arrows
