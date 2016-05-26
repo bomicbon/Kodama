@@ -4,6 +4,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.water = water;
     this.wGroup = water.projList;
     
+    //health of boss
     this.health = 2000;
     this.damage = 20;
     this.speed = 30;
