@@ -76,47 +76,7 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
                     }
                     
                 }
-                /*
-                else if (tree.health >= 66 && tree.health <= 99){
-                	stage2 = true;
-                	stage1 = false;
-                	stage3 = false;
-                }
-                	
-                else if (tree.health >= 10 && tree.health <= 65) {
-                	stage1 = true;
-                	stage2 = false;
-                	stage3 = false;
-                }
-                
-                else if(tree.health < 10) {
-                	tree.animations.play('dead'); 
-                	stage1 = false;
-                	stage2 = false;
-                	stage3 = false;
-                }
-                
-                if (stage3){
-                	tree.animations.play('grow3'); 
-                	//stage1 = false;
-                	//stage2 = false;
-                }
-                else if (stage2){
-                	
-                	tree.animations.play('grow2'); 
-                	//stage1 = false;
-                	//stage3 = false;
-                	
-                }
-                else if (stage1){  	
-               	 	tree.animations.play('grow1'); 
-               	 	//stage1 = false;
-                	//stage2 = false;
-                	//stage3 = false;
-               	 	
-               	 }
-                
-                */
+              
             }
             
             if (delta_timer==this.treeGroup.length) {

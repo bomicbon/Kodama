@@ -149,14 +149,14 @@ function slimeSpawner(game, player, slime, water) {
     this.spawnerGroup = game.add.group();
     
     this.create = function() {
-        this.add(700, 495, -1);
-        this.add(2000, 400, -1);
-        this.add(2900, 495, 1);
-        this.add(3300, 495, -1);
+        this.add(700, 552, -1);
+        this.add(2000, 436, -1);
+        this.add(2920, 552, 1);
+        this.add(3440, 436, -1);
     }
     
     this.add = function(x,y, direction) {
-        var spawner = this.spawnerGroup.create(x,y,'follower');
+        var spawner = this.spawnerGroup.create(x,y,'spill');
         game.physics.arcade.enable(spawner);
         spawner.counter = 0;
         spawner.anchor.setTo(0.5);
