@@ -49,7 +49,6 @@ function sweatSystem(game, player) {
             if(this.sweatCounter >= this.sweatTime) {
                 this.sweatCounter = 0;
                 this.addSweat();
-                console.log("sweat");
             }
         }
         

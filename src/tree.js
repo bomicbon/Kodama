@@ -22,37 +22,39 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     sound_delay = 0;
     sound_length = 100;
     
-   
-    stage3 = false;
-    stage2 = false;
-    stage1 = false;
     //shield barrier for first water
     this.shield = null;
     
     this.orbSpawner = null;
     
+    this.LeafManager = new LeafManager(this.g);
+    
+    
     this.inBossFight = false;
     
     this.create = function() {
-        /*
-        for (var i = 0; i < 3; i++) {
-            this.add (Math.random() * 100 + 100*i, 660, 1, 1);
-        }
-        */
-        this.add(450, 690, 1, 10);
-        this.add(1600, 690, 1, 10);
-        this.add(3150, 690, 1, 10);
+        this.addTree(450, 690, 1, 10);
+        this.addTree(1600, 690, 1, 10);
+        this.addTree(3150, 690, 1, 10);
         
      
     }
     
-    this.update = function() {
+    this.update = function(boss) {
         this.g.physics.arcade.overlap(this.treeGroup, slime, this.slimeDamage, null, this);
+        
+        //always check orbSpawner
+        if(this.orbSpawner != null) {
+                this.orbSpawner.update();    
+        }
+        //and shield
+        this.checkShield();
+        
         if(this.inBossFight == false) {
             //if water overlaps with a tree, call overlapping function
             this.g.physics.arcade.overlap(this.treeGroup, this.wGroup.projList, this.overlapping, null, this);
             for (var i = 0; i < this.treeGroup.length; i++) {
-                tree = this.treeGroup.getAt(i);
+                var tree = this.treeGroup.getAt(i);
                 
                 // Tree fully healed /*
                 if (tree.health == 100) { //100
@@ -120,18 +122,43 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
             if (delta_timer==this.treeGroup.length) {
                 this.all_watered = true;
             }
-            delta_timer = 0;
+            delta_timer = 0;            
+        }
+        
+        //in boss fight
+        else {
             
-            this.checkShield();
+            //Mainly used for LEAF MANAGER ***
+            this.treeGroup.forEach(function(tree) {
+                if(boss.sprite.x - tree.x < 550 && tree.launched == false) {
+                    //launch leaves at the boss 
+                    //amount depends on tree health percent
+                    var leaves = Math.round(tree.health / this.maxHealth * 40);
+                    //console.log(leaves);
+                    this.LeafManager.addLeaves(tree.x, tree.y - tree.height/2, leaves);
+                    tree.launched = true;
+                    
+                    //play correct animation from whichever stage it is on
+                    if(tree.health >= this.maxHealth * 2/3) {
+                        tree.animations.play('useUpSome');
+                    }
+                    else if(tree.health >= this.maxHealth / 3) {
+                        tree.animations.play('shrink1');
+                    }
+                    else {
+                        tree.animations.play('useUpAll');
+                    }
+                    
+                    tree.health = 0;
+                }
+            }, this);
             
-            if(this.orbSpawner != null) {
-                this.orbSpawner.update();
-            }
+            this.LeafManager.update(boss);
         }
     }
     
     //add an tree given x, y, width, height
-    this.add = function(x, y, width, height) {
+    this.addTree = function(x, y, width, height) {
         var tree = this.treeGroup.create(x,y, 'tree'); 
         tree.scale.setTo(1, 1) 
         tree.anchor.setTo(0.5,1);
@@ -139,6 +166,8 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
         tree.health = this.health;
         tree.body.immovable = true;
         tree.firstMax = false;
+        //used with the leaf spawn to spawn one group
+        tree.launched = false;
         
          // Animations
         tree.animations.add('grow1', [1, 2, 3], 15, false);
@@ -147,6 +176,8 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
         tree.animations.add('shrink1', [3, 2, 1, 0], 15, false);
         tree.animations.add('shrink2', [6, 5, 4], 15, false);
         tree.animations.add('shrink3', [9, 8, 7], 15, false);
+        tree.animations.add('useUpAll', [9,7,8,6,5,4,3,2,1,0], 5, false);
+        tree.animations.add('useUpSome', [6,5,4,3,2,1,0], 10, false);
         
     }
 
@@ -267,4 +298,80 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     
  
 
+}
+
+function LeafManager(game) {
+    
+    this.leafGroup = game.add.group();
+    
+    var speed = 1000;
+    
+    var damage = 10;
+    var leafUp = game.add.audio('leaf1');
+    var leafSwoosh = game.add.audio('leaf2');
+    
+    //range is used to give a range of x and y maximum values
+    //relative to the given coordinates
+    var range = 100;
+    
+    this.addLeaves = function(x,y, count) {
+        for(var i = 0; i < count; ++i) {
+                        
+            //leaf is created at every 1/4 second
+            game.time.events.add(Phaser.Timer.SECOND * i/6, function() {
+                //random x and y in a set range
+                var randX = Math.random() - 0.5;
+                var randY = Math.random() - 0.6;
+            
+                var leaf = this.leafGroup.create(x + range * randX, y + range * randY, 'leaf');
+                leaf.anchor.setTo(0.5);
+                leaf.alpha = 0;
+                leaf.scale.setTo(0.2);
+                leaf.moveTime = 180;
+                leaf.spinRot = 44;
+                game.physics.arcade.enable(leaf);
+                
+                //tween to fade the leaf sprite into the game
+                var leafY = y + range * randY;
+                game.add.tween(leaf).to({alpha: 1, y: leafY - 50}, 2000, Phaser.Easing.Quadratic.Out, true, 0, 0, false);
+                game.add.tween(leaf).to({rotation: leaf.spinRot}, 2000, Phaser.Easing.Linear.None, true);
+                //game.add.tween(leaf).to({rotation: })
+                
+                leafUp.play();
+            }, this);
+            
+        }
+        
+    }
+    
+    //pass boss object to function so that it can fly to it and damage it
+    this.update = function(boss) {
+        for(var i = 0; i < this.leafGroup.length; ++i) {
+            var leaf = this.leafGroup.getAt(i);
+            //checks if its time to move the leaf yet
+            --leaf.moveTime;
+            //console.log(leaf.moveTime);
+            
+            //have to goto XY since the boss anchor is at the bottom middle
+            var bossX = boss.sprite.x;
+            var bossY = boss.sprite.y - boss.sprite.height/2;
+            
+            if(leaf.moveTime == 0) {
+                leafSwoosh.play();
+            }
+            else if(leaf.moveTime <= 1) {
+                game.physics.arcade.moveToXY(leaf, bossX, bossY, speed);
+                if(game.physics.arcade.distanceToXY(leaf, bossX, bossY) < 150) {
+                    --i;
+                    boss.health -= damage; 
+                    leaf.destroy();
+                }
+            }
+            else if(leaf.moveTime == 60) {
+                var pointRot = game.physics.arcade.angleToXY(leaf, bossX, bossY);
+                game.add.tween(leaf).to({rotation: pointRot + 1.5}, 1000, Phaser.Easing.Exponential.Out, true);
+            }
+        }
+    }
+    
 }

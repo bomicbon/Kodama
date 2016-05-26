@@ -42,6 +42,7 @@ preload.prototype = {
 		this.game.load.image("orb", "assets/img/greenOrb.png");
 		this.game.load.image("waterDrop", "assets/img/waterDroplet.png");
 		this.game.load.image("shield", "assets/img/shield.png");
+		this.game.load.image("leaf", "assets/img/leaf.png");
 		this.game.load.image("right_arrow", "assets/img/right_arrow.png");
 		this.game.load.image("left_arrow", "assets/img/left_arrow.png");
 		this.game.load.image("up_arrow", "assets/img/up_arrow.png");
@@ -55,6 +56,9 @@ preload.prototype = {
 		this.game.load.audio('shootL', 'assets/sound/shootL.wav');
 		this.game.load.audio('shootXL', 'assets/sound/shootXL.wav');
 		this.game.load.audio('water_splash', 'assets/sound/splat.wav');
+		
+		this.game.load.audio('leaf1', 'assets/sound/leafBuildUp.wav');
+		this.game.load.audio('leaf2', 'assets/sound/leafShoot.wav');
 
 	},
   	create: function(){

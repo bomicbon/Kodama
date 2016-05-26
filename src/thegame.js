@@ -327,7 +327,7 @@ theGame.prototype = {
 		wcShooter.update();
 		//wcMelee.update();
 		//enemies.update();
-		treeG.update();
+		treeG.update(boss);
 		dmgSystem.update();
 		
 		boss.update();

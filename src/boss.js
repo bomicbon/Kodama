@@ -97,20 +97,23 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             //check for collision between player and boss, and boss and water
             this.g.physics.arcade.collide(this.sprite, this.p, this.hurtPlayer, null, this);
             this.g.physics.arcade.collide(this.sprite, this.wGroup, this.damageBoss, null, this);
-            this.g.physics.arcade.overlap(this.sprite, trees.treeGroup, this.treeDamage, null, this);
+            //this.g.physics.arcade.overlap(this.sprite, trees.treeGroup, this.treeDamage, null, this);
             
             this.slimeCounter += 1;
             if(this.slimeCounter > this.slimeTime) {
                 this.slimeCounter = 0;
-                var slime1 = slimes.add(this.sprite.x, this.sprite.y, 1, 1);
+                var sX = this.sprite.x - this.sprite.width/2;
+                var sY = this.sprite.y - this.sprite.height/2;
+                
+                var slime1 = slimes.add(sX, sY , 1, 1);
                 slime1.body.velocity.x = -100;
                 slime1.body.velocity.y = -300;
                 
-                var slime2 = slimes.add(this.sprite.x, this.sprite.y, 1, 1);
+                var slime2 = slimes.add(sX, sY, 1, 1);
                 slime2.body.velocity.x = -50;
                 slime2.body.velocity.y = -300;
                 
-                var slime3 = slimes.add(this.sprite.x, this.sprite.y, 1, 1);
+                var slime3 = slimes.add(sX, sY, 1, 1);
                 slime3.body.velocity.x = -150;
                 slime3.body.velocity.y = -300;
                 
@@ -132,7 +135,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.damageBoss = function(boss, water) {
         this.health -= water.damage;
         this.water.hitCollision(water, null);
-        console.log(this.health);
+        //console.log(this.health);
     }
     
     //called when tree hits boss
@@ -140,13 +143,13 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
         this.health -= 4 * tree.health;
         tree.health = 0;
         tree.loadTexture('flower_black', 0);
-        console.log(this.health);
+        //console.log(this.health);
 
     }
     
     this.isAlive = function() {
         if(sprite == null) return false;
-        if(sprite.health < 1) return false;
+        if(this.health < 1) return false;
         return true;
     }
 }
