@@ -105,7 +105,7 @@ function gasSpawnerSystem(game, gasClass, water) {
     this.create = function() {
         //this.add(100,300);
         this.add(1350, 400);
-        this.add(2500, 355);
+        this.add(2500, 400);
     }
     
     this.add = function(x,y) {
