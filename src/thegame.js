@@ -1,5 +1,8 @@
 var theGame = function(game){
+	background = null;
+	
 	player = null;
+	pipesmoke = null;
 	score = 0;
 	pollution_timer = 0;
 	temperature_reading = null;
@@ -69,10 +72,13 @@ var theGame = function(game){
 	// Toxicity Bar
 	this.myToxicityBar = null;
 	t_barConfig = null;
+	
 }
 
 theGame.prototype = {
   	create: function(){
+  		background = this.game.add.tileSprite(0, 0, 4200, 720, "background");
+  		
   		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		number = Math.floor(Math.random()*10);
 		player = this.game.add.sprite(playerX,playerY,'player');
@@ -136,6 +142,12 @@ theGame.prototype = {
 		ground.setAll('body.checkCollision.down', false);
 		ground.setAll('body.checkCollision.left', false);
 		ground.setAll('body.checkCollision.right', false);
+		
+		//pipe smoke
+		/*
+		pipesmoke = this.add.sprite(200, level1, 'pipesmoke');
+		pipesmoke.animations.add('pipesmoke', true);
+        pipesmoke.animations.play('pipesmoke');    */
 
 		//player sweat system
 		sweatS = new sweatSystem(this.game, player);
@@ -249,6 +261,8 @@ theGame.prototype = {
     	this.myToxicityBar.setFixedToCamera(true);
 	},
 	update: function() {
+		
+		//background.tilePosition.x += 0.1;
 		
 		//this.game.stage.backgroundColor =  8762849 + pollution_timer + 10*temperature;
 	    this.game.physics.arcade.collide(player, ground);

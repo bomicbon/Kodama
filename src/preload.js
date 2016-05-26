@@ -9,8 +9,10 @@ preload.prototype = {
 		// Images
 		this.game.load.image("gametitle", "assets/img/gametitle.png");
 		this.game.load.image("play", "assets/img/play.png");
+		this.game.load.image("background", "assets/img/background.png");
 		this.game.load.spritesheet('player', 'assets/img/player.png', 44, 65, 16);
 		this.game.load.spritesheet('tree', 'assets/img/tree.png', 150, 210, 10);
+		this.game.load.spritesheet('pipesmoke', 'assets/img/pipesmoke.png', 100, 120, 50);
 		this.game.load.image("platformL", "assets/img/platformL.png");
 		this.game.load.image("platformM", "assets/img/platformM.png");
 		this.game.load.image("platformS", "assets/img/platformS.png");
@@ -22,7 +24,6 @@ preload.prototype = {
 		this.game.load.image("ground", "assets/img/ground.png");
 		this.game.load.image("groundI", "assets/img/groundI.png");
 		this.game.load.image("follower", "assets/img/follower.png");
-		this.game.load.image("flower", "assets/img/flower.png");
 		this.game.load.image("pipe", "assets/img/pipe.png");
 		this.game.load.image("water", "assets/img/water.png");
 		this.game.load.spritesheet('splash', 'assets/img/splash.png', 24, 24, 10);
@@ -36,7 +37,6 @@ preload.prototype = {
 		this.game.load.image("godmode", "assets/img/godmode.png");
 		this.game.load.image("gameover", "assets/img/gameover.png");
 		this.game.load.image("quit", "assets/img/quit.png");
-		this.game.load.image("flower_black", "assets/img/flower_black.png");
 		this.game.load.image("stagecleared", "assets/img/stage_cleared.png");
 		this.game.load.image("blob", "assets/img/blob.png");
 		this.game.load.image("orb", "assets/img/greenOrb.png");
