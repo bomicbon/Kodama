@@ -105,11 +105,11 @@ function gasSpawnerSystem(game, gasClass, water) {
     this.create = function() {
         //this.add(100,300);
         this.add(1350, 400);
-        this.add(2500, 355);
+        this.add(2500, 400);
     }
     
     this.add = function(x,y) {
-        var sprite = this.spawnerGroup.create(x, y, "follower");
+        var sprite = this.spawnerGroup.create(x, y, "pipe");
         this.g.physics.arcade.enable(sprite);
         sprite.counter = 0;
         sprite.anchor.setTo(0.5);

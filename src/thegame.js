@@ -1,5 +1,6 @@
 var theGame = function(game){
 	player = null;
+	pipesmoke = null;
 	score = 0;
 	pollution_timer = 0;
 	temperature_reading = null;
@@ -133,6 +134,12 @@ theGame.prototype = {
 		ground.setAll('body.checkCollision.down', false);
 		ground.setAll('body.checkCollision.left', false);
 		ground.setAll('body.checkCollision.right', false);
+		
+		//pipe smoke
+		/*
+		pipesmoke = this.add.sprite(200, level1, 'pipesmoke');
+		pipesmoke.animations.add('pipesmoke', true);
+        pipesmoke.animations.play('pipesmoke');    */
 
   	    //watering can shooter code
 		wcShooter = new wateringcanShooter(this.game, player, ground, temperature_reading);
