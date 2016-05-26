@@ -292,6 +292,7 @@ theGame.prototype = {
 			else if(cursors.left.isDown) {
 				player.body.velocity.x = -playerSpeed + (temperature_reading.temp - startingTemp) * 2;
 				background.tilePosition.x += 0.5;
+				background1.tilePosition.x += 1.5;
 				if(player.body.velocity.x > -minSpeed) {
 					player.body.velocity.x = -minSpeed;
 				}
@@ -307,6 +308,7 @@ theGame.prototype = {
 				player.body.velocity.x = playerSpeed - (temperature_reading.temp - startingTemp) * 2;
 				
 				background.tilePosition.x -= 0.5;
+				background1.tilePosition.x -= 1.5;
 				if(player.body.velocity.x < minSpeed) {
 					player.body.velocity.x = minSpeed;
 				}
