@@ -58,8 +58,8 @@ function slimeGroup(game, player, ground) {
     //add an slime slick given x, y, width, height
     this.add = function(x, y, width, height) {
         var slime = this.enemyGroup.create(x,y, 'slime');   
-        slime.animations.add('slime');
-        slime.animations.play('slime', 15, true);    
+        slime.animations.add('slime', [0,1,2,3,2,1], 15, true);
+        slime.animations.play('slime');    
         slime.scale.setTo(width, height);
         slime.anchor.setTo(0.5);
         this.g.physics.arcade.enable(slime);
