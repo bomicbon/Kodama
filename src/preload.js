@@ -39,6 +39,7 @@ preload.prototype = {
 		this.game.load.image("flower_black", "assets/img/flower_black.png");
 		this.game.load.image("stagecleared", "assets/img/stage_cleared.png");
 		this.game.load.image("blob", "assets/img/blob.png");
+		this.game.load.image("orb", "assets/img/greenOrb.png");
 		this.game.load.image("shield", "assets/img/shield.png");
 		this.game.load.image("right_arrow", "assets/img/right_arrow.png");
 		this.game.load.image("left_arrow", "assets/img/left_arrow.png");

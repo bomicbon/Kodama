@@ -29,6 +29,8 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     //shield barrier for first water
     this.shield = null;
     
+    this.orbSpawner = null;
+    
     this.inBossFight = false;
     
     this.create = function() {
@@ -40,6 +42,7 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
         this.add(450, 690, 1, 10);
         this.add(1600, 690, 1, 10);
         this.add(3150, 690, 1, 10);
+        
      
     }
     
@@ -67,6 +70,7 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
                         this.p.health += 20;
                         this.explosion(tree);
                         //this.waterG.shotSize++;
+                        this.orbSpawner = new greenOrbSpawnAt(this.g, this.p, tree.x, tree.y - tree.height/2, this.p, 5);
                     }
                     
                 }
@@ -119,6 +123,10 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
             delta_timer = 0;
             
             this.checkShield();
+            
+            if(this.orbSpawner != null) {
+                this.orbSpawner.update();
+            }
         }
     }
     
