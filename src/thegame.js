@@ -144,6 +144,8 @@ theGame.prototype = {
 		ground.create(2830, level1, 'platformM'); 
 		this.add.sprite(3348, level2-15,"platformIM");
 		ground.create(3350, level2, 'platformM'); 
+		this.add.sprite(3578, level1-15,"platformIS");
+		ground.create(3580, level1, 'platformS'); 
 		
 		ground.setAll('body.immovable', true);
 		ground.setAll('body.checkCollision.down', false);
@@ -291,7 +293,10 @@ theGame.prototype = {
 					player.body.velocity.x = -minSpeed;
 				}
 				faceRight = false;
-				player.animations.play('walk_left'); 
+				if(!player.body.touching.down)
+					player.animations.play('jump_left');
+				else
+					player.animations.play('walk_left'); 
 				L_arrow.alpha = arrow_alpha; // Tutorial Arrow
 				
 			}
@@ -301,7 +306,10 @@ theGame.prototype = {
 					player.body.velocity.x = minSpeed;
 				}
 				faceRight = true;
-        		player.animations.play('walk_right'); 
+				if(!player.body.touching.down)
+					player.animations.play('jump_right')
+				else
+        			player.animations.play('walk_right'); 
         		R_arrow.alpha = arrow_alpha; // Tutorial Arrow
 			}
 			else {
@@ -416,6 +424,8 @@ theGame.prototype = {
 	
 	 setAnimations: function() {
         // Animations
+        player.animations.add('jump_right', [0], 15, true); 
+        player.animations.add('jump_left', [8], 15, true); 
         player.animations.add('walk_right', [0, 1, 2, 3, 2, 1], 15, true); 
         player.animations.add('idle_right', [4, 5, 6, 7, 6, 5, 4], 10, true); 
         player.animations.add('walk_left', [12, 13, 14, 15, 14, 13], 15, true); 
