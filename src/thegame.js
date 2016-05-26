@@ -86,6 +86,7 @@ theGame.prototype = {
   		background_music.play();
   		
   		background = this.game.add.tileSprite(0, 0, 4200, 720, "background");
+  		background1 = this.game.add.tileSprite(0, 0, 4200, 720, "background1");
   		
   		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		number = Math.floor(Math.random()*10);
@@ -273,7 +274,6 @@ theGame.prototype = {
 	},
 	update: function() {
 		
-		//background.tilePosition.x += 0.1;
 		
 		//this.game.stage.backgroundColor =  8762849 + pollution_timer + 10*temperature;
 	    this.game.physics.arcade.collide(player, ground);
@@ -291,6 +291,7 @@ theGame.prototype = {
 			}
 			else if(cursors.left.isDown) {
 				player.body.velocity.x = -playerSpeed + (temperature_reading.temp - startingTemp) * 2;
+				background.tilePosition.x += 0.5;
 				if(player.body.velocity.x > -minSpeed) {
 					player.body.velocity.x = -minSpeed;
 				}
@@ -304,6 +305,8 @@ theGame.prototype = {
 			}
 			else if(cursors.right.isDown) {
 				player.body.velocity.x = playerSpeed - (temperature_reading.temp - startingTemp) * 2;
+				
+				background.tilePosition.x -= 0.5;
 				if(player.body.velocity.x < minSpeed) {
 					player.body.velocity.x = minSpeed;
 				}
