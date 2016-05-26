@@ -148,6 +148,8 @@ theGame.prototype = {
 		ground.create(3350, level2, 'platformM'); 
 		this.add.sprite(3578, level1-15,"platformIS");
 		ground.create(3580, level1, 'platformS'); 
+		this.add.sprite(3678, level2-15, "platformIS");
+		ground.create(3680, level2, 'platformS');
 		
 		ground.setAll('body.immovable', true);
 		ground.setAll('body.checkCollision.down', false);
