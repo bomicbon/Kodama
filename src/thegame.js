@@ -22,6 +22,8 @@ var theGame = function(game){
 	playerX = 10;
 	playerY = 650;
 	playerHealth = 100;
+	
+	sweatS = null;
 
 	wcShooter = null;
 	
@@ -33,6 +35,7 @@ var theGame = function(game){
 	dmgSystem = null;
 	projGroup = [];
 	enemyGroup = [];
+	
 	
 	boss = null;
 	
@@ -134,6 +137,9 @@ theGame.prototype = {
 		ground.setAll('body.checkCollision.left', false);
 		ground.setAll('body.checkCollision.right', false);
 
+		//player sweat system
+		sweatS = new sweatSystem(this.game, player);
+		
   	    //watering can shooter code
 		wcShooter = new wateringcanShooter(this.game, player, ground, temperature_reading);
 		wcShooter.create();
@@ -330,6 +336,15 @@ theGame.prototype = {
 		if (pollution_timer == 300) {
 			temperature_reading.temp += 1;
 			pollution_timer = 0;
+			
+		}
+		//call more sweat
+		if(temperature_reading.temp >= 70) {
+				sweatS.update(true);
+		}
+		//stop making more sweat
+		if(temperature_reading.temp < 70) {
+				sweatS.update(false);
 		}
 		temperature_reading.setText(temperature_reading.temp);
 		
