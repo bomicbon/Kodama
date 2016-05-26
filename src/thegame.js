@@ -1,5 +1,6 @@
 var theGame = function(game){
 	background = null;
+	background_music = null;
 	
 	player = null;
 	pipesmoke = null;
@@ -75,8 +76,14 @@ var theGame = function(game){
 	
 }
 
+var background_music;
 theGame.prototype = {
   	create: function(){
+  		
+  		//This background_music submission is licensed by author under CC Attribution Noncommercial No Derivative Works (BY-NC-ND)
+  		background_music = this.game.add.audio('background_music');
+  		background_music.play();
+  		
   		background = this.game.add.tileSprite(0, 0, 4200, 720, "background");
   		
   		this.game.physics.startSystem(Phaser.Physics.ARCADE);

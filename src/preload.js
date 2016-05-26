@@ -49,6 +49,7 @@ preload.prototype = {
 		this.game.load.image("health_bar_border", "assets/img/health_bar_border.png");
 		
 		// SOUND
+		this.game.load.audio('background_music', 'assets/sound/background_music.wav');
 		this.game.load.audio('footstep', 'assets/sound/footstep.wav');
 		this.game.load.audio('shoot', 'assets/sound/shoot.wav');
 		this.game.load.audio('tree_healed', 'assets/sound/tree_healed.wav');
