@@ -9,6 +9,7 @@ preload.prototype = {
 		// Images
 		this.game.load.image("gametitle", "assets/img/gametitle.png");
 		this.game.load.image("play", "assets/img/play.png");
+		this.game.load.image("background", "assets/img/background.png");
 		this.game.load.spritesheet('player', 'assets/img/player.png', 44, 65, 16);
 		this.game.load.spritesheet('tree', 'assets/img/tree.png', 150, 210, 10);
 		this.game.load.spritesheet('pipesmoke', 'assets/img/pipesmoke.png', 100, 120, 50);

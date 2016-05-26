@@ -1,4 +1,6 @@
 var theGame = function(game){
+	background = null;
+	
 	player = null;
 	pipesmoke = null;
 	score = 0;
@@ -70,10 +72,13 @@ var theGame = function(game){
 	// Toxicity Bar
 	this.myToxicityBar = null;
 	t_barConfig = null;
+	
 }
 
 theGame.prototype = {
   	create: function(){
+  		background = this.game.add.tileSprite(0, 0, 4200, 720, "background");
+  		
   		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		number = Math.floor(Math.random()*10);
 		player = this.game.add.sprite(playerX,playerY,'player');
@@ -256,6 +261,8 @@ theGame.prototype = {
     	this.myToxicityBar.setFixedToCamera(true);
 	},
 	update: function() {
+		
+		//background.tilePosition.x += 0.1;
 		
 		//this.game.stage.backgroundColor =  8762849 + pollution_timer + 10*temperature;
 	    this.game.physics.arcade.collide(player, ground);
