@@ -161,7 +161,7 @@ function slimeSpawner(game, player, slime, water) {
         spawner.counter = 0;
         spawner.anchor.setTo(0.5);
         spawner.health = this.health;
-        spawner.body.setSize(75, 70, 50, 0);
+        spawner.body.setSize(75, 70, 43, 0);
         spawner.body.immovable = true;
         //negative direction spawns slime moving left, positive is right
         spawner.direction = direction;
