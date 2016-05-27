@@ -154,7 +154,7 @@ function slimeGroup(game, player, ground) {
             this.slimeJump = jumpHeight - Math.random()*200;
         }
         if(body.body.touching.down) {
-            if (Math.random() > 0.4) {
+            if (Math.random() > 0.25) {
                 body.body.velocity.x = body.direction * 100 * Math.random();
             }
             if (Math.random() > 0.5) {

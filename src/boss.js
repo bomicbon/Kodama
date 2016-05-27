@@ -101,7 +101,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             }
             // FASTEREST
             if (this.health == 500) {
-                this.slimeTime = 60 * 0.4;
+                this.slimeTime = 60 * 0.3;
             }
             
             //move sprite and its gas spawners
