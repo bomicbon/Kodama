@@ -28,7 +28,7 @@ function greenOrbSpawnAt(game, player, x,y, dest, count) {
         orb.anchor.setTo(0.5);
         orb.alpha = 0;
         orb.scale.setTo(0.08);
-        orb.moveTime = 120 + 10 * i;
+        orb.moveTime = 30 + 10 * i;
         game.physics.arcade.enable(orb);
         
         //tween to fade the orb sprite into the game
