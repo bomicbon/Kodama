@@ -57,6 +57,7 @@ var theGame = function(game){
 	sound_footstep = null;
 	sound_tree_healed = null;
 	sound_jump = null;
+	s_hithurt = null;
 	
 	//Health Bar
 	this.myHealthBar = null;
@@ -212,6 +213,7 @@ theGame.prototype = {
 		sound_shootXL = this.game.add.audio('shootXL');
 		//sound_tree_healed = this.game.add.audio('tree_healed');
 		sound_jump = this.game.add.audio('jump');
+		//s_hithurt = this.game.add.audio('hithurt');
 		
 		// Health Bar border
 		health_bar_border = this.game.add.sprite(this.game.camera.x+140, this.game.camera.y+30, 'health_bar_border');
@@ -317,7 +319,6 @@ theGame.prototype = {
 			}
 			else {
 				//put idle animation in here
-				// Tutorial Arrows
 			}
 			
 			if (cursors.up.isDown && player.body.touching.down) {
@@ -334,7 +335,6 @@ theGame.prototype = {
 
 		if (player.health < 1) {
 			this.game.state.start("GameOver", true, false, score);
-		    //this.game.state.start("GameTitle");
 		}
 		
 		
@@ -377,21 +377,25 @@ theGame.prototype = {
 		
 		
 		// Sound
+		// SLIGHTLY BETTER WATER G0NZ
 		if (temperature_reading.temp<temperature_reading.nTemp && temperature_reading.temp > 45) {
 			if(wcShooter.shot == true) {
 				sound_shootM.play();
 			}
 		}
+		// WELTER WEIGHT BOY WATER G0NZ
 		else if (temperature_reading.temp < 45 && temperature_reading.temp > 25) {
 			if (wcShooter.shot) {
 				sound_shootL.play();
 			}
 		}
+		// BIG BOY WATER G0NZ
 		else if (temperature_reading.temp < 25 && temperature_reading.temp > 5) {
 			if (wcShooter.shot) {
 				sound_shootXL.play()
 			}
 		}
+		// Default shoot sound
 		else if (wcShooter.shot) {
 			sound_shoot.play();
 		}

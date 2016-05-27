@@ -26,8 +26,12 @@ function DamageSystem(game, player, enemyList, projectileList) {
     //this.hitDelay = 10;
     
     this.removeList = [];
+    
+    // Hit-Hurt Sound 
+    var s_hurt = null;
 
     this.create = function () {
+        var s_hurt = game.add.audio('hithurt');
     }
 
     this.update = function () {
@@ -55,6 +59,7 @@ function DamageSystem(game, player, enemyList, projectileList) {
     // it will also call the projectile's "hitCollision" function
     this.hitCollision = function (enemy, projectile) {
         enemy.health -= projectile.damage;
+        
         var sign = Math.sign(enemy.x - projectile.x);
         enemy.body.velocity.x = sign * 200;
         enemy.body.velocity.y = -200;
