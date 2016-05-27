@@ -8,6 +8,7 @@
     	<script src="phaser.min.js"></script>
     	<script src="src/boot.js"></script>
 		<script src="src/preload.js"></script>
+		<script src="src/credits.js"></script>
 		<script src="src/gametitle.js"></script>
 		<script src="src/follower.js"></script>
         <script src="src/wateringcanShooter.js"></script>
@@ -31,6 +32,7 @@
 				var game = new Phaser.Game(640, 480, Phaser.CANVAS, '');
 				game.state.add("Boot",boot);
 				game.state.add("Preload",preload);
+				game.state.add("Credits", credits);
 				game.state.add("GameTitle",gameTitle);
 				game.state.add("TheGame",theGame);
 				game.state.add("StageCleared", stage_cleared);
