@@ -120,7 +120,7 @@ function gasSpawnerSystem(game, gasClass, water) {
     }
     
     this.update = function() {
-        game.physics.arcade.collide(this.spawnerGroup, water.projList, this.damage, null, this);
+        game.physics.arcade.overlap(this.spawnerGroup, water.projList, this.damage, null, this);
         for(var i = 0; i < this.spawnerGroup.length; ++i) {
             var spawner = this.spawnerGroup.getAt(i);
             if(game.physics.arcade.distanceBetween(spawner,player) < this.spawnRange) {
