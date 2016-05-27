@@ -10,6 +10,7 @@ boot.prototype = {
   	create: function(){
 		this.scale.scaleMode = Phaser.ScaleManager.NO_SCALE;
 		this.scale.pageAlignHorizontally = true;
+		this.scale.pageAlignVertically = true;
 		this.scale.setScreenSize(true);
 		this.game.state.start("Preload");
 	}
