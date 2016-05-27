@@ -43,10 +43,11 @@ function slimeGroup(game, player, ground) {
            if(object.health <= 0) {
                 object.destroy();
                 --i;
-                
                 var explosion = game.add.sprite(object.body.x - 20, object.body.y - 46, 'kaboom');
                 explosion.animations.add('kaboom');
                 explosion.animations.play('kaboom', 30, false, true);
+                var s_explosion = this.g.add.audio('explosion');
+                s_explosion.play();
 
            }
            this.overlapping(object);
