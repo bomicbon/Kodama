@@ -17,6 +17,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
     
     this.bounds = Phaser.Rectangle.clone(this.g.world.bounds);
     this.shot = null;// has a shot been fired? (bool)
+    this.didShoot = null;
     
     this.waterSound = null;
     
@@ -44,6 +45,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
             this.delayCount = 0;
             this.spawnWater();
             this.shot = true; //if spawnwater then shot is true
+            this.didShoot = true; // for the tutorial must remain true after pressed
         }
         if (this.delayCount < this.delay && this.delayCount != 0) {
             this.shot = false;

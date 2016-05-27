@@ -264,6 +264,7 @@ theGame.prototype = {
     	// Text
     	m_arrowkeys = this.game.add.bitmapText(40, 600, 'pixely_font', 'ARROW KEYS TO MOVE', 12);
     	m_feedme = this.game.add.bitmapText(300, 600, 'pixely_font', '', 12);
+    	m_space = this.game.add.bitmapText(40, 580, 'pixely_font', '', 12);
 	},
 	update: function() {
 		
@@ -416,9 +417,7 @@ theGame.prototype = {
 		this.myHealthBar.setPercent(player.health);
 		this.myToxicityBar.setPercent(100*temperature_reading.temp/80);
 		
-		// Tree feed me box
-		
-		
+		// ARROW KEYS TUTORIAL
 		if (this.didL && this.didU && this.didR) {
 			if (m_arrowkeys.alpha < 0.2) {
 				m_arrowkeys.alpha = 0;
@@ -430,9 +429,14 @@ theGame.prototype = {
 			}
 			
 		}
+		
+		// FEED ME Request
 		if (player.body.x > 50) {
 			m_feedme.setText('FEED ME');
+			m_space.setText('SPACE TO SHOOT');
 		}
+		
+		// FEED ME Completed
 		if (treeG.firstHealed) {
 			if (m_feedme.alpha < 0.1) {
 				m_feedme.alpha = 0;
@@ -441,6 +445,18 @@ theGame.prototype = {
 			else {
 				m_feedme.setText('THANK YOU');
 				m_feedme.alpha -= 0.01;
+			}
+		}
+		
+		// SPACE BAR Completed
+		if (wcShooter.didShoot) {
+			if (m_space.alpha < 0.1) {
+				m_space.alpha = 0;
+				m_space.setText('');
+			}
+			else {
+				m_space.setText('THANK YOU');
+				m_space.alpha -= 0.01;
 			}
 		}
 		
