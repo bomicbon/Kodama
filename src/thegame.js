@@ -49,14 +49,6 @@ var theGame = function(game){
 	level1 = level0-levelI;
 	level2 = level1-levelI;
 	
-	// Tutorial Arrows
-	R_arrow = null;
-	L_arrow = null;
-	U_arrow = null;
-	arrow_x = 150;
-	arrow_y = 600;
-	arrow_alpha = 1.0; // how transparent when they appear (1.0 is max)
-	
 	// Sounds
 	sound_shoot = null;
 	sound_shootM = null;
@@ -80,6 +72,10 @@ var theGame = function(game){
 	m_feedme = null;
 	m_posx = 400; // pos x
 	m_posy = 650; // pos y
+	this.didL = false;
+	this.didR = false;
+	this.didU = false;
+	m_arrowkeys = null;
 }
 
 var background_music;
@@ -217,26 +213,6 @@ theGame.prototype = {
 		//sound_tree_healed = this.game.add.audio('tree_healed');
 		sound_jump = this.game.add.audio('jump');
 		
-		// Tutorial images
-		R_arrow = this.game.add.sprite(arrow_x, arrow_y, 'right_arrow');
-		L_arrow = this.game.add.sprite(arrow_x, arrow_y, 'left_arrow');
-		U_arrow = this.game.add.sprite(arrow_x, arrow_y, 'up_arrow');
-		R_arrow.scale.setTo(1.0, 1.0);
-		L_arrow.scale.setTo(1.0, 1.0);
-		U_arrow.scale.setTo(1.0, 1.0);
-		R_arrow.anchor.setTo(0.5, 0.5);
-		L_arrow.anchor.setTo(0.5, 0.5);
-		U_arrow.anchor.setTo(0.5, 0.5);
-		R_arrow.alpha = 0;
-		L_arrow.alpha = 0;
-		U_arrow.alpha = 0;
-		m_feedme = this.game.add.sprite(m_posx, m_posy, 'feedme');
-		m_feedme.anchor.setTo(0.5, 0.5);
-		m_feedme.alpha = 1.0;
-		m_thankyou = this.game.add.sprite(m_posx, m_posy, 'thankyou');
-		m_thankyou.anchor.setTo(0.5, 0.5);
-		m_thankyou.alpha = 0;
-		
 		// Health Bar border
 		health_bar_border = this.game.add.sprite(this.game.camera.x+140, this.game.camera.y+30, 'health_bar_border');
 		health_bar_border.scale.setTo(0.95, 0.4);
@@ -286,7 +262,8 @@ theGame.prototype = {
     	this.myToxicityBar.setFixedToCamera(true);
     	
     	// Text
-    	var sampleText = this.game.add.bitmapText(10, 300, 'pixely_font', 'HI MOM', 64);
+    	m_arrowkeys = this.game.add.bitmapText(40, 600, 'pixely_font', 'ARROW KEYS TO MOVE', 12);
+    	m_feedme = this.game.add.bitmapText(300, 600, 'pixely_font', '', 12);
 	},
 	update: function() {
 		
@@ -317,12 +294,11 @@ theGame.prototype = {
 					player.animations.play('jump_left');
 				else
 					player.animations.play('walk_left'); 
-				L_arrow.alpha = arrow_alpha; // Tutorial Arrow
+				this.didL = true; // TUTORIAL
 				
 			}
 			else if(cursors.right.isDown) {
 				player.body.velocity.x = playerSpeed - (temperature_reading.temp - startingTemp) * 2;
-				
 				background.tilePosition.x -= 0.5;
 				background1.tilePosition.x -= 1.5;
 				if(player.body.velocity.x < minSpeed) {
@@ -333,27 +309,19 @@ theGame.prototype = {
 					player.animations.play('jump_right')
 				else
         			player.animations.play('walk_right'); 
-        		R_arrow.alpha = arrow_alpha; // Tutorial Arrow
+        		this.didR = true; // TUTORIAL
 			}
 			else {
 				//put idle animation in here
 				// Tutorial Arrows
-				R_arrow.alpha = 0;
-				L_arrow.alpha = 0;
 			}
 			
 			if (cursors.up.isDown && player.body.touching.down) {
 				player.body.velocity.y = jumpVelocity;
 				sound_jump.play();
+				this.didU = true; // TUTORIAL
 			}
 			
-			// Tutorial Arrows
-			if(player.body.y<620) {
-				U_arrow.alpha = arrow_alpha;
-			}
-			else {
-				U_arrow.alpha = 0;
-			}
 		}
 		
 		if(player.body.x > boss.startPosition - 200) {
@@ -449,9 +417,31 @@ theGame.prototype = {
 		this.myToxicityBar.setPercent(100*temperature_reading.temp/80);
 		
 		// Tree feed me box
+		
+		
+		if (this.didL && this.didU && this.didR) {
+			if (m_arrowkeys.alpha < 0.2) {
+				m_arrowkeys.alpha = 0;
+				m_arrowkeys.setText('');
+			}
+			else {
+				m_arrowkeys.setText('THANK YOU');
+				m_arrowkeys.alpha -= 0.01;
+			}
+			
+		}
+		if (player.body.x > 50) {
+			m_feedme.setText('FEED ME');
+		}
 		if (treeG.firstHealed) {
-			m_feedme.alpha = 0;
-			m_thankyou.alpha = 1;
+			if (m_feedme.alpha < 0.1) {
+				m_feedme.alpha = 0;
+				m_feedme.setText('');
+			}
+			else {
+				m_feedme.setText('THANK YOU');
+				m_feedme.alpha -= 0.01;
+			}
 		}
 		
 	},
