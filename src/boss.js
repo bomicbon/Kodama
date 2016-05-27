@@ -94,12 +94,14 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
                 this.restTime = 60 * 3.0;
                 this.slimeTime = 60 * 1;
             }
+            // FASTER
             if (this.health == 1000) {
                 this.restTime = 60 * 2.0;
                 this.slimeTime = 60 * 0.50;
             }
+            // FASTEREST
             if (this.health == 500) {
-                this.slimeTime = 60 * 0.35;
+                this.slimeTime = 60 * 0.4;
             }
             
             //move sprite and its gas spawners
