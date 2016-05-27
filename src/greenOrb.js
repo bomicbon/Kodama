@@ -3,7 +3,7 @@
 //and the number of orbs you want to spawn
 
 function greenOrbSpawnAt(game, player, x,y, dest, count) {
-
+    this.g = game;
     var speed = 600;
     
     //heal Amount is the general amount of health each orb adds
@@ -15,6 +15,8 @@ function greenOrbSpawnAt(game, player, x,y, dest, count) {
     var range = 100;
     
     this.orbGroup = game.add.group();
+    
+    var s_healthUp = this.g.add.audio('healthUp');
     
     for(var i = 0; i < count; ++i) {
         //random x and y in a set range
@@ -49,6 +51,7 @@ function greenOrbSpawnAt(game, player, x,y, dest, count) {
                     if(game.physics.arcade.distanceBetween(orb, dest) < 25) {
                         --i;
                         player.health += healAmount; 
+                        s_healthUp.play();
                         orb.destroy();
                     }
                 }

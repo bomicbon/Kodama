@@ -66,6 +66,7 @@ preload.prototype = {
 		this.game.load.audio('leaf2', 'assets/sound/leafShoot.wav');
 		this.game.load.audio('jump', 'assets/sound/jump.wav');
 		this.game.load.audio('explosion', 'assets/sound/explosion.wav');
+		this.game.load.audio('healthUp', 'assets/sound/healthUp.wav');
 
 	},
   	create: function(){
