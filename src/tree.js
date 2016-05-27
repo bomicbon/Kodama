@@ -33,6 +33,9 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     
     this.inBossFight = false;
     
+    // helper Text bool
+    this.firstHealed = null;
+    
     this.create = function() {
         this.addTree(450, 690, 1, 10);
         this.addTree(1600, 690, 1, 10);
@@ -69,6 +72,7 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
                         
                     if(tree.firstMax == false) {
                         tree.firstMax = true;
+                        this.firstHealed = tree.firstMax;
                         temperature_reading.temp -= 20;
                         this.p.health += 20;
                         this.explosion(tree);
@@ -127,6 +131,7 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
         tree.health = this.health;
         tree.body.immovable = true;
         tree.firstMax = false;
+        this.firstHealed = tree.firstMax;
         //used with the leaf spawn to spawn one group
         tree.launched = false;
         

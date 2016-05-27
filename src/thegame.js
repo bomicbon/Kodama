@@ -75,6 +75,11 @@ var theGame = function(game){
 	this.myToxicityBar = null;
 	t_barConfig = null;
 	
+	// Message Boxes
+	m_thankyou = null;
+	m_feedme = null;
+	m_posx = 400; // pos x
+	m_posy = 650; // pos y
 }
 
 var background_music;
@@ -212,7 +217,7 @@ theGame.prototype = {
 		//sound_tree_healed = this.game.add.audio('tree_healed');
 		sound_jump = this.game.add.audio('jump');
 		
-		// Tutorial Arrows
+		// Tutorial images
 		R_arrow = this.game.add.sprite(arrow_x, arrow_y, 'right_arrow');
 		L_arrow = this.game.add.sprite(arrow_x, arrow_y, 'left_arrow');
 		U_arrow = this.game.add.sprite(arrow_x, arrow_y, 'up_arrow');
@@ -225,6 +230,12 @@ theGame.prototype = {
 		R_arrow.alpha = 0;
 		L_arrow.alpha = 0;
 		U_arrow.alpha = 0;
+		m_feedme = this.game.add.sprite(m_posx, m_posy, 'feedme');
+		m_feedme.anchor.setTo(0.5, 0.5);
+		m_feedme.alpha = 1.0;
+		m_thankyou = this.game.add.sprite(m_posx, m_posy, 'thankyou');
+		m_thankyou.anchor.setTo(0.5, 0.5);
+		m_thankyou.alpha = 0;
 		
 		// Health Bar border
 		health_bar_border = this.game.add.sprite(this.game.camera.x+140, this.game.camera.y+30, 'health_bar_border');
@@ -371,6 +382,7 @@ theGame.prototype = {
 		
 		boss.update();
 		
+		
 		pollution_timer++;
 		if (pollution_timer == 300) {
 			temperature_reading.temp += 1;
@@ -432,6 +444,12 @@ theGame.prototype = {
 		// Updating Bars
 		this.myHealthBar.setPercent(player.health);
 		this.myToxicityBar.setPercent(100*temperature_reading.temp/80);
+		
+		// Tree feed me box
+		if (treeG.firstHealed) {
+			m_feedme.alpha = 0;
+			m_thankyou.alpha = 1;
+		}
 		
 	},
 	

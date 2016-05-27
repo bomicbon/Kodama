@@ -49,6 +49,8 @@ preload.prototype = {
 		this.game.load.image("left_arrow", "assets/img/left_arrow.png");
 		this.game.load.image("up_arrow", "assets/img/up_arrow.png");
 		this.game.load.image("health_bar_border", "assets/img/health_bar_border.png");
+		this.game.load.image("feedme", "assets/img/feedme.png");
+		this.game.load.image("thankyou", "assets/img/thankyou.png");
 		
 		// SOUND
 		this.game.load.audio('background_music', 'assets/sound/background_music.wav');
