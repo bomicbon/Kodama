@@ -13,10 +13,12 @@ function slimeGroup(game, player, ground) {
     
     this.slimeSpeed = 50; // Speed of slime 
     this.slimeDelay = 30; // Time in between slime steps
-    this.slimeBounce = 0.3; // bounciness
+    this.slimeBounce = 0.6; // bounciness
     this.slimeStepCount = 0; // Counts the steps
     this.slimeStepMax = 90; // Max number of steps in one direction
     this.slimeTimer = 0;
+    this.slimeJump = 0; // jump height
+    jumpHeight = -200;
     
     this.create = function() {
         /*
@@ -140,8 +142,20 @@ function slimeGroup(game, player, ground) {
         */
         
         //changing code to test for slime hitting tree
+        if (Math.random() > 0.5) {
+            this.slimeJump = jumpHeight + Math.random()*200;
+        }
+        else {
+            this.slimeJump = jumpHeight - Math.random()*200;
+        }
         if(body.body.touching.down) {
-            body.body.velocity.x = 50 * body.direction;
+            if (Math.random() > 0.4) {
+                body.body.velocity.x = body.direction * 100 * Math.random();
+            }
+            
+            if (Math.random() > 0.5) {
+                body.body.velocity.y = this.slimeJump;
+            }
         }
     }
 }
