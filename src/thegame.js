@@ -58,6 +58,7 @@ var theGame = function(game){
 	sound_tree_healed = null;
 	sound_jump = null;
 	s_hithurt = null;
+	s_slimejump = null;
 	
 	//Health Bar
 	this.myHealthBar = null;
@@ -214,6 +215,7 @@ theGame.prototype = {
 		//sound_tree_healed = this.game.add.audio('tree_healed');
 		sound_jump = this.game.add.audio('jump');
 		//s_hithurt = this.game.add.audio('hithurt');
+		//s_slimejump = this.game.add.audio('slimejump');
 		
 		// Health Bar border
 		health_bar_border = this.game.add.sprite(this.game.camera.x+140, this.game.camera.y+30, 'health_bar_border');

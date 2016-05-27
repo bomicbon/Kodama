@@ -19,6 +19,11 @@ function slimeGroup(game, player, ground) {
     this.slimeTimer = 0;
     this.slimeJump = 0; // jump height
     jumpHeight = -200;
+    // Ethan, How do you get this jump sound to work?
+    //this.jumped = false;
+    //jumpsoundtimer = 0;
+    //jumpsounddelay = 50;
+    //s_jump = null;
     
     this.create = function() {
         /*
@@ -35,7 +40,8 @@ function slimeGroup(game, player, ground) {
         */
         for(var i = 0; i < 5; ++i) {
             this.add(3600+ i*20, 0, 1, 1);
-        }        
+        }       
+        //s_jump = this.g.add.audio('slimejump');
     }
     
     //loops through the slime group and checks for overlap with a player
@@ -54,7 +60,6 @@ function slimeGroup(game, player, ground) {
            }
            this.overlapping(object);
            this.movement(object); // Movement Code
-           
         }
     }
     
@@ -152,10 +157,12 @@ function slimeGroup(game, player, ground) {
             if (Math.random() > 0.4) {
                 body.body.velocity.x = body.direction * 100 * Math.random();
             }
-            
             if (Math.random() > 0.5) {
                 body.body.velocity.y = this.slimeJump;
             }
+        }
+        else {
+            //s_jump.play();
         }
     }
 }
@@ -165,9 +172,9 @@ function slimeSpawner(game, player, slime, water) {
     this.health = 50;
     
     //time between spawns
-    this.spawnTime = 60 * 0.6; // formerly 60 * 3
+    this.spawnTime = 60 * 0.2; // formerly 60 * 3
     
-    this.spawnRange = 800;
+    this.spawnRange = 500;
     
     this.spawnerGroup = game.add.group();
     

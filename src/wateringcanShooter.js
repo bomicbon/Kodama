@@ -61,15 +61,20 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
         
         this.scale = 2 - (temperature_reading.temp - temperature_reading.nTemp) * 0.04; 
         this.speed = this.speed - 0.005* (temperature_reading.temp - temperature_reading.nTemp);
-        if (temperature_reading.temp - temperature_reading.nTemp < 0) {
-            this.delay = 4;
-        }
-        else if (temperature_reading.temp - temperature_reading.nTemp < -20) {
+        // DOPE FIRE RATE
+        if (temperature_reading.temp - temperature_reading.nTemp < -40) {
             this.delay = 3;
         }
-        else if (temperature_reading.temp - temperature_reading.nTemp < -40) {
-            this.delay = 2;
+        // BETTER FIRE RATE
+        else if (temperature_reading.temp - temperature_reading.nTemp < -20) {
+            this.delay = 4;
         }
+        // FIRE RATE
+        else if (temperature_reading.temp - temperature_reading.nTemp < 0) {
+            this.delay = 4.5;
+        }
+        
+        
     }
 
     this.spawnWater = function () {

@@ -4,10 +4,10 @@ function gasGroup(game, player) {
     
     this.enemyGroup = this.g.add.group();
     
-    this.health = 20; // formerly 40
+    this.health = 10; // formerly 40
     this.maxhealth = this.health;
     this.damage = 0.5; // formerly 0.2
-    this.speed = 50;
+    this.speed = 75;
     this.gravity = 0;
     
     //determines how long gas lives until destroy
@@ -39,9 +39,9 @@ function gasGroup(game, player) {
             object.timer++;
             //E: changed object timer to work with lifetime
             if (object.timer%5 == 0) {
-                object.scaleValue += 0.005;
+                object.scaleValue += 0.01; // formerly 0.0005 i think
                 object.scale.setTo(object.scaleValue, object.scaleValue);
-                object.alpha -= 0.01;
+                object.alpha -= 0.02; // formerly 0.01 i think
                 //object.timer = 0;
             }
             
@@ -108,8 +108,10 @@ function gasSpawnerSystem(game, gasClass, water) {
     this.gClass = gasClass;
     
     //spawn time rate
-    this.spawnTime = 60 * 1; // formerly 60 * 4
+    this.spawnTime = 60 * 0.35; // formerly 60 * 4
     this.spawnRange = 600;
+    restTime = this.spawnTime * 3;
+    restCounter = 0;
     
     this.create = function() {
         //this.add(100,300);
@@ -133,12 +135,20 @@ function gasSpawnerSystem(game, gasClass, water) {
         for(var i = 0; i < this.spawnerGroup.length; ++i) {
             var spawner = this.spawnerGroup.getAt(i);
             if(game.physics.arcade.distanceBetween(spawner,player) < this.spawnRange) {
-                spawner.counter += 1;
-                //spawns a gas at the spawner when the timer is up
-                if(spawner.counter > this.spawnTime) {
-                    spawner.counter = 0;
-                    gasClass.add(spawner.x, spawner.y, 0.1, 0.1);
+                ++restCounter;
+                if (restCounter > restTime) {
+                    spawner.counter += 1;
+                    //spawns a gas at the spawner when the timer is up
+                    if(spawner.counter > this.spawnTime) {
+                        spawner.counter = 0;
+                        gasClass.add(spawner.x, spawner.y, 0.1, 0.1);
+                    }
+                    if(restCounter == 2 * restTime + 5) {
+                        restCounter = 0;
+                    }
+                    
                 }
+                    
                 //if the spawner dies, destroy
                 if(spawner.health <= 0) {
                     spawner.destroy();
