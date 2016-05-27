@@ -268,7 +268,10 @@ theGame.prototype = {
 	},
 	update: function() {
 		
-		
+		// Prevents Player Health from going over MAX
+		if (player.health > playerHealth) {
+			player.health = playerHealth;
+		}
 		//this.game.stage.backgroundColor =  8762849 + pollution_timer + 10*temperature;
 	    this.game.physics.arcade.collide(player, ground);
 		
