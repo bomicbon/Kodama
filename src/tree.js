@@ -14,6 +14,7 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     delta_value = 1; // temperature delta upon tree activation
     this.all_watered = null // bool for whether all plants have been activated
     
+    var treeHealSound = game.add.audio('tree_healed');
     tree_healed_count = 0;
     tree_healed_count_prev = 0;
     
@@ -99,14 +100,14 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
                     tree.launched = true;
                     
                     //play correct animation from whichever stage it is on
+                    if(tree.health == this.maxHealth) {
+                        tree.animations.play('useUpAll');
+                    }
                     if(tree.health >= this.maxHealth * 2/3) {
                         tree.animations.play('useUpSome');
                     }
                     else if(tree.health >= this.maxHealth / 3) {
                         tree.animations.play('shrink1');
-                    }
-                    else {
-                        tree.animations.play('useUpAll');
                     }
                     
                     tree.health = 0;
@@ -246,6 +247,8 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     }
     
     this.playSound = function() {
+        treeHealSound.play();
+        
         tree_healed_count++;
         if (tree_healed_count != tree_healed_count_prev) {
             tree_healed_count_prev = tree_healed_count;
@@ -325,6 +328,14 @@ function LeafManager(game) {
                     --i;
                     boss.health -= damage; 
                     leaf.destroy();
+                    
+                    //change tint, call time event later in half a second to revert back
+                    boss.sprite.tint = 0x00FFFF;
+                    boss.sprite.alpha = 0.8;
+                    game.time.events.add(Phaser.Timer.SECOND / 2, function() {
+                        boss.sprite.tint = 0xFFFFFF;
+                        boss.sprite.alpha = 1;
+                    }, this);
                 }
             }
             else if(leaf.moveTime == 60) {

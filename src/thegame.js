@@ -209,7 +209,7 @@ theGame.prototype = {
 		sound_shootM = this.game.add.audio('shootM');
 		sound_shootL = this.game.add.audio('shootL');
 		sound_shootXL = this.game.add.audio('shootXL');
-		sound_tree_healed = this.game.add.audio('tree_healed');
+		//sound_tree_healed = this.game.add.audio('tree_healed');
 		sound_jump = this.game.add.audio('jump');
 		
 		// Tutorial Arrows
@@ -418,6 +418,8 @@ theGame.prototype = {
 		// For some reason I haven't been able to fit the sound code in their respective js files
 		// Thats why they are here.
 		
+		//E: time to fix
+		/*
 		if (treeG.tree_healed) {
 			sound_tree_healed.play();
 			sound_delay++;
@@ -425,6 +427,8 @@ theGame.prototype = {
 				treeG.tree_healed = false;
 			}
 		}
+		*/
+		
 		// Updating Bars
 		this.myHealthBar.setPercent(player.health);
 		this.myToxicityBar.setPercent(100*temperature_reading.temp/80);
