@@ -284,6 +284,9 @@ theGame.prototype = {
     	this.myToxicityBar = new HealthBar(this.game, t_barConfig);
     	this.myToxicityBar.setPercent(100*temperature_reading.temp/80);
     	this.myToxicityBar.setFixedToCamera(true);
+    	
+    	// Text
+    	var sampleText = this.game.add.bitmapText(10, 300, 'pixely_font', 'HI MOM', 64);
 	},
 	update: function() {
 		

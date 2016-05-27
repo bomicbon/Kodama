@@ -67,6 +67,9 @@ preload.prototype = {
 		this.game.load.audio('jump', 'assets/sound/jump.wav');
 		this.game.load.audio('explosion', 'assets/sound/explosion.wav');
 		this.game.load.audio('healthUp', 'assets/sound/healthUp.wav');
+		
+		// FONT
+		this.game.load.bitmapFont('pixely_font', 'assets/font/font.png', 'assets/font/font.fnt');
 
 	},
   	create: function(){
