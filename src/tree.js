@@ -184,6 +184,13 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
                 tree.health = 0;
             }
             
+            tree.tint = 0xFF0000;
+            tree.alpha = 0.8;
+            game.time.events.add(Phaser.Timer.SECOND / 2, function() {
+                tree.tint = 0xFFFFFF;
+                tree.alpha = 1;
+            }, this);
+            
             var sign = Math.sign(slime.x - tree.x);
             slime.body.velocity.x = sign * 200;
             slime.body.velocity.y = -100;
