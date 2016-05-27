@@ -41,6 +41,7 @@ function gasGroup(game, player) {
             if (object.timer%5 == 0) {
                 object.scaleValue += 0.005;
                 object.scale.setTo(object.scaleValue, object.scaleValue);
+                object.alpha -= 0.005;
                 //object.timer = 0;
             }
             
