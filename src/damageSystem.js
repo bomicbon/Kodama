@@ -70,7 +70,7 @@ function DamageSystem(game, player, enemyList, projectileList) {
         //this.enemyHitDelay.push(this.hitDelay);
         
         //change enemy tint to red and lower alpha
-        enemy.tint = 0x00FFFF;
+        enemy.tint = 0xFF0000;
         enemy.alpha = 0.8;
         //add a timer event half a second later to revert back to original settings
         game.time.events.add(Phaser.Timer.SECOND / 2, function() {
