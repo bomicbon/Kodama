@@ -130,6 +130,14 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
         this.p.body.velocity.x = -300;
         this.p.body.velocity.y = -100;
         this.p.knocked = true;
+        //change enemy tint to red and lower alpha
+        this.p.tint = 0xFF0000;
+        this.p.alpha = 0.8;
+        //add a timer event half a second later to revert back to original settings
+        this.g.time.events.add(Phaser.Timer.SECOND / 2, function() {
+            this.p.tint = 0xFFFFFF;
+            this.p.alpha = 1;
+        }, this);
     }
     
     //called when water hits boss

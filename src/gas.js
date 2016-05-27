@@ -4,9 +4,9 @@ function gasGroup(game, player) {
     
     this.enemyGroup = this.g.add.group();
     
-    this.health = 40;
+    this.health = 20; // formerly 40
     this.maxhealth = this.health;
-    this.damage = 0.2;
+    this.damage = 0.5; // formerly 0.2
     this.speed = 50;
     this.gravity = 0;
     
@@ -74,6 +74,14 @@ function gasGroup(game, player) {
         this.p.health -= gas.damage;
             
         this.p.body.velocity.x /= 2;
+        //change enemy tint to red and lower alpha
+        this.p.tint = 0xFF0000;
+        this.p.alpha = 0.8;
+        //add a timer event half a second later to revert back to original settings
+        this.g.time.events.add(Phaser.Timer.SECOND / 2, function() {
+            this.p.tint = 0xFFFFFF;
+            this.p.alpha = 1;
+        }, this);
             
     }
     
@@ -99,7 +107,7 @@ function gasSpawnerSystem(game, gasClass, water) {
     this.gClass = gasClass;
     
     //spawn time rate
-    this.spawnTime = 60 * 4;
+    this.spawnTime = 60 * 1; // formerly 60 * 4
     this.spawnRange = 600;
     
     this.create = function() {

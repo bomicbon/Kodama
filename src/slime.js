@@ -8,8 +8,8 @@ function slimeGroup(game, player, ground) {
     this.counter = 0;
     this.stepTime = 20;
     this.gravity = 1000;
-    this.damage = 0.2;
-    this.health = 20;
+    this.damage = 0.5; // formerly 0.2
+    this.health = 10; // formerly 20
     
     this.slimeSpeed = 50; // Speed of slime 
     this.slimeDelay = 30; // Time in between slime steps
@@ -98,6 +98,14 @@ function slimeGroup(game, player, ground) {
             else {
                 this.p.body.velocity.x = 0;
             }
+            //change enemy tint to red and lower alpha
+            this.p.tint = 0xFF0000;
+            this.p.alpha = 0.8;
+            //add a timer event half a second later to revert back to original settings
+            this.g.time.events.add(Phaser.Timer.SECOND / 2, function() {
+                this.p.tint = 0xFFFFFF;
+                this.p.alpha = 1;
+            }, this);
             
         }
         else {
@@ -143,7 +151,7 @@ function slimeSpawner(game, player, slime, water) {
     this.health = 50;
     
     //time between spawns
-    this.spawnTime = 60 * 3;
+    this.spawnTime = 60 * 1; // formerly 60 * 3
     
     this.spawnRange = 800;
     
