@@ -82,6 +82,11 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
 
             // BOSS HEALTH DYNAMICS
             if(this.health <= 0) {
+                // DON'T GO TO STAGE CLEARED JUST YET
+                // 1. DESTROY ALL OBJECTS
+                // 2. ANIMATE DEATH
+                // 3. ADD SUCCESS SPRITE & MENU OPTIONS
+                // 4. LEAVE PLAYER IN GAME TO CHOOSE MAIN MENU
                 this.g.state.start("StageCleared", true, false);
             }
             // Makes Boss Spawn more Frequently
@@ -94,8 +99,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
                 this.slimeTime = 60 * 0.50;
             }
             if (this.health == 500) {
-                this.restTime = 60 * 1.5;
-                this.slimeTime = 60 * 0.25;
+                this.slimeTime = 60 * 0.35;
             }
             
             //move sprite and its gas spawners
