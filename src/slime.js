@@ -165,7 +165,7 @@ function slimeSpawner(game, player, slime, water) {
     this.health = 50;
     
     //time between spawns
-    this.spawnTime = 60 * 1; // formerly 60 * 3
+    this.spawnTime = 60 * 0.6; // formerly 60 * 3
     
     this.spawnRange = 800;
     
