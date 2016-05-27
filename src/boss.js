@@ -31,7 +31,9 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     
     this.bossGroup = this.g.add.group();
     
-    this.slimeTime = 60 * 4;
+    this.restTime = 60 * 4;
+    this.restCounter = 0;
+    this.slimeTime = 60 * 2;
     this.slimeCounter = 0;
         
     this.create = function() {
@@ -78,9 +80,24 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             this.sprite.scale.setTo(scaleX, scaleY);
 
 
+            // BOSS HEALTH DYNAMICS
             if(this.health <= 0) {
                 this.g.state.start("StageCleared", true, false);
             }
+            // Makes Boss Spawn more Frequently
+            if (this.health == 1500) {
+                this.restTime = 60 * 3.0;
+                this.slimeTime = 60 * 1;
+            }
+            if (this.health == 1000) {
+                this.restTime = 60 * 2.0;
+                this.slimeTime = 60 * 0.50;
+            }
+            if (this.health == 500) {
+                this.restTime = 60 * 1.5;
+                this.slimeTime = 60 * 0.25;
+            }
+            
             //move sprite and its gas spawners
             this.sprite.body.velocity.x = -this.speed;
             
@@ -100,24 +117,30 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             this.g.physics.arcade.collide(this.sprite, this.wGroup, this.damageBoss, null, this);
             //this.g.physics.arcade.overlap(this.sprite, trees.treeGroup, this.treeDamage, null, this);
             
-            this.slimeCounter += 1;
-            if(this.slimeCounter > this.slimeTime) {
-                this.slimeCounter = 0;
-                var sX = this.sprite.x - this.sprite.width/2;
-                var sY = this.sprite.y - this.sprite.height/2;
-                
-                var slime1 = slimes.add(sX, sY , 1, 1);
-                slime1.body.velocity.x = -100;
-                slime1.body.velocity.y = -300;
-                
-                var slime2 = slimes.add(sX, sY, 1, 1);
-                slime2.body.velocity.x = -50;
-                slime2.body.velocity.y = -300;
-                
-                var slime3 = slimes.add(sX, sY, 1, 1);
-                slime3.body.velocity.x = -150;
-                slime3.body.velocity.y = -300;
-                
+            this.restCounter += 1;
+            if (this.restCounter > this.restTime) {
+                this.slimeCounter += 1;
+                if (this.slimeCounter > this.slimeTime) {
+                    this.slimeCounter = 0;
+                    
+                    var sX = this.sprite.x - this.sprite.width/2;
+                    var sY = this.sprite.y - this.sprite.height/2;
+                    
+                    var slime1 = slimes.add(sX, sY , 1, 1);
+                    slime1.body.velocity.x = -100;
+                    slime1.body.velocity.y = -300;
+                    
+                    var slime2 = slimes.add(sX, sY, 1, 1);
+                    slime2.body.velocity.x = -50;
+                    slime2.body.velocity.y = -300;
+                    
+                    var slime3 = slimes.add(sX, sY, 1, 1);
+                    slime3.body.velocity.x = -150;
+                    slime3.body.velocity.y = -300;
+                }
+                if (this.restCounter == 2 * this.restTime + 20) {
+                    this.restCounter = 0;
+                }
             }
         }
         
