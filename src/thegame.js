@@ -448,7 +448,7 @@ theGame.prototype = {
 				m_space.setText('');
 			}
 			else {
-				m_space.setText('THANK YOU');
+				m_space.setText('WATER THE TREE U THUNDERCUNT'); // NO RLY THOUGH WAT IS THIS DOING HERE
 				m_space.alpha -= 0.01;
 			}
 		}
