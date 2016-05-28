@@ -87,7 +87,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
             //this.delayCount = 0;
             
             //shoot projectile to left
-            if (!faceRight){
+            if (!player.faceRight){
            		var projL = this.g.add.sprite(this.p.body.x-30 + this.p.body.halfWidth, this.p.body.y+35, 'water');
 	            this.g.physics.arcade.enable(projL);
 	            projL.body.gravity.y = this.gravity;

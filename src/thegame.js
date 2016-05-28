@@ -2,29 +2,16 @@ var theGame = function(game){
 	background = null;
 	background_music = null;
 	
+	p = null;
 	player = null;
 	score = 0;
 	pollution_timer = 0;
 	temperature_reading = null;
 	startingTemp = 65;
 	
-	cursors = null;
 	ground = null;
-	followerSystem = null;
 	flower = null;
 	animal = null;
-	faceRight = true;
-	
-	jumpVelocity = -500;
-	
-	gravity = 1000;
-	worldWidth = 4200;
-	worldHeight = 720;
-
-	playerSpeed = 250;
-	playerX = 10;
-	playerY = 650;
-	playerHealth = 100;
 	
 	sweatS = null;
 
@@ -38,7 +25,6 @@ var theGame = function(game){
 	dmgSystem = null;
 	projGroup = [];
 	enemyGroup = [];
-	
 	
 	boss = null;
 	
@@ -55,7 +41,6 @@ var theGame = function(game){
 	sound_shootXL = null;
 	sound_footstep = null;
 	sound_tree_healed = null;
-	sound_jump = null;
 	s_hithurt = null;
 	s_slimejump = null;
 	
@@ -73,15 +58,15 @@ var theGame = function(game){
 	m_feedme = null;
 	m_posx = 400; // pos x
 	m_posy = 650; // pos y
-	this.didL = false;
-	this.didR = false;
-	this.didU = false;
+	
 	m_arrowkeys = null;
 }
 
 var background_music;
 theGame.prototype = {
   	create: function(){
+		  
+		this.game.physics.startSystem(Phaser.Physics.ARCADE);
   		
   		//This background_music submission is licensed by author under CC Attribution Noncommercial No Derivative Works (BY-NC-ND)
   		background_music = this.game.add.audio('background_music');
@@ -90,23 +75,6 @@ theGame.prototype = {
   		background = this.game.add.tileSprite(0, 0, 4200, 720, "background");
   		background1 = this.game.add.tileSprite(0, 0, 4200, 720, "background1");
   		
-  		this.game.physics.startSystem(Phaser.Physics.ARCADE);
-		number = Math.floor(Math.random()*10);
-		player = this.game.add.sprite(playerX,playerY,'player');
-		player.anchor.setTo(0.5,0.5);
-		cursors = this.game.input.keyboard.createCursorKeys();
-		this.game.world.setBounds(0, 0, worldWidth, worldHeight);
-		this.game.physics.arcade.enable(player);
-		player.scale.setTo(1, 1);
-		player.body.syncBounds = false;
-		this.game.camera.follow(player);
-		player.body.bounce.y = 0.1;
-		player.body.gravity.y = gravity;
-		player.body.collideWorldBounds = true;
-		player.health = playerHealth;
-		
-		this.setAnimations();
-		
 		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, startingTemp, {
   			font: "1px Arial", //TOXICITY BAR
   			fill: "000000",
@@ -118,6 +86,10 @@ theGame.prototype = {
 		temperature_reading.nTemp = startingTemp;
 		temperature_reading.anchor.setTo(0.5, 0.5);
 		temperature_reading.fixedToCamera = true;
+		
+		p = new Player(this.game, temperature_reading);
+		p.create();
+		player = p.sprite;
 		
 		
 	// Ground Code
@@ -212,7 +184,7 @@ theGame.prototype = {
 		sound_shootL = this.game.add.audio('shootL');
 		sound_shootXL = this.game.add.audio('shootXL');
 		//sound_tree_healed = this.game.add.audio('tree_healed');
-		sound_jump = this.game.add.audio('jump');
+		
 		//s_hithurt = this.game.add.audio('hithurt');
 		//s_slimejump = this.game.add.audio('slimejump');
 		
@@ -271,78 +243,15 @@ theGame.prototype = {
 	},
 	update: function() {
 		
-		// Prevents Player Health from going over MAX
-		if (player.health > playerHealth) {
-			player.health = playerHealth;
-		}
 		//this.game.stage.backgroundColor =  8762849 + pollution_timer + 10*temperature;
 	    this.game.physics.arcade.collide(player, ground);
 		
-		//player.knocked is used to stop the player from moving while in the "knocked" state
-		//set knocked to true when it gets hurt and generate knockback with like velocity
-		if(player.body.touching.down) {
-			player.knocked = false;
-		}
-		if(player.knocked == false) {
-			player.body.velocity.x = 0;
-			var minSpeed = boss.speed + 10;
-			if(cursors.left.isDown && cursors.right.isDown) {
-			
-			}
-			else if(cursors.left.isDown) {
-				player.body.velocity.x = -playerSpeed + (temperature_reading.temp - startingTemp) * 2;
-				//background.tilePosition.x += 0.5;
-				//background1.tilePosition.x += 1.5;
-				if(player.body.velocity.x > -minSpeed) {
-					player.body.velocity.x = -minSpeed;
-				}
-				faceRight = false;
-				if(!player.body.touching.down)
-					player.animations.play('jump_left');
-				else
-					player.animations.play('walk_left'); 
-				this.didL = true; // TUTORIAL
-				
-			}
-			else if(cursors.right.isDown) {
-				player.body.velocity.x = playerSpeed - (temperature_reading.temp - startingTemp) * 2;
-				//background.tilePosition.x -= 0.5;
-				//background1.tilePosition.x -= 1.5;
-				if(player.body.velocity.x < minSpeed) {
-					player.body.velocity.x = minSpeed;
-				}
-				faceRight = true;
-				if(!player.body.touching.down)
-					player.animations.play('jump_right')
-				else
-        			player.animations.play('walk_right'); 
-        		this.didR = true; // TUTORIAL
-			}
-			else {
-				//put idle animation in here
-			}
-			
-			if (cursors.up.isDown && player.body.touching.down) {
-				player.body.velocity.y = jumpVelocity;
-				sound_jump.play();
-				this.didU = true; // TUTORIAL
-			}
-			
-		}
+		//player update
+		p.update();
+		if(player.health < 1) {
+			background_music.destroy();
+		}	
 		
-		if(player.body.x > boss.startPosition - 200) {
-			boss.create();
-		}
-
-		if (player.health < 1) {
-			this.game.state.start("GameOver", true, false, score);
-		}
-		
-		
-		if (faceRight && !cursors.left.isDown && !cursors.right.isDown)
-			player.animations.play('idle_right'); 
-		else if (!faceRight && !cursors.left.isDown && !cursors.right.isDown)
-			player.animations.play('idle_left'); 
 		//Enemies update needs to be before the follower update
 		
 		slimeG.update();
@@ -411,7 +320,7 @@ theGame.prototype = {
 		this.myToxicityBar.setPercent(100*temperature_reading.temp/80);
 		
 		// ARROW KEYS TUTORIAL
-		if (this.didL && this.didU && this.didR) {
+		if (p.didL && p.didU && p.didR) {
 			if (m_arrowkeys.alpha < 0.2) {
 				m_arrowkeys.alpha = 0;
 				m_arrowkeys.setText('');
@@ -453,17 +362,6 @@ theGame.prototype = {
 			}
 		}
 		
-	},
-	
-	
-	 setAnimations: function() {
-        // Animations
-        player.animations.add('jump_right', [0], 15, true); 
-        player.animations.add('jump_left', [8], 15, true); 
-        player.animations.add('walk_right', [0, 1, 2, 3, 2, 1], 15, true); 
-        player.animations.add('idle_right', [4, 5, 6, 7, 6, 5, 4], 10, true); 
-        player.animations.add('walk_left', [12, 13, 14, 15, 14, 13], 15, true); 
-        player.animations.add('idle_left', [8, 9, 10, 11, 10, 9], 10, true); 
-    },
+	}
     
 }

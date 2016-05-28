@@ -149,6 +149,12 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
                 }
             }
         }
+        else {
+            //check if player is close enough
+            if(player.body.x > this.startPosition - 200) {
+			    this.create();
+		    }
+        }
         
     }
     
