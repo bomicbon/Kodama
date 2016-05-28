@@ -292,8 +292,8 @@ theGame.prototype = {
 			}
 			else if(cursors.left.isDown) {
 				player.body.velocity.x = -playerSpeed + (temperature_reading.temp - startingTemp) * 2;
-				background.tilePosition.x += 0.5;
-				background1.tilePosition.x += 1.5;
+				//background.tilePosition.x += 0.5;
+				//background1.tilePosition.x += 1.5;
 				if(player.body.velocity.x > -minSpeed) {
 					player.body.velocity.x = -minSpeed;
 				}
@@ -307,8 +307,8 @@ theGame.prototype = {
 			}
 			else if(cursors.right.isDown) {
 				player.body.velocity.x = playerSpeed - (temperature_reading.temp - startingTemp) * 2;
-				background.tilePosition.x -= 0.5;
-				background1.tilePosition.x -= 1.5;
+				//background.tilePosition.x -= 0.5;
+				//background1.tilePosition.x -= 1.5;
 				if(player.body.velocity.x < minSpeed) {
 					player.body.velocity.x = minSpeed;
 				}
@@ -376,6 +376,11 @@ theGame.prototype = {
 		}
 		temperature_reading.setText(temperature_reading.temp);
 		
+		//Backround Parallax
+		var camera = this.game.camera;
+		
+		background.tilePosition.x = camera.x - 1 * camera.x / 16;
+		background1.tilePosition.x = camera.x - 1 * camera.x / 8;
 		
 		
 		// Sound
@@ -401,26 +406,6 @@ theGame.prototype = {
 		else if (wcShooter.shot) {
 			sound_shoot.play();
 		}
-		//Urian i cant take this shot noise
-		//if (wcShooter.shot == true) {
-	//		sound_shoot.play();
-//		}
-		//Also this should go under the tree class
-		
-		// RE: THIS is the tree Healed sound. 
-		// For some reason I haven't been able to fit the sound code in their respective js files
-		// Thats why they are here.
-		
-		//E: time to fix
-		/*
-		if (treeG.tree_healed) {
-			sound_tree_healed.play();
-			sound_delay++;
-			if (sound_delay > sound_length) {
-				treeG.tree_healed = false;
-			}
-		}
-		*/
 		
 		// Updating Bars
 		this.myHealthBar.setPercent(player.health);
