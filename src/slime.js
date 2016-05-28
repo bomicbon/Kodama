@@ -84,28 +84,28 @@ function slimeGroup(game, player, ground) {
     
     //overlap function called from the update function 
     //also halves the players movement speed
-    this.overlapping = function(body) {
-        if(Phaser.Rectangle.intersects(this.p.body.sprite.getBounds(),body.getBounds())) {
-            body.counter += 1;
+    this.overlapping = function(enemy) {
+        if(Phaser.Rectangle.intersects(this.p.body.sprite.getBounds(), enemy.getBounds())) {
+            enemy.counter += 1;
             this.p.body.velocity.y /= 4;
 
             //subtract player health when touched
-            this.p.health -= body.damage;
+            this.p.health -= enemy.damage;
             //console.log(this.p.health);
             
             //make slime take slight dmg as well
-            body.health -= 0.15;
+            enemy.health -= 0.15;
 
-            if(body.counter > body.stepTime * 2) {
-                body.counter = 0;
+            if(enemy.counter > enemy.stepTime * 2) {
+                enemy.counter = 0;
             }
-            else if(body.counter >= body.stepTime) {
+            else if(enemy.counter >= enemy.stepTime) {
                 this.p.body.velocity.x /= 2;
             }
             else {
                 this.p.body.velocity.x = 0;
             }
-            //change enemy tint to red and lower alpha
+            //change player tint to red and lower alpha
             this.p.tint = 0xFF0000;
             this.p.alpha = 0.8;
             //add a timer event half a second later to revert back to original settings
@@ -116,13 +116,13 @@ function slimeGroup(game, player, ground) {
             
         }
         else {
-            body.counter = 0;
+            enemy.counter = 0;
         }
     }
     
-    this.movement = function(body) {
-        this.g.physics.arcade.collide(body, this.ground);
-        body.body.collideWorldBounds = true; // Collisions
+    this.movement = function(enemy) {
+        this.g.physics.arcade.collide(enemy, this.ground);
+        enemy.body.collideWorldBounds = true; // Collisions
         
         //Ethan: bounciness should only be set once unless your changing it over time.
         //body.body.bounce.setTo(this.slimeBounce, this.slimeBounce); // Bounciness
@@ -153,12 +153,12 @@ function slimeGroup(game, player, ground) {
         else {
             this.slimeJump = jumpHeight - Math.random()*200;
         }
-        if(body.body.touching.down) {
+        if(enemy.body.touching.down) {
             if (Math.random() > 0.25) {
-                body.body.velocity.x = body.direction * 100 * Math.random();
+                enemy.body.velocity.x = enemy.direction * 100 * Math.random();
             }
             if (Math.random() > 0.5) {
-                body.body.velocity.y = this.slimeJump;
+                enemy.body.velocity.y = this.slimeJump;
             }
         }
         else {
@@ -172,7 +172,7 @@ function slimeSpawner(game, player, slime, water) {
     this.health = 50;
     
     //time between spawns
-    this.spawnTime = 60 * 0.2; // formerly 60 * 3
+    this.spawnTime = 60 * 0.4; // formerly 60 * 3
     
     this.spawnRange = 500;
     

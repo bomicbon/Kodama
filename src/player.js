@@ -66,6 +66,7 @@ function Player(game, temperature_reading) {
 			    //do nothing
 			}
 			else if(this.cursors.left.isDown) {
+				this.sprite.scale.setTo(-1, 1);
 				this.sprite.body.velocity.x = -playerSpeed + (temperature_reading.temp - temperature_reading.nTemp) * 2;
 				//background.tilePosition.x += 0.5;
 				//background1.tilePosition.x += 1.5;
@@ -74,13 +75,14 @@ function Player(game, temperature_reading) {
 				}
 				this.sprite.faceRight = false;
 				if(!this.sprite.body.touching.down)
-					this.sprite.animations.play('jump_left');
+					this.sprite.animations.play('jump_right');
 				else
-					this.sprite.animations.play('walk_left'); 
+					this.sprite.animations.play('walk_right'); 
 				this.didL = true; // TUTORIAL
 				
 			}
 			else if(this.cursors.right.isDown) {
+				this.sprite.scale.setTo(1,1);
 				this.sprite.body.velocity.x = playerSpeed - (temperature_reading.temp - temperature_reading.nTemp) * 2;
 				//background.tilePosition.x -= 0.5;
 				//background1.tilePosition.x -= 1.5;
@@ -110,11 +112,15 @@ function Player(game, temperature_reading) {
 			game.state.start("GameOver", true, false, score);
 		}
 		
-		
+		if(!this.cursors.left.isDown && !this.cursors.right.isDown) {
+			this.sprite.animations.play('idle_right');
+		}
+		/*
 		if (this.sprite.faceRight && !this.cursors.left.isDown && !this.cursors.right.isDown)
 			this.sprite.animations.play('idle_right'); 
 		else if (!this.sprite.faceRight && !this.cursors.left.isDown && !this.cursors.right.isDown)
 			this.sprite.animations.play('idle_left'); 
+		*/
         
     }
     

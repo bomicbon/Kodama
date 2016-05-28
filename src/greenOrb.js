@@ -32,7 +32,7 @@ function greenOrbSpawnAt(game, player, x,y, dest, count) {
         game.physics.arcade.enable(orb);
         
         //tween to fade the orb sprite into the game
-        game.add.tween(orb).to({alpha: 1}, 3000, Phaser.Easing.Quadratic.Out, true, 0, 0, false);
+        game.add.tween(orb).to({alpha: 1}, 1000, Phaser.Easing.Quadratic.Out, true, 0, 0, false);
         
         
     }
@@ -45,7 +45,7 @@ function greenOrbSpawnAt(game, player, x,y, dest, count) {
             if(orb.moveTime <= 0) {
                 //accelerate to the object
                 game.physics.arcade.accelerateToObject(orb, dest, speed);
-                if(game.physics.arcade.distanceBetween(orb, dest) < 120){
+                if(game.physics.arcade.distanceBetween(orb, dest) < 150){
                     //if it gets close enough, it will then directly move toward the object destination
                     game.physics.arcade.moveToObject(orb,dest, speed);
                     if(game.physics.arcade.distanceBetween(orb, dest) < 25) {
