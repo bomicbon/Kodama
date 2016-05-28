@@ -291,30 +291,6 @@ theGame.prototype = {
 		background1.tilePosition.x = camera.x - 1 * camera.x / 8;
 		
 		
-		// Sound
-		// SLIGHTLY BETTER WATER G0NZ
-		if (temperature_reading.temp<temperature_reading.nTemp && temperature_reading.temp > 45) {
-			if(wcShooter.shot == true) {
-				sound_shootM.play();
-			}
-		}
-		// WELTER WEIGHT BOY WATER G0NZ
-		else if (temperature_reading.temp < 45 && temperature_reading.temp > 25) {
-			if (wcShooter.shot) {
-				sound_shootL.play();
-			}
-		}
-		// BIG BOY WATER G0NZ
-		else if (temperature_reading.temp < 25 && temperature_reading.temp > 5) {
-			if (wcShooter.shot) {
-				sound_shootXL.play()
-			}
-		}
-		// Default shoot sound
-		else if (wcShooter.shot) {
-			sound_shoot.play();
-		}
-		
 		// Updating Bars
 		this.myHealthBar.setPercent(player.health);
 		this.myToxicityBar.setPercent(100*temperature_reading.temp/80);

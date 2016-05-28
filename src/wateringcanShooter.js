@@ -78,6 +78,8 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
     }
 
     this.spawnWater = function () {
+        
+        this.playSoundShot();
          
         // I removed the delay cuz basically
         // 1. delay count doesn't do anything
@@ -138,6 +140,26 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
 
         this.projList.removeChild(body1, true);
     }
-
+    
+    //called in the spawn water and plays the correct sound
+    this.playSoundShot = function() {
+        // Sound
+		// SLIGHTLY BETTER WATER G0NZ
+		if (temperature_reading.temp < temperature_reading.nTemp && temperature_reading.temp > 45) {
+			sound_shootM.play();
+		}
+		// WELTER WEIGHT BOY WATER G0NZ
+		else if (temperature_reading.temp < 45 && temperature_reading.temp > 25) {
+			sound_shootL.play();
+		}
+		// BIG BOY WATER G0NZ
+		else if (temperature_reading.temp < 25 && temperature_reading.temp > 5) {
+			sound_shootXL.play();
+		}
+		// Default shoot sound
+		else {
+			sound_shoot.play();
+		}
+    }
 
 }
