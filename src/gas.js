@@ -45,6 +45,8 @@ function gasGroup(game, player) {
                 //object.timer = 0;
             }
             
+     
+            
             if(object.timer > this.lifetime) {
                 object.destroy();
                 --i;
@@ -56,7 +58,14 @@ function gasGroup(game, player) {
     
     //add an gas given x, y, width, height
     this.add = function(x, y, width, height) {
-        var gas = this.enemyGroup.create(x,y - 50, 'gas');       
+        var gas = this.enemyGroup.create(x,y - 50, 'gas');      
+        
+       
+        gas.animations.add('gas_idle', [0,1,2,3,4,3,2,1], 15, true);
+        //gas.animations.add('gas_die', [10, 11, 12, 13, 14], 8, false, true);
+        gas.animations.play('gas_idle');   
+        
+         
         gas.scale.setTo(0.1);
         gas.scaleValue = 0.1;
         gas.anchor.setTo(0.5);
@@ -114,17 +123,19 @@ function gasSpawnerSystem(game, gasClass, water) {
     restCounter = 0;
     
     this.create = function() {
-        //this.add(100,300);
-        this.add(1350, 400);
-        this.add(2500, 400);
+        this.add(1350, 330);
+        this.add(2500, 330);
     }
     
     this.add = function(x,y) {
-        var sprite = this.spawnerGroup.create(x, y, "pipe");
+        var sprite = this.spawnerGroup.create(x, y, "factorypipe");
+        sprite.animations.add('factorypipe', [0,1,2,3,4,5,6,7], 17, true);
+        sprite.animations.play('factorypipe');    
         this.g.physics.arcade.enable(sprite);
         sprite.counter = 0;
         sprite.anchor.setTo(0.5, 0.5);
         sprite.health = this.health;
+        sprite.body.setSize(35, 115, 0, 55); // hitbox
         sprite.body.immovable = true;
         return sprite;
         

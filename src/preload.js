@@ -13,15 +13,15 @@ preload.prototype = {
 		this.game.load.image("background1", "assets/img/background1.png");
 		this.game.load.spritesheet('player', 'assets/img/player.png', 44, 65, 16);
 		this.game.load.spritesheet('tree', 'assets/img/tree.png', 150, 210, 10);
-		this.game.load.spritesheet('pipesmoke', 'assets/img/pipesmoke.png', 100, 120, 50);
+		this.game.load.spritesheet('factorypipe', 'assets/img/factorypipe.png', 70, 255, 8);
 		this.game.load.image("platformL", "assets/img/platformL.png");
 		this.game.load.image("platformM", "assets/img/platformM.png");
 		this.game.load.image("platformS", "assets/img/platformS.png");
 		this.game.load.image("platformIL", "assets/img/platformIL.png");
 		this.game.load.image("platformIM", "assets/img/platformIM.png");
 		this.game.load.image("platformIS", "assets/img/platformIS.png");
-		this.game.load.image("platformWall", "assets/img/platformWall.png");
-		this.game.load.image("gas", "assets/img/gas.png");
+
+		this.game.load.spritesheet('gas', 'assets/img/gas.png', 369, 324, 15);
 		this.game.load.image("ground", "assets/img/ground.png");
 		this.game.load.image("groundI", "assets/img/groundI.png");
 		this.game.load.image("follower", "assets/img/follower.png");

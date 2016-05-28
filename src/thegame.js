@@ -3,7 +3,6 @@ var theGame = function(game){
 	background_music = null;
 	
 	player = null;
-	pipesmoke = null;
 	score = 0;
 	pollution_timer = 0;
 	temperature_reading = null;
@@ -159,11 +158,11 @@ theGame.prototype = {
 		ground.setAll('body.checkCollision.left', false);
 		ground.setAll('body.checkCollision.right', false);
 		
-		//pipe smoke
+		// animation testing area -lxhart
 		/*
-		pipesmoke = this.add.sprite(200, level1, 'pipesmoke');
-		pipesmoke.animations.add('pipesmoke', true);
-        pipesmoke.animations.play('pipesmoke');    */
+		pipesmoke = this.add.sprite(250, level2, 'factorypipe');
+		pipesmoke.animations.add('pipesmoke', [0,1,2,3,4,5,6,7], 17, true);
+        pipesmoke.animations.play('pipesmoke');  */
 
 		//player sweat system
 		sweatS = new sweatSystem(this.game, player);
