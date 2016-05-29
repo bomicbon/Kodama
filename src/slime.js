@@ -55,9 +55,19 @@ function slimeGroup(game, player, ground) {
            if(object.health <= 0) {
                 object.destroy();
                 --i;
-                var explosion = game.add.sprite(object.body.x - 20, object.body.y - 46, 'kaboom');
-                explosion.animations.add('kaboom');
-                explosion.animations.play('kaboom', 30, false, true);
+                 // var explosion = game.add.sprite(object.body.x - 20, object.body.y - 46, 'kaboom');
+               // explosion.animations.add('kaboom');
+                //explosion.animations.play('kaboom', 30, false, true);
+                
+                /* what to make happen:
+    			1. slime technically dies
+    			2. check if slime is touching ground
+    			3. if slime is touching ground, kill slime object and play slime_die animation */
+                var slime_die = game.add.sprite(object.body.x, object.body.y, 'slime');
+                slime_die.animations.add('slime_die', [4,5,6,7,8,9,10,11,12,13,14], 25, false, true); 
+                slime_die.animations.play('slime_die');
+                
+                
                 
                 s_explosion.play();
 
@@ -71,7 +81,6 @@ function slimeGroup(game, player, ground) {
     this.add = function(x, y, width, height) {
         var slime = this.enemyGroup.create(x,y, 'slime');   
         slime.animations.add('slime', [0,1,2,3,2,1], 15, true);
-        slime.animations.add('slime_die', [4,5,6,7,8,9,10,11,12,13,14], 15, false, true); 
     	/* what to make happen:
     	1. slime technically dies
     	2. check if slime is touching ground
@@ -211,7 +220,6 @@ function slimeSpawner(game, player, slime, water) {
     this.add = function(x,y, direction) {
         var spawner = this.spawnerGroup.create(x,y,'spill');
         spawner.animations.add('spill', [0], 15, true);
-        spawner.animations.add('spill_die', [0,1,1,2,2,3,3,4,4,5,5,6,7,7,8,9,10,10,11,12,13], 25, false, false); // spawner death animation
         spawner.animations.play('spill');
         game.physics.arcade.enable(spawner);
         spawner.counter = 0;
@@ -238,10 +246,13 @@ function slimeSpawner(game, player, slime, water) {
                     var slimeSprite = slime.add(spawner.x, spawner.y, 1, 1);
                     slimeSprite.direction = spawner.direction;
                 }
-                //destory if health less 0
+                //destory if health less 0 lol destory
                 if(spawner.health <= 0) {
                     spawner.destroy();
                     --i;
+                    var spawner_die = game.add.sprite(spawner.body.x-90, spawner.body.y, 'spill');
+              		spawner_die.animations.add('spill_die', [1,1,2,2,3,3,4,4,5,5,6,7,7,8,9,10,10,11,12,13], 25, false); // spawner death animation
+                	spawner_die.animations.play('spill_die');
                 }
             }
         }
