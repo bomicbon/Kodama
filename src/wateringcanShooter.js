@@ -32,8 +32,6 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
         
         
         this.waterSound = this.g.add.audio('water_splash');
-        
-        
     }
     
 
