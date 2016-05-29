@@ -81,6 +81,8 @@ preload.prototype = {
 		this.game.load.audio('tree1', 'assets/sound/tree1.wav');
 		this.game.load.audio('tree2', 'assets/sound/tree2.wav');
 		this.game.load.audio('boss_spawn', 'assets/sound/boss_spawn.wav');
+		this.game.load.audio('thud', 'assets/sound/thud.wav');
+		
 		// FONT
 		this.game.load.bitmapFont('pixely_font', 'assets/font/font.png', 'assets/font/font.fnt');
 

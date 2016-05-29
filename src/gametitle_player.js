@@ -23,6 +23,8 @@ function Title_Player(game, temperature_reading) {
 	this.didU = false;
     
     var sound_jump = game.add.audio('jump');
+    var s_thud = game.add.audio('thud');
+    this.falling = null;
     
     this.create = function() {
         
@@ -114,6 +116,13 @@ function Title_Player(game, temperature_reading) {
 		
 		if(!this.cursors.left.isDown && !this.cursors.right.isDown) {
 			this.sprite.animations.play('idle_right');
+		}
+		if (this.sprite.body.touching.down && this.falling) {
+			s_thud.play('',0,0.35,false, false);
+			this.falling = false;
+		}
+		if (this.sprite.body.velocity.y > 0) {
+			this.falling = true;
 		}
 		/*
 		if (this.sprite.faceRight && !this.cursors.left.isDown && !this.cursors.right.isDown)

@@ -5,7 +5,8 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.wGroup = water.projList;
     
     //health of boss
-    this.health = 2000;
+    var MAX_HEALTH = 2000; // need the MAX_HEALTH CONSTANT FOR SPAWNING DYNAMICS
+    this.health = MAX_HEALTH; 
     this.damage = 20;
     this.speed = 30;
     this.maxHealth = this.health;
@@ -33,6 +34,10 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.bossLeft = null;
     this.bossRight = null;
     this.armHeight = 50;
+    
+    var REST_TIME = 60 * 4;
+    var SLIME_TIME = 60 * 2;
+    var health_delta = 0;
     
     this.restTime = 60 * 4;
     this.restCounter = 0;
@@ -113,6 +118,17 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
                 // 4. LEAVE PLAYER IN GAME TO CHOOSE MAIN MENU
                 this.g.state.start("StageCleared", true, false);
             }
+            
+            MAX_HEALTH = 2000;
+            REST_TIME = 60 * 4;
+            SLIME_TIME = 60 * 2;
+            var health_delta = MAX_HEALTH - this.health; // Health difference
+            this.restTime = REST_TIME - (Math.random()*15 + 15)*(health_delta/500);
+            this.slimeTime = SLIME_TIME - (55 + Math.random()*25)*(health_delta/500);
+            if (this.slimeTime < 60 * 0.35) {
+                this.slimeTime = 60 * 0.35;
+            }
+            
             // Makes Boss Spawn more Frequently
             if (this.health == 1500) {
                 this.restTime = 60 * 3.0;
@@ -171,7 +187,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
                     
                     this.s_spawn.play(); // SPAWN SOUND
                 }
-                if (this.restCounter == 2 * this.restTime + 20) {
+                if (this.restCounter > 2 * this.restTime + 20) {
                     this.restCounter = 0;
                 }
             }
