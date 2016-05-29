@@ -75,7 +75,12 @@ function slimeGroup(game, player, ground) {
     this.add = function(x, y, width, height) {
         var slime = this.enemyGroup.create(x,y, 'slime');   
         slime.animations.add('slime', [0,1,2,3,2,1], 15, true);
-        slime.animations.play('slime');    
+        slime.animations.add('slime_die', [4,5,6,7,8,9,10,11,12,13,14], 15, false, true); 
+    	/* what to make happen:
+    	1. slime technically dies
+    	2. check if slime is touching ground
+    	3. if slime is touching ground, kill slime object and play slime_die animation */
+		slime.animations.play('slime');    
         slime.scale.setTo(width, height);
         slime.anchor.setTo(0.5);
         this.g.physics.arcade.enable(slime);
