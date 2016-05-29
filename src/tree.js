@@ -36,11 +36,20 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     // helper Text bool
     this.firstHealed = null;
     
+    // SOUNDS
+    this.s_gdeath = null;
+    this.s_sdeath = null;
+    this.s_tree1 = null;
+    this.s_tree2 = null;
+    
     this.create = function() {
         this.addTree(450, 690, 1, 10);
         this.addTree(1600, 690, 1, 10);
         this.addTree(3150, 690, 1, 10);
-        
+        this.s_gdeath = this.g.add.audio('gasdeath');
+        this.s_sdeath = this.g.add.audio('explosion');
+        this.s_tree1 = this.g.add.audio('tree1');
+        this.s_tree2 = this.g.add.audio('tree2');
      
     }
     
@@ -203,6 +212,10 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
             for(var i = 0; i < slime.length; ++i) {
                 var s = slime.getAt(i);
                 if(this.g.physics.arcade.overlap(this.shield, s)) {
+                    this.s_sdeath.play();
+                    var explosion = game.add.sprite(s.body.x - 20, s.body.y - 46, 'kaboom');
+                    explosion.animations.add('kaboom');
+                    explosion.animations.play('kaboom', 30, false, true);
                     s.destroy();
                     --i;
                 }
@@ -210,6 +223,7 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
             for(var i = 0; i < gas.length; ++i) {
                 var g = gas.getAt(i);
                 if(this.g.physics.arcade.overlap(this.shield, g)) {
+                    this.s_gdeath.play();
                     g.destroy();
                     --i;
                 }
@@ -239,9 +253,11 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
     this.treeAnimation = function(prevHealth, newHealth, tree) {
         if(prevHealth < this.maxHealth / 3 && newHealth >= this.maxHealth / 3) {
             tree.animations.play('grow1');
+            this.s_tree1.play('',0,2,false, false);
         }
         else if(prevHealth < this.maxHealth * 2 / 3 && newHealth >= this.maxHealth * 2 / 3) {
             tree.animations.play('grow2');
+            this.s_tree2.play('',0,2,false, false);
         }
         else if(prevHealth < this.maxHealth && newHealth == this.maxHealth) {
             tree.animations.play('grow3');
