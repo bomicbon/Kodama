@@ -171,9 +171,10 @@ function slimeGroup(game, player, ground) {
         }
         if(enemy.body.touching.down) {
             if (Math.random() > 0.25) {
-                enemy.body.velocity.x = enemy.direction * 100 * Math.random();
+                enemy.body.velocity.x = enemy.direction * 150 * Math.random();
             }
             //this is where the slime jumps?
+            // RE: YEUHHHHHHH
             if (Math.random() > 0.5) {
                 enemy.body.velocity.y = this.slimeJump;
                 //s_jump.play();

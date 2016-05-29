@@ -18,10 +18,6 @@ var gameTitle = function(game){
 	// Message Boxes
 	//m_arrowkeys = null;
 	//m_space = null;
-	
-	//GAME COORDINATES
-	var playerX = 10;
-	var playerY = 650;
 }
 
 gameTitle.prototype = {

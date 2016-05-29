@@ -154,16 +154,16 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
                     var sY = this.sprite.y - this.sprite.height/2;
                     
                     var slime1 = slimes.add(sX, sY , 1, 1);
-                    slime1.body.velocity.x = -100;
-                    slime1.body.velocity.y = -300;
+                    slime1.body.velocity.x = -100 - Math.random()*150; // -100
+                    slime1.body.velocity.y = 300 - Math.random()*100; // -300
                     
                     var slime2 = slimes.add(sX, sY, 1, 1);
-                    slime2.body.velocity.x = -50;
-                    slime2.body.velocity.y = -300;
+                    slime2.body.velocity.x = -50 - Math.random()*150; // -50
+                    slime2.body.velocity.y = -300 - Math.random()*100; // -300
                     
                     var slime3 = slimes.add(sX, sY, 1, 1);
-                    slime3.body.velocity.x = -150;
-                    slime3.body.velocity.y = -300;
+                    slime3.body.velocity.x = -150 - Math.random()*150; // -150
+                    slime3.body.velocity.y = -300 - Math.random()*100; // -300
                 }
                 if (this.restCounter == 2 * this.restTime + 20) {
                     this.restCounter = 0;
