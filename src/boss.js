@@ -50,16 +50,22 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             this.sprite.body.gravity.y = 0;
             this.sprite.body.immovable = true;
             
-            this.sprite.animations.add("walk", [0,1,2,3], 10, true);
+            this.sprite.animations.add("walk", [0,1,2,3,3,2,1,0], 10, true);
             this.sprite.animations.play("walk");
             
             //left and right arm            
-            this.bossLeft = this.sprite.addChild(
-                this.g.make.sprite(-this.sprite.width/2 + 50, -this.armHeight - this.sprite.height/2, "blobL"));
+            this.bossLeft = this.g.add.sprite(-this.sprite.width/2 + 50, -this.armHeight - this.sprite.height/2, "blobL");
             this.bossLeft.anchor.setTo(1, 0.5);
-            this.bossRight = this.sprite.addChild(
-                this.g.make.sprite(this.sprite.width/2 - 50, -this.armHeight - this.sprite.height/2, "blobR"));
+            //arm rotate
+            this.g.add.tween(this.bossLeft).to({angle: 90}, 1500, Phaser.Easing.Sinusoidal.InOut, true, 0, 999999, true);
+            this.sprite.addChild(this.bossLeft);
+            
+            this.bossRight = this.g.add.sprite(this.sprite.width/2 - 50, -this.armHeight - this.sprite.height/2, "blobR")
             this.bossRight.anchor.setTo(0, 0.5);
+            this.bossRight.angle = 30;
+            //arm rotate at slight angle and slower than left
+            this.g.add.tween(this.bossRight).to({angle: -60}, 1300, Phaser.Easing.Sinusoidal.InOut, true, 0, 999999, true);
+            this.sprite.addChild(this.bossRight);
             
             //set camera onto boss
             var camera = this.g.camera;
