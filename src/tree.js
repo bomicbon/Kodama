@@ -213,9 +213,9 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
                 var s = slime.getAt(i);
                 if(this.g.physics.arcade.overlap(this.shield, s)) {
                     this.s_sdeath.play();
-                    var explosion = game.add.sprite(s.body.x - 20, s.body.y - 46, 'kaboom');
-                    explosion.animations.add('kaboom');
-                    explosion.animations.play('kaboom', 30, false, true);
+                    var slime_die = game.add.sprite(s.body.x, s.body.y, 'slime');
+                    slime_die.animations.add('slime_die', [4,5,6,7,8,9,10,11,12,13,14], 25, false, true); 
+                    slime_die.animations.play('slime_die');
                     s.destroy();
                     --i;
                 }

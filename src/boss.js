@@ -38,6 +38,8 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.restCounter = 0;
     this.slimeTime = 60 * 2;
     this.slimeCounter = 0;
+    
+    this.s_spawn = null;
         
     this.create = function() {
         if (this.sprite == null) {
@@ -81,6 +83,8 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
 
             trees.inBossFight = true;
             //this.bossGroup.sort();
+            
+            this.s_spawn = this.g.add.audio('boss_spawn');
         }
     }
     
@@ -164,6 +168,8 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
                     var slime3 = slimes.add(sX, sY, 1, 1);
                     slime3.body.velocity.x = -150 - Math.random()*150; // -150
                     slime3.body.velocity.y = -300 - Math.random()*100; // -300
+                    
+                    this.s_spawn.play(); // SPAWN SOUND
                 }
                 if (this.restCounter == 2 * this.restTime + 20) {
                     this.restCounter = 0;
