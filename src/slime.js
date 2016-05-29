@@ -77,6 +77,8 @@ function slimeGroup(game, player, ground) {
     	2. check if slime is touching ground
     	3. if slime is touching ground, kill slime object and play slime_die animation */
 		slime.animations.play('slime');    
+		width += Math.random() / 2; // VARIABLE SLIME SIZES
+		height = width;
         slime.scale.setTo(width, height);
         slime.anchor.setTo(0.5);
         this.g.physics.arcade.enable(slime);
