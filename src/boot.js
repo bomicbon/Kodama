@@ -6,6 +6,7 @@ boot.prototype = {
 	preload: function(){
           this.game.load.image("loading","assets/img/loading.png");
           this.game.stage.backgroundColor = '#c0efff';
+          this.game.load.bitmapFont('pixely_font', 'assets/font/font.png', 'assets/font/font.fnt');
 	},
   	create: function(){
 		this.scale.scaleMode = Phaser.ScaleManager.NO_SCALE;

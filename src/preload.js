@@ -2,9 +2,12 @@ var preload = function(game){}
 
 preload.prototype = {
 	preload: function(){ 
-          var loadingBar = this.add.sprite(320,240,"loading");
+          var loadingBar = this.add.sprite(410,330,"loading");
           loadingBar.anchor.setTo(0.5,0.5);
           this.load.setPreloadSprite(loadingBar);
+          
+          var WereBound = this.game.add.bitmapText(320, 280, 'pixely_font', 'WEREBOUND', 24);
+          var presents = this.game.add.bitmapText(320, 310, 'pixely_font', 'PRESENTS', 14);
 		
 		// Images
 		this.game.load.image("gametitle", "assets/img/gametitle.png");
