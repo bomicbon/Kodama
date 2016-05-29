@@ -16,6 +16,7 @@ function gasGroup(game, player) {
     //Testing timer & scale variables.
     //this.timer = 0;
     //this.scale = 0;
+    this.s_death = null;
     
     this.create = function() {
         /*
@@ -23,6 +24,8 @@ function gasGroup(game, player) {
             this.add(150+Math.random()*500, 150+Math.random()*200,1,1);
         }
         */
+        this.s_death = this.g.add.audio('gasdeath');
+        this.s_death.allowMultiple = true;
     }
     
     this.update = function() {
@@ -37,6 +40,7 @@ function gasGroup(game, player) {
             this.movement(object);
             // Health
             if(object.health <= 0){
+                this.s_death.play(); // DEATH SOUND
                 object.destroy();
                 --i;
             }
@@ -50,9 +54,8 @@ function gasGroup(game, player) {
                 //object.timer = 0;
             }
             
-     
-            
             if(object.timer > this.lifetime) {
+                this.s_death.play(); // DEATH SOUND
                 object.destroy();
                 --i;
             }

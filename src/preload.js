@@ -77,6 +77,7 @@ preload.prototype = {
 		this.game.load.audio('healthUp', 'assets/sound/healthUp.wav');
 		this.game.load.audio('hithurt', 'assets/sound/hithurt.wav');
 		this.game.load.audio('slimejump', 'assets/sound/slimeJump.wav');
+		this.game.load.audio('gasdeath', 'assets/sound/hithurt2.wav');
 		
 		// FONT
 		this.game.load.bitmapFont('pixely_font', 'assets/font/font.png', 'assets/font/font.fnt');
