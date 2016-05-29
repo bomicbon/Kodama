@@ -16,7 +16,7 @@ preload.prototype = {
 		this.game.load.image("background1", "assets/img/background1.png");
 		this.game.load.spritesheet('player', 'assets/img/player.png', 44, 65, 16);
 		this.game.load.spritesheet('tree', 'assets/img/tree.png', 150, 210, 10);
-		this.game.load.spritesheet('factorypipe', 'assets/img/factorypipe.png', 70, 255, 8);
+		this.game.load.spritesheet('factorypipe', 'assets/img/factorypipe.png', 70, 255, 15);
 		this.game.load.image("platformL", "assets/img/platformL.png");
 		this.game.load.image("platformM", "assets/img/platformM.png");
 		this.game.load.image("platformS", "assets/img/platformS.png");
@@ -30,7 +30,7 @@ preload.prototype = {
 		this.game.load.image("pipe", "assets/img/pipe.png");
 		this.game.load.image("water", "assets/img/water.png");
 		this.game.load.spritesheet('splash', 'assets/img/splash.png', 24, 24, 10);
-		this.game.load.spritesheet('slime', 'assets/img/slime.png', 50, 36, 4);
+		this.game.load.spritesheet('slime', 'assets/img/slime.png', 50, 36, 15);
 		this.game.load.spritesheet('kaboom', 'assets/img/explode.png', 128, 128, 16);
 		
 		this.game.load.image("tutorial", "assets/img/tutorial.png");

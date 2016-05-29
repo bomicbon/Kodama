@@ -135,6 +135,7 @@ function gasSpawnerSystem(game, gasClass, water) {
     this.add = function(x,y) {
         var sprite = this.spawnerGroup.create(x, y, "factorypipe");
         sprite.animations.add('factorypipe', [0,1,2,3,4,5,6,7], 17, true);
+        sprite.animations.add('factorypipe_die', [8, 9, 10, 11, 12, 13, 14], 17, false, false); // pipe death animation
         sprite.animations.play('factorypipe');    
         this.g.physics.arcade.enable(sprite);
         sprite.counter = 0;
