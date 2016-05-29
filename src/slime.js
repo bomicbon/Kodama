@@ -23,7 +23,8 @@ function slimeGroup(game, player, ground) {
     //this.jumped = false;
     //jumpsoundtimer = 0;
     //jumpsounddelay = 50;
-    //s_jump = null;
+    var s_jump = null;
+    var s_explosion =  null;
     
     this.create = function() {
         /*
@@ -41,11 +42,18 @@ function slimeGroup(game, player, ground) {
         for(var i = 0; i < 5; ++i) {
             this.add(3600+ i*20, 0, 1, 1);
         }       
-        //s_jump = this.g.add.audio('slimejump');
+        s_jump = this.g.add.audio('slimejump');
+        s_jump.allowMultiple = true;
+        
+        s_explosion = this.g.add.audio('explosion');
+        s_jump.allowMultiple = true;
     }
     
     //loops through the slime group and checks for overlap with a player
     this.update = function() {
+        //this var prevents multiple damages when multiple slimes overlap
+        this.damaged = false;
+        
         for(var i = 0; i < this.enemyGroup.length; ++i) {
            var object = this.enemyGroup.getAt(i);
            if(object.health <= 0) {
@@ -54,11 +62,11 @@ function slimeGroup(game, player, ground) {
                 var explosion = game.add.sprite(object.body.x - 20, object.body.y - 46, 'kaboom');
                 explosion.animations.add('kaboom');
                 explosion.animations.play('kaboom', 30, false, true);
-                var s_explosion = this.g.add.audio('explosion');
+                
                 s_explosion.play();
 
            }
-           this.overlapping(object);
+           this.overlapping(object, this);
            this.movement(object); // Movement Code
         }
     }
@@ -84,13 +92,16 @@ function slimeGroup(game, player, ground) {
     
     //overlap function called from the update function 
     //also halves the players movement speed
-    this.overlapping = function(enemy) {
+    this.overlapping = function(enemy, top) {
         if(Phaser.Rectangle.intersects(this.p.body.sprite.getBounds(), enemy.getBounds())) {
             enemy.counter += 1;
             this.p.body.velocity.y /= 4;
 
             //subtract player health when touched
-            this.p.health -= enemy.damage;
+            if(top.damaged == false) {
+                this.p.health -= enemy.damage;
+                top.damaged = true;
+            }
             //console.log(this.p.health);
             
             //make slime take slight dmg as well
@@ -157,12 +168,14 @@ function slimeGroup(game, player, ground) {
             if (Math.random() > 0.25) {
                 enemy.body.velocity.x = enemy.direction * 100 * Math.random();
             }
+            //this is where the slime jumps?
             if (Math.random() > 0.5) {
                 enemy.body.velocity.y = this.slimeJump;
+                //s_jump.play();
             }
         }
         else {
-            //s_jump.play();
+       
         }
     }
 }

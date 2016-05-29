@@ -29,7 +29,10 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     //a gas spawner on the right of the boss
     this.rightSpawner = null;
     
-    this.bossGroup = this.g.add.group();
+    //this.bossGroup = this.g.add.group();
+    this.bossLeft = null;
+    this.bossRight = null;
+    this.armHeight = 50;
     
     this.restTime = 60 * 4;
     this.restCounter = 0;
@@ -40,12 +43,23 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
         if (this.sprite == null) {
             this.g.camera.unfollow();
         
-            this.sprite = this.bossGroup.create(this.startPosition + 300, this.startY,'blob');
+            this.sprite = this.g.add.sprite(this.startPosition + 300, this.startY,'blobSheet');
             this.sprite.scale.setTo(this.scaleX, this.scaleY);
             this.g.physics.arcade.enable(this.sprite);
             this.sprite.anchor.setTo(0.5, 1);
             this.sprite.body.gravity.y = 0;
             this.sprite.body.immovable = true;
+            
+            this.sprite.animations.add("walk", [0,1,2,3], 10, true);
+            this.sprite.animations.play("walk");
+            
+            //left and right arm            
+            this.bossLeft = this.sprite.addChild(
+                this.g.make.sprite(-this.sprite.width/2 + 50, -this.armHeight - this.sprite.height/2, "blobL"));
+            this.bossLeft.anchor.setTo(1, 0.5);
+            this.bossRight = this.sprite.addChild(
+                this.g.make.sprite(this.sprite.width/2 - 50, -this.armHeight - this.sprite.height/2, "blobR"));
+            this.bossRight.anchor.setTo(0, 0.5);
             
             //set camera onto boss
             var camera = this.g.camera;
@@ -60,7 +74,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
            // this.bossGroup.add(this.rightSpawner);
 
             trees.inBossFight = true;
-            this.bossGroup.sort();
+            //this.bossGroup.sort();
         }
     }
     

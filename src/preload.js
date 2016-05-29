@@ -37,7 +37,12 @@ preload.prototype = {
 		this.game.load.image("gameover", "assets/img/gameover.png");
 		this.game.load.image("quit", "assets/img/quit.png");
 		this.game.load.image("stagecleared", "assets/img/stage_cleared.png");
+		
 		this.game.load.image("blob", "assets/img/blob.png");
+		this.game.load.image("blobL", "assets/img/blobLeftArm.png");
+		this.game.load.image("blobR", "assets/img/blobRightArm.png");
+		this.game.load.spritesheet("blobSheet", "assets/img/blobSS.png", 350, 328, 8);
+		
 		this.game.load.image("orb", "assets/img/greenOrb.png");
 		this.game.load.image("waterDrop", "assets/img/waterDroplet.png");
 		this.game.load.image("shield", "assets/img/shield.png");

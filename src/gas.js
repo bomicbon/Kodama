@@ -26,9 +26,14 @@ function gasGroup(game, player) {
     }
     
     this.update = function() {
+        //this var prevents multiple damage in one update
+        var overlapOne = false;
         for(var i = 0; i < this.enemyGroup.length; ++i) {
             object = this.enemyGroup.getAt(i);
-            this.g.physics.arcade.overlap(object, this.p, this.overlapping, null, this);
+            if(overlapOne == false && 
+                this.g.physics.arcade.overlap(object, this.p, this.overlapping, null, this)) {
+                overlapOne = true;
+            }
             this.movement(object);
             // Health
             if(object.health <= 0){
