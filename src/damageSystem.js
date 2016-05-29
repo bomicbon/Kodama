@@ -31,7 +31,7 @@ function DamageSystem(game, player, enemyList, projectileList) {
     var s_hurt = null;
 
     this.create = function () {
-        var s_hurt = game.add.audio('hithurt');
+        var s_hurt = this.g.add.audio('hithurt');
     }
 
     this.update = function () {
@@ -82,6 +82,7 @@ function DamageSystem(game, player, enemyList, projectileList) {
             enemy.tint = 0xFFFFFF;
             enemy.alpha = 1;
         }, this);
+        //s_hurt.play('',0,1,false, false);
     }
 
     //this will be used in the future, for enemy projectiles

@@ -163,21 +163,27 @@ function slimeGroup(game, player, ground) {
         */
         
         //changing code to test for slime hitting tree
+        //RANDOMIZING JUMP HEIGHT
+        // HIGHER THAN USU
         if (Math.random() > 0.5) {
             this.slimeJump = jumpHeight + Math.random()*200;
         }
+        // LOWER THAN USU
         else {
             this.slimeJump = jumpHeight - Math.random()*200;
         }
+        // IF GROUNDED
         if(enemy.body.touching.down) {
+            // MOVE THE SLIME
             if (Math.random() > 0.25) {
                 enemy.body.velocity.x = enemy.direction * 150 * Math.random();
             }
             //this is where the slime jumps?
             // RE: YEUHHHHHHH
+            // MAKE IT JUMP
             if (Math.random() > 0.5) {
                 enemy.body.velocity.y = this.slimeJump;
-                //s_jump.play();
+                s_jump.play('',0,1,false, false);
             }
         }
         else {
