@@ -49,7 +49,7 @@ preload.prototype = {
 		this.game.load.image("orb", "assets/img/greenOrb.png");
 		this.game.load.image("waterDrop", "assets/img/waterDroplet.png");
 		this.game.load.image("shield", "assets/img/shield.png");
-		this.game.load.image("spill", "assets/img/spill.png");
+		this.game.load.spritesheet("spill", "assets/img/spill.png", 170, 69, 14);
 		this.game.load.image("leaf", "assets/img/leaf.png");
 		this.game.load.image("right_arrow", "assets/img/right_arrow.png");
 		this.game.load.image("left_arrow", "assets/img/left_arrow.png");

@@ -206,6 +206,9 @@ function slimeSpawner(game, player, slime, water) {
     
     this.add = function(x,y, direction) {
         var spawner = this.spawnerGroup.create(x,y,'spill');
+        spawner.animations.add('spill', [0], 15, true);
+        spawner.animations.add('spill_die', [0,1,1,2,2,3,3,4,4,5,5,6,7,7,8,9,10,10,11,12,13], 25, false, false); // spawner death animation
+        spawner.animations.play('spill');
         game.physics.arcade.enable(spawner);
         spawner.counter = 0;
         spawner.anchor.setTo(0.5);
