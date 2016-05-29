@@ -19,10 +19,6 @@ function slimeGroup(game, player, ground) {
     this.slimeTimer = 0;
     this.slimeJump = 0; // jump height
     jumpHeight = -200;
-    // Ethan, How do you get this jump sound to work?
-    //this.jumped = false;
-    //jumpsoundtimer = 0;
-    //jumpsounddelay = 50;
     var s_jump = null;
     var s_explosion =  null;
     
