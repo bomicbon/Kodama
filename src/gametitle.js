@@ -83,8 +83,8 @@ gameTitle.prototype = {
 		sound_shootXL = this.game.add.audio('shootXL');
 		
 		// Text
-    	m_arrowkeys = this.game.add.bitmapText(50, 580, 'pixely_font', 'ARROW KEYS TO MOVE', 12);
-    	m_space = this.game.add.bitmapText(50, 600, 'pixely_font', 'SPACE TO SHOOT', 12);
+    	m_arrowkeys = this.game.add.bitmapText(100, 550, 'pixely_font', 'ARROW KEYS TO MOVE', 24);
+    	m_space = this.game.add.bitmapText(150, 590, 'pixely_font', 'SPACE TO SHOOT', 24);
     	m_start = this.game.add.bitmapText(1180, 550, 'pixely_font', 'START HERE', 12);
     	
     	
@@ -105,8 +105,8 @@ gameTitle.prototype = {
 				m_arrowkeys.setText('');
 			}
 			else {
-				m_arrowkeys.setText('PROPS BRAH NOW YOU KNOW HOW TO MOVE');
-				m_arrowkeys.alpha -= 0.005;
+				m_arrowkeys.setText('           AWESOME');
+				m_arrowkeys.alpha -= 0.01;
 				//m_arrowkeys.scale += 0.5;
 			}
 			
@@ -119,12 +119,8 @@ gameTitle.prototype = {
 				m_space.setText('');
 			}
 			else {
-				m_space.setText('GOOD JOB! YOU KNOW HOW TO SHOOT NOW LOL'); // NO RLY THOUGH WAT IS THIS DOING HERE
-				//															RE: WHY DON'T YOU CONFRONT PEOPLE
-				// 																AND STOP COMMUNICATING ALL PASSIVE AGGRESSIVE
-				//																VIA COMMENTED CODE LIKE A SOCIALLY
-				//																DISABLED PERSON
-				m_space.alpha -= 0.005;
+				m_space.setText('     EXCELLENT'); 
+				m_space.alpha -= 0.01;
 				//m_space.scale += 0.5;
 			}
 		}
