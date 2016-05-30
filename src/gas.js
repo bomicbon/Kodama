@@ -132,7 +132,7 @@ function gasGroup(game, player) {
 function gasSpawnerSystem(game, gasClass, water) {
     this.g = game;
     //spawner health
-    this.health = 80;
+    this.health = 120;
     
     this.spawnerGroup = this.g.add.group();
     this.gClass = gasClass;
@@ -143,6 +143,7 @@ function gasSpawnerSystem(game, gasClass, water) {
     restTime = this.spawnTime * 3;
     restCounter = 0;
     var s_collapse = game.add.audio('collapse');
+    var s_pipehit = game.add.audio('pipehit');
     
     this.create = function() {
         this.add(1348, 330);
@@ -200,5 +201,6 @@ function gasSpawnerSystem(game, gasClass, water) {
         spawner.health -= waterBody.damage;
         
         water.hitCollision(waterBody, null);
+        s_pipehit.play();
     }
 }

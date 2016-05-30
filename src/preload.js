@@ -86,6 +86,7 @@ preload.prototype = {
 		this.game.load.audio('p_hurt', 'assets/sound/playerhurt.wav');
 		this.game.load.audio('barreldeath', 'assets/sound/barreldeath.wav');
 		this.game.load.audio('collapse', 'assets/sound/collapse.wav');
+		this.game.load.audio('pipehit', 'assets/sound/pipehit.wav'); // HIT THE PIPE AYEEEE
 		
 		// FONT
 		this.game.load.bitmapFont('pixely_font', 'assets/font/font.png', 'assets/font/font.fnt');
