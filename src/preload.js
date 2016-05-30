@@ -24,7 +24,7 @@ preload.prototype = {
 		this.game.load.image("platformIM", "assets/img/platformIM.png");
 		this.game.load.image("platformIS", "assets/img/platformIS.png");
 
-		this.game.load.spritesheet('gas', 'assets/img/gas.png', 369, 324, 15);
+		this.game.load.spritesheet('gas', 'assets/img/gas.png', 369, 324, 22);
 		this.game.load.image("ground", "assets/img/ground.png");
 		this.game.load.image("groundI", "assets/img/groundI.png");
 		this.game.load.image("pipe", "assets/img/pipe.png");

@@ -9,14 +9,16 @@ function gasGroup(game, player) {
     this.damage = 0.5; // formerly 0.2
     this.speed = 75;
     this.gravity = 0;
+   
     
     //determines how long gas lives until destroy
-    this.lifetime = 60 * 15;
+    this.lifetime = 300;
     
     //Testing timer & scale variables.
     //this.timer = 0;
     //this.scale = 0;
     this.s_death = null;
+    this.currentScale = null;
     
     this.create = function() {
         /*
@@ -43,14 +45,20 @@ function gasGroup(game, player) {
                 this.s_death.play(); // DEATH SOUND
                 object.destroy();
                 --i;
+                var gas_die = game.add.sprite(object.body.x, object.body.y, 'gas');
+                gas_die.animations.add('gas_die', [12,13,14,15,16,17,18,19,20,21], 20, false, true); 
+                gas_die.alpha = object.alpha;
+                gas_die.scale.setTo(object.scaleValue, object.scaleValue);
+                gas_die.animations.play('gas_die');
+      
             }
             // Scale Testing
             object.timer++;
             //E: changed object timer to work with lifetime
             if (object.timer%5 == 0) {
-                object.scaleValue += 0.01; // formerly 0.0005 i think
+                this.currentScale = object.scaleValue += 0.01; // formerly 0.0005 i think
                 object.scale.setTo(object.scaleValue, object.scaleValue);
-                object.alpha -= 0.02; // formerly 0.01 i think
+                object.alpha -= 0.015; // formerly 0.01 i think
                 //object.timer = 0;
             }
             
@@ -58,6 +66,12 @@ function gasGroup(game, player) {
                 this.s_death.play(); // DEATH SOUND
                 object.destroy();
                 --i;
+                
+                var gas_fade = game.add.sprite(object.body.x, object.body.y, 'gas');
+                gas_fade.animations.add('gas_fade', [5, 6, 7, 8, 9, 10, 11, 21], 25, false, true); 
+                gas_fade.scale.setTo(object.scaleValue, object.scaleValue);
+                gas_fade.alpha = object.alpha;
+                gas_fade.animations.play('gas_fade');
             }
             //object.scale.setTo(1.0+this.scale, 1.0+this.scale);
             
@@ -66,14 +80,11 @@ function gasGroup(game, player) {
     
     //add an gas given x, y, width, height
     this.add = function(x, y, width, height) {
-        var gas = this.enemyGroup.create(x,y - 50, 'gas');      
-        
+        var gas = this.enemyGroup.create(x,y - 50, 'gas');            
        
         gas.animations.add('gas_idle', [0,1,2,3,4,3,2,1], 15, true);
-        //gas.animations.add('gas_die', [10, 11, 12, 13, 14], 8, false, true);
         gas.animations.play('gas_idle');   
         
-         
         gas.scale.setTo(0.1);
         gas.scaleValue = 0.1;
         gas.anchor.setTo(0.5);
