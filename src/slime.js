@@ -42,10 +42,9 @@ function slimeGroup(game, player, ground) {
             this.add(3600+ i*20, 0, 1, 1);
         }       
         s_jump = this.g.add.audio('slimejump');
-        s_jump.allowMultiple = true;
+        //s_jump.allowMultiple = true;
         
         s_explosion = this.g.add.audio('explosion');
-        s_jump.allowMultiple = true;
     }
     
     //loops through the slime group and checks for overlap with a player
@@ -201,7 +200,7 @@ function slimeGroup(game, player, ground) {
             // MAKE IT JUMP
             if (Math.random() > 0.5) {
                 enemy.body.velocity.y = this.slimeJump;
-                s_jump.play('',0,1,false, false);
+                s_jump.play('',0,0.75,false, false);
             }
         }
         else {

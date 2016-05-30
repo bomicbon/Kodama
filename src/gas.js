@@ -142,6 +142,7 @@ function gasSpawnerSystem(game, gasClass, water) {
     this.spawnRange = 600;
     restTime = this.spawnTime * 3;
     restCounter = 0;
+    var s_collapse = game.add.audio('collapse');
     
     this.create = function() {
         this.add(1348, 330);
@@ -188,6 +189,7 @@ function gasSpawnerSystem(game, gasClass, water) {
                     var spawner_die = game.add.sprite(spawner.body.x-17, spawner.body.y-125, 'factorypipe');
               		spawner_die.animations.add('factorypipe_die', [8, 9, 10, 11, 12, 13, 14], 17, false); // pipe death animation
                 	spawner_die.animations.play('factorypipe_die');
+                	s_collapse.play();
                 }
             }
         }
