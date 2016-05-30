@@ -19,6 +19,7 @@ function gasGroup(game, player) {
     //this.scale = 0;
     this.s_death = null;
     this.currentScale = null;
+    var s_p_hurt = game.add.audio('p_hurt');
     
     this.create = function() {
         /*
@@ -111,6 +112,7 @@ function gasGroup(game, player) {
             this.p.tint = 0xFFFFFF;
             this.p.alpha = 1;
         }, this);
+        s_p_hurt.play('',0,1,false,false); // HURT SOUND
             
     }
     

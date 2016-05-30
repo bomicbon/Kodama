@@ -123,6 +123,7 @@ function Player(game, temperature_reading) {
 		else if (!this.sprite.faceRight && !this.cursors.left.isDown && !this.cursors.right.isDown)
 			this.sprite.animations.play('idle_left'); 
 		*/
+		// THUD SOUND
         if (this.sprite.body.touching.down && this.falling) {
 			s_thud.play('',0,0.25,false, false);
 			this.falling = false;
@@ -130,6 +131,7 @@ function Player(game, temperature_reading) {
 		if (this.sprite.body.velocity.y > 0) {
 			this.falling = true;
 		}
+		
     }
     
     this.setAnimations = function() {

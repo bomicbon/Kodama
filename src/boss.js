@@ -45,6 +45,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.slimeCounter = 0;
     
     this.s_spawn = null;
+    var s_p_hurt = game.add.audio('p_hurt');
         
     this.create = function() {
         if (this.sprite == null) {
@@ -217,6 +218,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             this.p.tint = 0xFFFFFF;
             this.p.alpha = 1;
         }, this);
+        s_p_hurt.play('',0,1,false,false);
     }
     
     //called when water hits boss

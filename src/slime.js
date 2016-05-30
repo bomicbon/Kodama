@@ -23,6 +23,7 @@ function slimeGroup(game, player, ground) {
     jumpHeight = -200;
     var s_jump = null;
     var s_explosion =  null;
+    var s_p_hurt = game.add.audio('p_hurt');
     
     this.create = function() {
         /*
@@ -145,7 +146,8 @@ function slimeGroup(game, player, ground) {
                 this.p.tint = 0xFFFFFF;
                 this.p.alpha = 1;
             }, this);
-            
+            // HURT SOUND
+            s_p_hurt.play('',0,1,false,false);
         }
         else {
             enemy.counter = 0;
