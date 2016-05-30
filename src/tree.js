@@ -317,7 +317,7 @@ function LeafManager(game) {
                 var leaf = this.leafGroup.create(x + range * randX, y + range * randY, 'leaf');
                 leaf.anchor.setTo(0.5);
                 leaf.alpha = 0;
-                leaf.scale.setTo(0.2);
+                leaf.scale.setTo(0.6);
                 leaf.moveTime = 180;
                 leaf.spinRot = 44;
                 game.physics.arcade.enable(leaf);
