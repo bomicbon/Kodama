@@ -209,6 +209,7 @@ function slimeGroup(game, player, ground) {
 }
 
 function slimeSpawner(game, player, slime, water) {
+    this.g = game;
     //spawner health
     this.health = 50;
     
@@ -220,11 +221,14 @@ function slimeSpawner(game, player, slime, water) {
     
     this.spawnerGroup = game.add.group();
     
+    this.s_clang = null; // CLANG SOUND
+    
     this.create = function() {
         this.add(700, 552, -1);
         this.add(2000, 436, -1);
         this.add(2920, 552, 1);
         this.add(3440, 436, -1);
+        this.s_clang = this.g.add.audio('clang');
     }
     
     this.add = function(x,y, direction) {
@@ -274,5 +278,6 @@ function slimeSpawner(game, player, slime, water) {
         spawner.health -= waterBody.damage;
         
         water.hitCollision(waterBody, null);
+        this.s_clang.play();
     }
 }
