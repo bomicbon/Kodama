@@ -134,7 +134,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
         splash_obj.animations.add('splash'); // add the animation ability 'splash'
         splash_obj.animations.play('splash', 40, false, true);
         
-        this.waterSound.play();
+        this.waterSound.play('',0,0.25,false, true);
 
         this.projList.removeChild(body1, true);
     }

@@ -23,12 +23,12 @@ var gameTitle = function(game){
 
 gameTitle.prototype = {
   	create: function(){
-  		// GAME TITLE
-		var gameTitle = this.game.add.sprite(320,360,"gametitle");
-		gameTitle.anchor.setTo(0.5,0.5);
+  		
 		
 		//BACKGROUND
     	var background = this.game.add.tileSprite(0, 0, 4200, 720, "background");
+    	// GAME TITLE
+		var gameTitle = this.game.add.bitmapText(210, 360, 'pixely_font', 'H TO O', 48);
     	
 		// CREDITS PAGE
 		var Title = this.game.add.bitmapText(title_w+20, title_h, 'pixely_font', 'CREDITS', 24);
