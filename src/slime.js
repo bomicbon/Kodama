@@ -224,6 +224,7 @@ function slimeSpawner(game, player, slime, water) {
     this.spawnerGroup = game.add.group();
     
     this.s_clang = null; // CLANG SOUND
+    var s_bd = game.add.audio('barreldeath');
     
     this.create = function() {
         this.add(700, 552, -1);
@@ -270,6 +271,7 @@ function slimeSpawner(game, player, slime, water) {
                     var spawner_die = game.add.sprite(spawner.body.x-90, spawner.body.y, 'spill');
               		spawner_die.animations.add('spill_die', [1,1,2,2,3,3,4,4,5,5,6,7,7,8,9,10,10,11,12,13], 25, false); // spawner death animation
                 	spawner_die.animations.play('spill_die');
+                	s_bd.play();
                 }
             }
         }
@@ -278,7 +280,6 @@ function slimeSpawner(game, player, slime, water) {
     //called when water hits the spawner
     this.damage = function(spawner, waterBody) {
         spawner.health -= waterBody.damage;
-        
         water.hitCollision(waterBody, null);
         this.s_clang.play();
     }

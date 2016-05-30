@@ -84,6 +84,7 @@ preload.prototype = {
 		this.game.load.audio('thud', 'assets/sound/thud.wav');
 		this.game.load.audio('clang', 'assets/sound/clang.wav');
 		this.game.load.audio('p_hurt', 'assets/sound/playerhurt.wav');
+		this.game.load.audio('barreldeath', 'assets/sound/barreldeath.wav');
 		
 		// FONT
 		this.game.load.bitmapFont('pixely_font', 'assets/font/font.png', 'assets/font/font.fnt');
