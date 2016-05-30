@@ -29,7 +29,7 @@ preload.prototype = {
 		this.game.load.image("groundI", "assets/img/groundI.png");
 		this.game.load.image("pipe", "assets/img/pipe.png");
 		this.game.load.image("water", "assets/img/water.png");
-		this.game.load.spritesheet('splash', 'assets/img/splash.png', 24, 24, 10);
+		this.game.load.spritesheet('splash', 'assets/img/splash.png', 30, 30, 12);
 		this.game.load.spritesheet('slime', 'assets/img/slime.png', 50, 36, 15);
 		this.game.load.spritesheet('kaboom', 'assets/img/explode.png', 128, 128, 16);
 		

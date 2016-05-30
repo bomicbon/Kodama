@@ -57,7 +57,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
             }
         }
         
-        this.scale = 2 - (temperature_reading.temp - temperature_reading.nTemp) * 0.04; 
+        this.scale = 0.5 - (temperature_reading.temp - temperature_reading.nTemp) * 0.01; 
         this.speed = 200 - 2*(temperature_reading.temp - temperature_reading.nTemp);
         // DOPE FIRE RATE
         if (temperature_reading.temp - temperature_reading.nTemp < -40) {
@@ -128,11 +128,11 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
     //this is a the collision event for when the projectile hits a wall
     // or something, it changes its rotation depending on where collision happened
     this.hitCollision = function (body1, body2) {
-        var splash_scale = 1-(temperature_reading.temp - temperature_reading.nTemp) * 0.02; 
+        var splash_scale = this.scale = 0.5 - (temperature_reading.temp - temperature_reading.nTemp) * 0.015; 
         var splash_obj = game.add.sprite(body1.body.x, body1.body.y, 'splash'); // declaring where to add sprite animation
         splash_obj.scale.setTo(splash_scale, splash_scale);
         splash_obj.animations.add('splash'); // add the animation ability 'splash'
-        splash_obj.animations.play('splash', 30, false, true);
+        splash_obj.animations.play('splash', 40, false, true);
         
         this.waterSound.play();
 
