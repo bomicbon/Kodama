@@ -28,7 +28,7 @@ gameTitle.prototype = {
 		//BACKGROUND
     	var background = this.game.add.tileSprite(0, 0, 4200, 720, "background");
     	// GAME TITLE
-		var gameTitle = this.game.add.bitmapText(210, 360, 'pixely_font', 'H TO O', 48);
+		var gameTitle = this.game.add.bitmapText(160, 380, 'pixely_font', 'H TO O', 64);
     	
 		// CREDITS PAGE
 		var Title = this.game.add.bitmapText(title_w+20, title_h, 'pixely_font', 'CREDITS', 24);
