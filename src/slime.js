@@ -11,6 +11,8 @@ function slimeGroup(game, player, ground) {
     this.damage = 0.5; // formerly 0.2
     this.health = 10; // formerly 20
     
+    this.aliveRange = 1000;
+    
     this.slimeSpeed = 50; // Speed of slime 
     this.slimeDelay = 30; // Time in between slime steps
     this.slimeBounce = 0.6; // bounciness
@@ -74,6 +76,13 @@ function slimeGroup(game, player, ground) {
            }
            this.overlapping(object, this);
            this.movement(object); // Movement Code
+           
+           //this destroys slimes that are outside of the alive Range from the player position
+           //it helps prevent high memory usage, aka lag
+           if(Math.abs(object.x - this.p.x) > this.aliveRange) {
+               object.destroy();
+               --i;
+           }
         }
     }
     
@@ -207,6 +216,7 @@ function slimeSpawner(game, player, slime, water) {
     this.spawnTime = 60 * 0.4; // formerly 60 * 3
     
     this.spawnRange = 500;
+    this.maxSlimeCount = 50;
     
     this.spawnerGroup = game.add.group();
     
@@ -241,7 +251,8 @@ function slimeSpawner(game, player, slime, water) {
             if(game.physics.arcade.distanceBetween(spawner,player) < this.spawnRange) {
                 spawner.counter += 1;
                 //spawns a slime at the spawner after the timer is up
-                if(spawner.counter > this.spawnTime) {
+                //now prevents slime spawn when too many are on screen, prevents lag
+                if(spawner.counter > this.spawnTime && slime.enemyGroup.length < this.maxSlimeCount) {
                     spawner.counter = 0;
                     var slimeSprite = slime.add(spawner.x, spawner.y, 1, 1);
                     slimeSprite.direction = spawner.direction;

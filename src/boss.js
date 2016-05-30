@@ -50,7 +50,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
         if (this.sprite == null) {
             this.g.camera.unfollow();
         
-            this.sprite = this.g.add.sprite(this.startPosition + 300, this.startY,'blobSheet');
+            this.sprite = this.g.add.sprite(this.startPosition + 250, this.startY,'blobSheet');
             this.sprite.scale.setTo(this.scaleX, this.scaleY);
             this.g.physics.arcade.enable(this.sprite);
             this.sprite.anchor.setTo(0.5, 1);
@@ -90,6 +90,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             //this.bossGroup.sort();
             
             this.s_spawn = this.g.add.audio('boss_spawn');
+            this.s_spawn.volume = 0.8;
         }
     }
     
