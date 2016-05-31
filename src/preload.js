@@ -14,6 +14,8 @@ preload.prototype = {
 		this.game.load.image("play", "assets/img/play.png");
 		this.game.load.image("background", "assets/img/background.png");
 		this.game.load.image("background1", "assets/img/background1.png");
+		this.game.load.image("backgroundbldgs", "assets/img/backgroundbldgs.png");
+		this.game.load.image("backgroundsky", "assets/img/backgroundsky.png");
 		this.game.load.spritesheet('player', 'assets/img/player.png', 44, 65, 16);
 		this.game.load.spritesheet('tree', 'assets/img/tree.png', 150, 210, 10);
 		this.game.load.spritesheet('factorypipe', 'assets/img/factorypipe.png', 70, 255, 15);

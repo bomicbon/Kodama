@@ -70,7 +70,9 @@ theGame.prototype = {
   		background_music = this.game.add.audio('background_music');
   		background_music.play();
   		
+  		backgroundsky = this.game.add.tileSprite(0, 0, 4200, 720, "backgroundsky");
   		background = this.game.add.tileSprite(0, 0, 4200, 720, "background");
+  		backgroundbldgs = this.game.add.tileSprite(0, 0, 4200, 720, "backgroundbldgs");
   		background1 = this.game.add.tileSprite(0, 0, 4200, 720, "background1");
   		
 		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, startingTemp, {
@@ -280,11 +282,14 @@ theGame.prototype = {
 		}
 		temperature_reading.setText(temperature_reading.temp);
 		
-		//Backround Parallax
+		//Background Parallax
 		var camera = this.game.camera;
 		
 		background.tilePosition.x = camera.x - 1 * camera.x / 16;
-		background1.tilePosition.x = camera.x - 1 * camera.x / 8;
+		background1.tilePosition.x = camera.x - 1 * camera.x / 3;
+		backgroundbldgs.tilePosition.x = camera.x - 1 * camera.x / 8;
+		backgroundsky.tilePosition.x = camera.x
+		
 		
 		
 		// Updating Bars

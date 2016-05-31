@@ -26,7 +26,11 @@ gameTitle.prototype = {
   		
 		
 		//BACKGROUND
+		var backgroundsky = this.game.add.tileSprite(0, 0, 4200, 720, "backgroundsky");
     	var background = this.game.add.tileSprite(0, 0, 4200, 720, "background");
+    	var backgroundbldgs = this.game.add.tileSprite(0, 0, 4200, 720, "backgroundbldgs");
+  		var background1 = this.game.add.tileSprite(0, 0, 4200, 720, "background1");
+    	
     	// GAME TITLE
 		var gameTitle = this.game.add.bitmapText(160, 380, 'pixely_font', 'H TO O', 64);
     	
@@ -37,8 +41,6 @@ gameTitle.prototype = {
     	var JAY = this.game.add.bitmapText(title_w+20, title_h+160, 'pixely_font', 'JAY PATEL', 40);
     	var UUU = this.game.add.bitmapText(title_w+20, title_h+220, 'pixely_font', 'URIAN LEE', 40);
     	
-    	//BACKGROUND 1
-  		var background1 = this.game.add.tileSprite(0, 0, 4200, 720, "background1");
   		
     	// GIVE PHYSICS
     	this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -97,6 +99,8 @@ gameTitle.prototype = {
 		this.game.physics.arcade.collide(title_player, title_ground); //PLAYER TOUCHES GROUND
 		title_p.update(); // PLAYER UPDATE
 		title_wc.update(); // WATERING CAN UPDATE
+	
+		
 		
 		// ARROW KEYS TUTORIAL
 		if (title_p.didL && title_p.didU && title_p.didR) {
@@ -129,5 +133,6 @@ gameTitle.prototype = {
 			this.game.state.start("TheGame");
 			
 		}
+		
 	},
 }
