@@ -15,7 +15,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.scaleY = 1.0;
         
     //where the boss spawns
-    this.startPosition = 800; //this.g.world.width - 100;
+    this.startPosition = this.g.world.width - 100;
     this.startY = 680;
     
     //used in harmony with the x component sprite scale change
