@@ -60,29 +60,33 @@ function DamageSystem(game, player, enemyList, projectileList) {
     this.hitCollision = function (enemy, projectile) {
         enemy.health -= projectile.damage;
         
-        var sign = Math.sign(enemy.x - projectile.x);
-        enemy.body.velocity.x = sign * 200;
-        enemy.body.velocity.y = -200;
-        /*if (enemy.health <= 0) {
-            this.eGroup.enemyGroup.removeChild(enemy);
-        }
-        */
-
-        this.pGroup.hitCollision(projectile, null);
-        //console.log(projectile.damage + " damage");
-
-        //this.enemyHitList.push(body1);
-        //this.enemyHitDelay.push(this.hitDelay);
+        //check if the enemy is still alive
+        if(enemy.health > 0) {
         
-        //change enemy tint to red and lower alpha
-        enemy.tint = 0xFF0000;
-        enemy.alpha = 0.8;
-        //add a timer event half a second later to revert back to original settings
-        game.time.events.add(Phaser.Timer.SECOND / 2, function() {
-            enemy.tint = 0xFFFFFF;
-            enemy.alpha = 1;
-        }, this);
-        //s_hurt.play('',0,1,false, false);
+            var sign = Math.sign(enemy.x - projectile.x);
+            enemy.body.velocity.x = sign * 200;
+            enemy.body.velocity.y = -200;
+            /*if (enemy.health <= 0) {
+                this.eGroup.enemyGroup.removeChild(enemy);
+            }
+            */
+            
+            this.pGroup.hitCollision(projectile, null);
+            //console.log(projectile.damage + " damage");
+            
+            //this.enemyHitList.push(body1);
+            //this.enemyHitDelay.push(this.hitDelay);
+            
+            //change enemy tint to red and lower alpha
+            enemy.tint = 0xFF0000;
+            enemy.alpha = 0.8;
+            //add a timer event half a second later to revert back to original settings
+            game.time.events.add(Phaser.Timer.SECOND / 2, function() {
+                enemy.tint = 0xFFFFFF;
+                enemy.alpha = 1;
+            }, this);
+            //s_hurt.play('',0,1,false, false);
+        }
     }
 
     //this will be used in the future, for enemy projectiles

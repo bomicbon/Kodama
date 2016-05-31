@@ -212,10 +212,12 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
             for(var i = 0; i < slime.length; ++i) {
                 var s = slime.getAt(i);
                 if(this.g.physics.arcade.overlap(this.shield, s)) {
+                    /*
                     this.s_sdeath.play();
                     var slime_die = game.add.sprite(s.body.x, s.body.y, 'slime');
                     slime_die.animations.add('slime_die', [4,5,6,7,8,9,10,11,12,13,14], 25, false, true); 
                     slime_die.animations.play('slime_die');
+                    */
                     s.destroy();
                     --i;
                 }
@@ -317,7 +319,7 @@ function LeafManager(game) {
                 var leaf = this.leafGroup.create(x + range * randX, y + range * randY, 'leaf');
                 leaf.anchor.setTo(0.5);
                 leaf.alpha = 0;
-                leaf.scale.setTo(0.6);
+                leaf.scale.setTo(1);
                 leaf.moveTime = 180;
                 leaf.spinRot = 44;
                 game.physics.arcade.enable(leaf);

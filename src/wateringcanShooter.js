@@ -8,6 +8,8 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
     this.gravity = 1300;
     this.initUpVelocity = -300;
     this.scale = 2.0; // Bigger Water
+    this.maxScale = 10;
+    this.minScale = 0.1;
     
     this.delay = 5;
     this.delayCount = 0;
@@ -58,6 +60,14 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
         }
         
         this.scale = 0.5 - (temperature_reading.temp - temperature_reading.nTemp) * 0.01; 
+        //setup max and minimum scale of the water
+        if(this.scale < this.minScale) {
+            this.scale = this.minScale;
+        }
+        if(this.scale > this.maxScale) {
+            this.scale = this.maxScale;
+        }
+        
         this.speed = 200 - 2*(temperature_reading.temp - temperature_reading.nTemp);
         // DOPE FIRE RATE
         if (temperature_reading.temp - temperature_reading.nTemp < -40) {

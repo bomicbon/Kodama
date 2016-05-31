@@ -55,34 +55,28 @@ function slimeGroup(game, player, ground) {
         for(var i = 0; i < this.enemyGroup.length; ++i) {
            var object = this.enemyGroup.getAt(i);
            if(object.health <= 0) {
+               //runs once the slime runs out of health
+               //damage check for use with damage system to check if the
+               //player can still hit it
+               if(object.damage != 0) {
+                   object.body.velocity.x = 0;
+                   object.body.velocity.y = 0;
+                   object.damage = 0;
+               }
+
+            }
+            this.overlapping(object, this);
+            this.movement(object); // Movement Code
+            if(object == null) {
+                --i;
+            }
+           
+            //this destroys slimes that are outside of the alive Range from the player position
+            //it helps prevent high memory usage, aka lag
+            if(Math.abs(object.x - this.p.x) > this.aliveRange) {
                 object.destroy();
                 --i;
-                 // var explosion = game.add.sprite(object.body.x - 20, object.body.y - 46, 'kaboom');
-               // explosion.animations.add('kaboom');
-                //explosion.animations.play('kaboom', 30, false, true);
-                
-                /* what to make happen:
-    			1. slime technically dies
-    			2. check if slime is touching ground
-    			3. if slime is touching ground, kill slime object and play slime_die animation */
-                var slime_die = game.add.sprite(object.body.x, object.body.y, 'slime');
-                slime_die.animations.add('slime_die', [4,5,6,7,8,9,10,11,12,13,14], 25, false, true); 
-                slime_die.animations.play('slime_die');
-                
-                
-                
-                s_explosion.play();
-
-           }
-           this.overlapping(object, this);
-           this.movement(object); // Movement Code
-           
-           //this destroys slimes that are outside of the alive Range from the player position
-           //it helps prevent high memory usage, aka lag
-           if(Math.abs(object.x - this.p.x) > this.aliveRange) {
-               object.destroy();
-               --i;
-           }
+            }
         }
     }
     
@@ -116,27 +110,33 @@ function slimeGroup(game, player, ground) {
     this.overlapping = function(enemy, top) {
         if(Phaser.Rectangle.intersects(this.p.body.sprite.getBounds(), enemy.getBounds())) {
             enemy.counter += 1;
-            this.p.body.velocity.y /= 4;
-
-            //subtract player health when touched
+            
+            //damage only from one slime and 
+            //velocity change of player from only one instance
             if(top.damaged == false) {
+                this.p.body.velocity.y /= 4;
+            
+                //subtract player health when touched
                 this.p.health -= enemy.damage;
                 top.damaged = true;
+                
+                if(enemy.counter > enemy.stepTime * 2) {
+                    enemy.counter = 0;
+                }
+                else if(enemy.counter >= enemy.stepTime) {
+                    this.p.body.velocity.x /= 2;
+                }
+                else {
+                   this.p.body.velocity.x = 0;
+                }
             }
+                
             //console.log(this.p.health);
             
             //make slime take slight dmg as well
             enemy.health -= 0.15;
 
-            if(enemy.counter > enemy.stepTime * 2) {
-                enemy.counter = 0;
-            }
-            else if(enemy.counter >= enemy.stepTime) {
-                this.p.body.velocity.x /= 2;
-            }
-            else {
-                this.p.body.velocity.x = 0;
-            }
+            
             //change player tint to red and lower alpha
             this.p.tint = 0xFF0000;
             this.p.alpha = 0.8;
@@ -191,20 +191,37 @@ function slimeGroup(game, player, ground) {
         }
         // IF GROUNDED
         if(enemy.body.touching.down) {
-            // MOVE THE SLIME
-            if (Math.random() > 0.25) {
-                enemy.body.velocity.x = enemy.direction * 150 * Math.random();
+            if(enemy.health <= 0) {
+                enemy.destroy();
+                // var explosion = game.add.sprite(object.body.x - 20, object.body.y - 46, 'kaboom');
+                // explosion.animations.add('kaboom');
+                //explosion.animations.play('kaboom', 30, false, true);
+                    
+                /* what to make happen:
+        		1. slime technically dies
+        		2. check if slime is touching ground
+        		3. if slime is touching ground, kill slime object and play slime_die animation */
+                var slime_die = game.add.sprite(enemy.body.x, enemy.body.y, 'slime');
+                // game.physics.arcade.enable(slime_die);
+                // slime_die.body.gravity.y = this.gravity;
+                slime_die.animations.add('slime_die', [4,5,6,7,8,9,10,11,12,13,14], 25, false, true); 
+                slime_die.animations.play('slime_die', null, false, true);
+                    
+                s_explosion.play();
             }
-            //this is where the slime jumps?
-            // RE: YEUHHHHHHH
-            // MAKE IT JUMP
-            if (Math.random() > 0.5) {
-                enemy.body.velocity.y = this.slimeJump;
-                s_jump.play('',0,0.75,false, false);
+            else {
+                // MOVE THE SLIME
+                if (Math.random() > 0.25) {
+                    enemy.body.velocity.x = enemy.direction * 150 * Math.random();
+                }
+                //this is where the slime jumps?
+                // RE: YEUHHHHHHH
+                // MAKE IT JUMP
+                if (Math.random() > 0.5) {
+                    enemy.body.velocity.y = this.slimeJump;
+                    s_jump.play('',0,0.75,false, false);
+                }
             }
-        }
-        else {
-       
         }
     }
 }
