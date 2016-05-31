@@ -197,10 +197,7 @@ function slimeGroup(game, player, ground) {
                 // explosion.animations.add('kaboom');
                 //explosion.animations.play('kaboom', 30, false, true);
                     
-                /* what to make happen:
-        		1. slime technically dies
-        		2. check if slime is touching ground
-        		3. if slime is touching ground, kill slime object and play slime_die animation */
+
                 var slime_die = game.add.sprite(enemy.body.x, enemy.body.y, 'slime');
                 // game.physics.arcade.enable(slime_die);
                 // slime_die.body.gravity.y = this.gravity;
@@ -258,7 +255,7 @@ function slimeSpawner(game, player, slime, water) {
         spawner.counter = 0;
         spawner.anchor.setTo(0.5);
         spawner.health = this.health;
-        spawner.body.setSize(75, 70, 43, 0);
+        spawner.body.setSize(63, 60, 50, 5);
         spawner.body.immovable = true;
         //negative direction spawns slime moving left, positive is right
         spawner.direction = direction;
@@ -284,7 +281,7 @@ function slimeSpawner(game, player, slime, water) {
                 if(spawner.health <= 0) {
                     spawner.destroy();
                     --i;
-                    var spawner_die = game.add.sprite(spawner.body.x-90, spawner.body.y, 'spill');
+                    var spawner_die = game.add.sprite(spawner.body.x-103, spawner.body.y-10, 'spill');
               		spawner_die.animations.add('spill_die', [1,1,2,2,3,3,4,4,5,5,6,7,7,8,9,10,10,11,12,13], 25, false); // spawner death animation
                 	spawner_die.animations.play('spill_die');
                 	s_bd.play();
