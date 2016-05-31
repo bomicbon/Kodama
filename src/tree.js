@@ -297,7 +297,7 @@ function LeafManager(game) {
     
     var speed = 1000;
     
-    var damage = 10;
+    var damage = 5;
     var leafUp = game.add.audio('leaf1');
     var leafSwoosh = game.add.audio('leaf2');
     

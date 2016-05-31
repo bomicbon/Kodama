@@ -19,7 +19,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.startY = 680;
     
     //used in harmony with the x component sprite scale change
-    this.deadZX = this.g.camera.width * 9/10;
+    this.deadZX = this.g.camera.width * 0.85;
     
     //boss sprite
     this.sprite = null;
@@ -107,7 +107,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
                 scaleY = this.scaleY / 8;
             }
             //change x of object to compensate for the scale down
-            this.g.camera.deadzone.x = this.deadZX - (this.scaleY - scaleY) * 200;
+            this.g.camera.deadzone.x = this.deadZX + (this.scaleY - scaleY) * 100;
             this.sprite.scale.setTo(scaleX, scaleY);
 
 
@@ -178,14 +178,17 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
                     var slime1 = slimes.add(sX, sY , 1, 1);
                     slime1.body.velocity.x = -100 - Math.random()*150; // -100
                     slime1.body.velocity.y = 300 - Math.random()*100; // -300
+                    slime1.damage /= 2;
                     
                     var slime2 = slimes.add(sX, sY, 1, 1);
                     slime2.body.velocity.x = -50 - Math.random()*150; // -50
                     slime2.body.velocity.y = -300 - Math.random()*100; // -300
+                    slime2.damage /= 2;
                     
                     var slime3 = slimes.add(sX, sY, 1, 1);
                     slime3.body.velocity.x = -150 - Math.random()*150; // -150
                     slime3.body.velocity.y = -300 - Math.random()*100; // -300
+                    slime3.damage /= 2;
                     
                     this.s_spawn.play(); // SPAWN SOUND
                 }
@@ -223,7 +226,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     
     //called when water hits boss
     this.damageBoss = function(boss, water) {
-        this.health -= water.damage;
+        this.health -= water.damage/2;
         this.water.hitCollision(water, null);
         //console.log(this.health);
     }
