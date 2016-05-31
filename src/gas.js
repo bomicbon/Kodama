@@ -50,7 +50,7 @@ function gasGroup(game, player) {
                 gas_die.animations.add('gas_die', [12,13,14,15,16,17,18,19,20,21], 20, false, true); 
                 gas_die.alpha = object.alpha;
                 gas_die.scale.setTo(object.scaleValue, object.scaleValue);
-                gas_die.animations.play('gas_die');
+                gas_die.animations.play('gas_die', null, false, true);
       
             }
             // Scale Testing
