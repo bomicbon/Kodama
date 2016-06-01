@@ -32,7 +32,7 @@
     		</style>
 		<script>
 			(function() {
-				var game = new Phaser.Game(640, 480, Phaser.CANVAS, '');
+				var game = new Phaser.Game(640, 480, Phaser.WEBGL, '');
 				game.state.add("Boot",boot);
 				game.state.add("Preload",preload);
 				game.state.add("Credits", credits);

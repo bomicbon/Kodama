@@ -1,4 +1,4 @@
-function gasGroup(game, player) {
+function gasGroup(game, player, tempReading) {
     this.p = player;
     this.g = game;
     
@@ -63,6 +63,7 @@ function gasGroup(game, player) {
                 //object.timer = 0;
             }
             
+            //death and increase temp
             if(object.timer > this.lifetime) {
                 this.s_death.play(); // DEATH SOUND
                 object.destroy();
@@ -73,6 +74,8 @@ function gasGroup(game, player) {
                 gas_fade.scale.setTo(object.scaleValue, object.scaleValue);
                 gas_fade.alpha = object.alpha;
                 gas_fade.animations.play('gas_fade');
+                
+                tempReading.temp += 1;
             }
             //object.scale.setTo(1.0+this.scale, 1.0+this.scale);
             

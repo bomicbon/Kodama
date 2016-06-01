@@ -101,7 +101,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
            		var projL = this.g.add.sprite(this.p.body.x-30 + this.p.body.halfWidth, this.p.body.y+35, 'water');
 	            this.g.physics.arcade.enable(projL);
 	            projL.body.gravity.y = this.gravity;
-	            projL.body.velocity.x = (-1) * this.speed;
+	            projL.body.velocity.x = (-1) * this.speed + this.p.body.velocity.x;
 	            projL.body.velocity.y = this.initUpVelocity;
 	            projL.scale.setTo(this.scale, this.scale);
 	            projL.damage = this.damage;
@@ -119,7 +119,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
             	var projR = this.g.add.sprite(this.p.body.x+30 + this.p.body.halfWidth, this.p.body.y+35, 'water');
 	            this.g.physics.arcade.enable(projR);
 	            projR.body.gravity.y = this.gravity;
-	            projR.body.velocity.x = this.speed;
+	            projR.body.velocity.x = this.speed + this.p.body.velocity.x;
 	            projR.body.velocity.y = this.initUpVelocity;
 	            projR.scale.setTo(this.scale, this.scale);
 	            projR.damage = this.damage;

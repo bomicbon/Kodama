@@ -7,11 +7,14 @@ var theGame = function(game){
 	score = 0;
 	pollution_timer = 0;
 	temperature_reading = null;
-	startingTemp = 65;
+	startingTemp = 75;
 	
 	ground = null;
 	flower = null;
 	animal = null;
+	
+	sun = null;
+	smoke = null;
 	
 	sweatS = null;
 
@@ -71,9 +74,17 @@ theGame.prototype = {
   		background_music.play();
   		
   		backgroundsky = this.game.add.tileSprite(0, 0, 4200, 720, "backgroundsky");
+		  
+		//Sun
+		sun = this.game.add.sprite(50, 60, "water");
+		sun.anchor.setTo(0.5);
+		sun.fixedToCamera = true;
+		
   		background = this.game.add.tileSprite(0, 0, 4200, 720, "background");
   		backgroundbldgs = this.game.add.tileSprite(0, 0, 4200, 720, "backgroundbldgs");
   		background1 = this.game.add.tileSprite(0, 0, 4200, 720, "background1");
+		  
+		
   		
 		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, startingTemp, {
   			font: "1px Arial", //TOXICITY BAR
@@ -92,7 +103,7 @@ theGame.prototype = {
 		player = p.sprite;
 		
 		
-	// Ground Code
+		// Ground Code
 		ground = this.game.add.physicsGroup();
 		//E: use ground length to determine how far the ground goes
 		var groundLength = 15;
@@ -152,7 +163,7 @@ theGame.prototype = {
 		slimeSystem.create();
 		
 		//gas Group
-		gasG = new gasGroup(this.game, player);
+		gasG = new gasGroup(this.game, player, temperature_reading);
 		gasG.create();
 		
 		//gas system
@@ -238,6 +249,15 @@ theGame.prototype = {
     	
     	// Text
     	m_feedme = this.game.add.bitmapText(410, 610, 'pixely_font', '', 12);
+		
+		//smoke amount ui
+		smoke = this.game.add.sprite(this.game.width/2, 60, "smoke");
+		smoke.anchor.setTo(0.5);
+		smoke.scale.setTo(1.2, 0.6);
+		smoke.alpha = 0;
+		smoke.fixedToCamera = true;
+		
+		
 	},
 	update: function() {
 		
@@ -288,9 +308,42 @@ theGame.prototype = {
 		background.tilePosition.x = camera.x - 1 * camera.x / 16;
 		background1.tilePosition.x = camera.x - 1 * camera.x / 3;
 		backgroundbldgs.tilePosition.x = camera.x - 1 * camera.x / 8;
-		backgroundsky.tilePosition.x = camera.x
+		backgroundsky.tilePosition.x = camera.x;
 		
+		//determines which heat stage its on
+		var tempStage = parseInt( (temperature_reading.temp - 50) / 10);
+		var hexColor = 0xFFFFFF;
+		//depending on heat stage, tint color changes to more and more red
+		switch (tempStage) {
+			case 1:
+				hexColor = 0xFFCCCC;
+				break;
+			case 2:
+				hexColor = 0xFF9999;
+				break;
+			case 3:
+				hexColor = 0xFF6666;
+				break;
+		}
+		 
+		background.tint = hexColor;
+		background1.tint = hexColor;
+		backgroundbldgs.tint = hexColor;
+		backgroundsky.tint = hexColor;
 		
+		//increase sun scale as temp gets higher
+		sun.scale.setTo(temperature_reading.temp / 70);
+		//min scale
+		if(sun.scale.x < 0.8) {
+			sun.scale.setTo(0.8);
+		}
+		//max scale
+		if(sun.scale.x > 3) {
+			sun.scale.setTo(3);
+		}
+		
+		//change smoke alpha depending on temp
+		smoke.alpha = temperature_reading.temp / 100;
 		
 		// Updating Bars
 		this.myHealthBar.setPercent(player.health);
