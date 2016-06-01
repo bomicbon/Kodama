@@ -10,7 +10,6 @@ function gasGroup(game, player, tempReading) {
     this.speed = 75;
     this.gravity = 0;
    
-    
     //determines how long gas lives until destroy
     this.lifetime = 300;
     
@@ -75,7 +74,7 @@ function gasGroup(game, player, tempReading) {
                 gas_fade.alpha = object.alpha;
                 gas_fade.animations.play('gas_fade');
                 
-                tempReading.temp += 1;
+                tempReading.temp += 0.2;
             }
             //object.scale.setTo(1.0+this.scale, 1.0+this.scale);
             

@@ -317,6 +317,9 @@ theGame.prototype = {
 		var hexColor = 0xFFFFFF;
 		//depending on heat stage, tint color changes to more and more red
 		switch (tempStage) {
+			case 0:
+				hexColor = 0xFFFFFF;
+				break;
 			case 1:
 				hexColor = 0xFFCCCC;
 				break;
@@ -324,6 +327,9 @@ theGame.prototype = {
 				hexColor = 0xFF9999;
 				break;
 			case 3:
+				hexColor = 0xFF6666;
+				break;
+			default:
 				hexColor = 0xFF6666;
 				break;
 		}
@@ -349,6 +355,7 @@ theGame.prototype = {
 		smoke.alpha = (temperature_reading.temp - 60) / 40;
 		if(smoke.alpha < 0) {
 			smoke.alpha = 0;
+		}
 		if(smoke.alpha > 1) {
 			smoke.alpha = 1;
 		}
