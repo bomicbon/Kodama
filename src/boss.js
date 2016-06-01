@@ -169,8 +169,21 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             this.restCounter += 1;
             if (this.restCounter > this.restTime) {
                 this.slimeCounter += 1;
+                
+                //prepare boss animation
+                //lower arms
+                if (this.slimeCounter > this.slimeTime / 2) {
+                    this.g.add.tween(this.bossLeft).to({angle: -90}, this.slimeTime/2, Phaser.Easing.Linear.None, true);
+                    this.g.add.tween(this.bossRight).to({angle: 90}, this.slimeTime/2, Phaser.Easing.Linear.None, true);
+                }
+                
                 if (this.slimeCounter > this.slimeTime) {
                     this.slimeCounter = 0;
+                    
+                    //boss animations
+                    //swing arms
+                    this.g.add.tween(this.bossLeft).to({angle: 80}, 500, Phaser.Easing.Exponential.Out, true);
+                    this.g.add.tween(this.bossRight).to({angle: -80}, 500, Phaser.Easing.Exponential.Out, true);
                     
                     var sX = this.sprite.x - this.sprite.width/2;
                     var sY = this.sprite.y - this.sprite.height/2;
