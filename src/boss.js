@@ -11,7 +11,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.speed = 30;
     this.maxHealth = this.health;
     
-    this.scaleX = 0.7;
+    this.scaleX = 0.8;
     this.scaleY = 1.0;
         
     //where the boss spawns
@@ -58,7 +58,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             this.sprite.body.gravity.y = 0;
             this.sprite.body.immovable = true;
             
-            this.sprite.animations.add("walk", [0,1,2,3,3,2,1,0], 10, true);
+            this.sprite.animations.add("walk", [0,1,2,3,4,3,2,1,0,5,6,7,8,7,6,5], 10, true);
             this.sprite.animations.play("walk");
             
             //left and right arm            
@@ -248,7 +248,8 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.treeDamage = function(boss, tree) {
         this.health -= 4 * tree.health;
         tree.health = 0;
-        tree.loadTexture('flower_black', 0);
+        
+        //tree.loadTexture('flower_black', 0);
         //console.log(this.health);
 
     }

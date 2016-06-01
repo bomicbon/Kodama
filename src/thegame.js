@@ -76,7 +76,7 @@ theGame.prototype = {
   		backgroundsky = this.game.add.tileSprite(0, 0, 4200, 720, "backgroundsky");
 		  
 		//Sun
-		sun = this.game.add.sprite(50, 60, "water");
+		sun = this.game.add.sprite(70, 60, "sun");
 		sun.anchor.setTo(0.5);
 		sun.fixedToCamera = true;
 		
