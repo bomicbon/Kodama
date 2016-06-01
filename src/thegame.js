@@ -7,7 +7,7 @@ var theGame = function(game){
 	score = 0;
 	pollution_timer = 0;
 	temperature_reading = null;
-	startingTemp = 75;
+	startingTemp = null;
 	
 	ground = null;
 	flower = null;
@@ -85,7 +85,7 @@ theGame.prototype = {
   		background1 = this.game.add.tileSprite(0, 0, 4200, 720, "background1");
 		  
 		
-  		
+  		startingTemp = 75;
 		temperature_reading = this.game.add.text(this.game.camera.x+550, this.game.camera.y+50, startingTemp, {
   			font: "1px Arial", //TOXICITY BAR
   			fill: "000000",
@@ -199,6 +199,13 @@ theGame.prototype = {
 		//s_hithurt = this.game.add.audio('hithurt');
 		//s_slimejump = this.game.add.audio('slimejump');
 		
+		//smoke amount ui
+		smoke = this.game.add.sprite(this.game.width/2, 60, "smoke");
+		smoke.anchor.setTo(0.5);
+		smoke.scale.setTo(1.2, 0.6);
+		smoke.alpha = 0;
+		smoke.fixedToCamera = true;
+		
 		// Health Bar border
 		health_bar_border = this.game.add.sprite(this.game.camera.x+140, this.game.camera.y+30, 'health_bar_border');
 		health_bar_border.scale.setTo(0.95, 0.4);
@@ -250,12 +257,7 @@ theGame.prototype = {
     	// Text
     	m_feedme = this.game.add.bitmapText(410, 610, 'pixely_font', '', 12);
 		
-		//smoke amount ui
-		smoke = this.game.add.sprite(this.game.width/2, 60, "smoke");
-		smoke.anchor.setTo(0.5);
-		smoke.scale.setTo(1.2, 0.6);
-		smoke.alpha = 0;
-		smoke.fixedToCamera = true;
+		
 		
 		
 	},
@@ -343,7 +345,13 @@ theGame.prototype = {
 		}
 		
 		//change smoke alpha depending on temp
-		smoke.alpha = temperature_reading.temp / 100;
+		//max out at 100 degrees, min is 60 degrees
+		smoke.alpha = (temperature_reading.temp - 60) / 40;
+		if(smoke.alpha < 0) {
+			smoke.alpha = 0;
+		if(smoke.alpha > 1) {
+			smoke.alpha = 1;
+		}
 		
 		// Updating Bars
 		this.myHealthBar.setPercent(player.health);
