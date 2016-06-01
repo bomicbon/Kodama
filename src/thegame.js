@@ -314,6 +314,9 @@ theGame.prototype = {
 		
 		//determines which heat stage its on
 		var tempStage = parseInt( (temperature_reading.temp - 50) / 10);
+		if(tempStage < 0) {
+			tempStage = 0;
+		}
 		var hexColor = 0xFFFFFF;
 		//depending on heat stage, tint color changes to more and more red
 		switch (tempStage) {
