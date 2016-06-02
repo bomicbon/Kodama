@@ -249,8 +249,8 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
         shield.scale.setTo(0);
         
         //tween that scales and lowers opacity over a time of 2 and 3 seconds.
-        this.g.add.tween(shield.scale).to({x: 1, y: 1}, 3000, Phaser.Easing.Exponential.Out, true);
-        this.g.add.tween(shield).to({alpha: 0}, 2000, Phaser.Easing.Exponential.In, true);
+        this.g.add.tween(shield.scale).to({x: 1, y: 1}, 3500, Phaser.Easing.Exponential.Out, true);
+        this.g.add.tween(shield).to({alpha: 0}, 500, Phaser.Easing.Exponential.In, true, 3500);
         //then destroyed after 4 seconds
         this.g.time.events.add(Phaser.Timer.SECOND * 4, function() {shield.destroy();}, this);
         this.playSound();
