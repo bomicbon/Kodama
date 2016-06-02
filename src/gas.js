@@ -33,25 +33,17 @@ function gasGroup(game, player, tempReading) {
     this.update = function() {
         //this var prevents multiple damage in one update
         var overlapOne = false;
+        
         for(var i = 0; i < this.enemyGroup.length; ++i) {
-            object = this.enemyGroup.getAt(i);
+            var object = this.enemyGroup.getAt(i);
             if(overlapOne == false && 
                 this.g.physics.arcade.overlap(object, this.p, this.overlapping, null, this)) {
                 overlapOne = true;
             }
             this.movement(object);
-            // Health
-            if(object.health <= 0){
-                this.s_death.play(); // DEATH SOUND
-                --i;
-                var gas_die = game.add.sprite(object.body.x, object.body.y, 'gas');
-                gas_die.animations.add('gas_die', [12,13,14,15,16,17,18,19,20,21], 20, false, true); 
-                gas_die.alpha = object.alpha;
-                gas_die.scale.setTo(object.scaleValue, object.scaleValue);
-                gas_die.animations.play('gas_die', null, false, true);
-                object.destroy();
-      
-            }
+            //bool used to prevent destroy() from being called twice
+            var objectDead = false;
+            
             // Scale Testing
             object.timer++;
             //E: changed object timer to work with lifetime
@@ -62,8 +54,23 @@ function gasGroup(game, player, tempReading) {
                 //object.timer = 0;
             }
             
+            // Health
+            if(object.health <= 0){
+                this.s_death.play(); // DEATH SOUND
+                --i;
+                var gas_die = game.add.sprite(object.body.x, object.body.y, 'gas');
+                gas_die.animations.add('gas_die', [12,13,14,15,16,17,18,19,20,21], 20, false, true); 
+                gas_die.alpha = object.alpha;
+                gas_die.scale.setTo(object.scaleValue, object.scaleValue);
+                gas_die.animations.play('gas_die', null, false, true);
+                object.destroy();
+                
+                objectDead = true;
+      
+            }
+            
             //death and increase temp
-            if(object.timer > this.lifetime) {
+            if(objectDead == false && object.timer > this.lifetime) {
                 this.s_death.play(); // DEATH SOUND
                 object.destroy();
                 --i;
