@@ -166,6 +166,17 @@ function gasSpawnerSystem(game, gasClass, water) {
         
     }
     
+    //pass sprite variable to this function to create
+    //a custom sprite gas spawner
+    this.addCustom = function(image) {
+        var sprite = this.spawnerGroup.addChild(image);
+        sprite.counter = 0;
+        sprite.anchor.setTo(0.5, 0.5);
+        sprite.health = this.health;
+        sprite.body.immovable = true;
+        return sprite;
+    }
+    
     this.update = function() {
         game.physics.arcade.overlap(this.spawnerGroup, water.projList, this.damage, null, this);
         for(var i = 0; i < this.spawnerGroup.length; ++i) {
