@@ -79,7 +79,7 @@ function gasGroup(game, player, tempReading) {
                 gas_fade.animations.add('gas_fade', [5, 6, 7, 8, 9, 10, 11, 21], 25, false, true); 
                 gas_fade.scale.setTo(object.scaleValue, object.scaleValue);
                 gas_fade.alpha = object.alpha;
-                gas_fade.animations.play('gas_fade');
+                gas_fade.animations.play('gas_fade', null, false, true);
                 
                 tempReading.temp += 0.2;
             }
