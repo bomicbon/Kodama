@@ -50,6 +50,7 @@ preload.prototype = {
 		this.game.load.spritesheet("blobSheet", "assets/img/blobSS.png", 350, 340, 9);
 		this.game.load.spritesheet("bosscloud", "assets/img/bosscloud.png", 300, 200, 3);
 		this.game.load.image("arrowkeys", "assets/img/arrowkeys.png");
+		this.game.load.image("spacebar", "assets/img/spacebar.png");
 		
 		this.game.load.image("orb", "assets/img/greenOrb.png");
 		this.game.load.image("waterDrop", "assets/img/waterDroplet.png");
@@ -58,9 +59,7 @@ preload.prototype = {
 		this.game.load.image("leaf", "assets/img/leaf.png");
 		this.game.load.image("smoke", "assets/img/smoke.png");
 		
-		this.game.load.image("right_arrow", "assets/img/right_arrow.png");
-		this.game.load.image("left_arrow", "assets/img/left_arrow.png");
-		this.game.load.image("up_arrow", "assets/img/up_arrow.png");
+		
 		this.game.load.image("health_bar_border", "assets/img/health_bar_border.png");
 		this.game.load.image("feedme", "assets/img/feedme.png");
 		this.game.load.image("thankyou", "assets/img/thankyou.png");

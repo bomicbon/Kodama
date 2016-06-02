@@ -43,14 +43,16 @@ gameTitle.prototype = {
   		background1 = this.game.add.tileSprite(0, 0, 4200, 720, "background1");
     	
     	// GAME TITLE
-		var gameTitle = this.game.add.bitmapText(140, 400, 'pixely_font', 'TERRA', 64);
+		var gameTitle = this.game.add.bitmapText(140, 420, 'pixely_font', 'TERRA', 64);
+		gameTitle.tint = 0xfeffff;
+
     	
 		// CREDITS PAGE
-		var Title = this.game.add.bitmapText(title_w+20, title_h+10, 'pixely_font', 'CREDITS', 24);
-    	var LCN = this.game.add.bitmapText(title_w+20, title_h+50, 'pixely_font', 'LUCIENNE LEE', 40);
-    	var ETN = this.game.add.bitmapText(title_w+20, title_h+110, 'pixely_font', 'ETHAN WONG', 40);
-    	var JAY = this.game.add.bitmapText(title_w+20, title_h+170, 'pixely_font', 'JAY PATEL', 40);
-    	var UUU = this.game.add.bitmapText(title_w+20, title_h+230, 'pixely_font', 'URIAN LEE', 40);
+		var Title = this.game.add.bitmapText(title_w+20, title_h+25, 'pixely_font', 'CREDITS', 24);
+    	var LCN = this.game.add.bitmapText(title_w+20, title_h+65, 'pixely_font', 'LUCIENNE LEE', 40);
+    	var ETN = this.game.add.bitmapText(title_w+20, title_h+125, 'pixely_font', 'ETHAN WONG', 40);
+    	var JAY = this.game.add.bitmapText(title_w+20, title_h+185, 'pixely_font', 'JAY PATEL', 40);
+    	var UUU = this.game.add.bitmapText(title_w+20, title_h+245, 'pixely_font', 'URIAN LEE', 40);
     	
   		
     	// GIVE PHYSICS
@@ -104,9 +106,10 @@ gameTitle.prototype = {
 		sound_shootXL = this.game.add.audio('shootXL');
 		
 		// Text
-		//m_arrowkeys = this.add.sprite(100,550, 'arrowkeys');
-    	m_arrowkeys = this.game.add.bitmapText(100, 550, 'pixely_font', 'ARROW KEYS TO MOVE', 24);
-    	m_space = this.game.add.bitmapText(150, 590, 'pixely_font', 'SPACE TO SHOOT', 24);
+		m_arrowkeys = this.add.sprite(195,505, 'arrowkeys');
+		m_space = this.add.sprite(315,525, 'spacebar');
+    	//m_arrowkeys = this.game.add.bitmapText(100, 550, 'pixely_font', 'ARROW KEYS TO MOVE', 24);
+    	//m_space = this.game.add.bitmapText(150, 590, 'pixely_font', 'SPACE TO SHOOT', 24);
     	m_start = this.game.add.bitmapText(1160, 550, 'pixely_font', 'START HERE', 18);
     	
     	
@@ -128,16 +131,17 @@ gameTitle.prototype = {
 		backgroundbldgs.tilePosition.x = camera.x - 1 * camera.x / 8;
 		backgroundsky.tilePosition.x = camera.x;
 		
+	
 		
 		// ARROW KEYS TUTORIAL
-		if (title_p.didL && title_p.didU && title_p.didR) {
-			if (m_arrowkeys.alpha < 0.2) {
+		if (title_p.didL || title_p.didU || title_p.didR) {
+			if (m_arrowkeys.alpha < 0.5) {
 				m_arrowkeys.alpha = 0;
-				m_arrowkeys.setText('');
+				//m_arrowkeys.setText('');
 			}
 			else {
-				m_arrowkeys.setText('           AWESOME');
-				m_arrowkeys.alpha -= 0.01;
+				//m_arrowkeys.setText('           AWESOME');
+				m_arrowkeys.alpha = 0.5;
 				//m_arrowkeys.scale += 0.5;
 			}
 			
@@ -145,13 +149,13 @@ gameTitle.prototype = {
 
 		// SPACE BAR Completed
 		if (title_wc.didShoot) {
-			if (m_space.alpha < 0.1) {
+			if (m_space.alpha < 0.5) {
 				m_space.alpha = 0;
-				m_space.setText('');
+				//m_space.setText('');
 			}
 			else {
-				m_space.setText('     EXCELLENT'); 
-				m_space.alpha -= 0.01;
+				//m_space.setText('     EXCELLENT'); 
+				m_space.alpha = 0.5;
 				//m_space.scale += 0.5;
 			}
 		}

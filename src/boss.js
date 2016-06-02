@@ -15,7 +15,8 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.scaleY = 1.0;
         
     //where the boss spawns
-    this.startPosition = this.g.world.width - 100;
+    this.startPosition = 800
+    //this.g.world.width - 100;
     this.startY = 680;
     
     //used in harmony with the x component sprite scale change
@@ -81,10 +82,16 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             camera.deadzone = new Phaser.Rectangle(this.deadZX, 0, camera.width / 4, 10);
             
             //gas spawners
-            this.leftSpawner = gasSpawner.addCustom("water");
+            this.leftSpawner = gasSpawner.addCustom("bosscloud");
+			this.leftSpawner.animations.add('bosscloud', [0,1,2,3,2,1], 14, true);
+      		this.leftSpawner.animations.play('bosscloud');  
+      		this.leftSpawner.scale.setTo(0.6, 0.8);
             //this.bossGroup.add(this.leftSpawner);
             
-            this.rightSpawner = gasSpawner.add(0, 0, 1, 1);
+            this.rightSpawner = gasSpawner.addCustom("bosscloud");
+			this.rightSpawner.animations.add('bosscloud', [0,1,2,3,2,1], 14, true);
+      		this.rightSpawner.animations.play('bosscloud');  
+      		this.rightSpawner.scale.setTo(0.6, 0.8);
            // this.bossGroup.add(this.rightSpawner);
 
             trees.inBossFight = true;
