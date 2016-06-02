@@ -106,11 +106,11 @@ gameTitle.prototype = {
 		sound_shootXL = this.game.add.audio('shootXL');
 		
 		// Text
-		m_arrowup = this.add.sprite(220,505, 'arrowUp');
-		m_arrowdown = this.add.sprite(220,543, 'arrowDown');
-		m_arrowleft = this.add.sprite(183,543, 'arrowLeft');
-		m_arrowright = this.add.sprite(258,543, 'arrowRight');
-		m_space = this.add.sprite(325,525, 'spacebar');
+		m_arrowup = this.add.sprite(400,515, 'arrowUp');
+		m_arrowdown = this.add.sprite(400,553, 'arrowDown');
+		m_arrowleft = this.add.sprite(363,553, 'arrowLeft');
+		m_arrowright = this.add.sprite(438,553, 'arrowRight');
+		m_space = this.add.sprite(165,555, 'spacebar');
     	//m_arrowkeys = this.game.add.bitmapText(100, 550, 'pixely_font', 'ARROW KEYS TO MOVE', 24);
     	//m_space = this.game.add.bitmapText(150, 590, 'pixely_font', 'SPACE TO SHOOT', 24);
     	m_start = this.game.add.bitmapText(1160, 550, 'pixely_font', 'START HERE', 18);
