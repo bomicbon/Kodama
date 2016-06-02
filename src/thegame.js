@@ -140,12 +140,6 @@ theGame.prototype = {
 		ground.setAll('body.checkCollision.down', false);
 		ground.setAll('body.checkCollision.left', false);
 		ground.setAll('body.checkCollision.right', false);
-		
-		// animation testing area -lxhart
-		/*
-		pipesmoke = this.add.sprite(250, level2, 'factorypipe');
-		pipesmoke.animations.add('pipesmoke', [0,1,2,3,4,5,6,7], 17, true);
-        pipesmoke.animations.play('pipesmoke');  */
 
 		//player sweat system
 		sweatS = new sweatSystem(this.game, player);
@@ -202,7 +196,7 @@ theGame.prototype = {
 		//smoke amount ui
 		smoke = this.game.add.sprite(this.game.width/2, 60, "smoke");
 		smoke.anchor.setTo(0.5);
-		smoke.scale.setTo(1.2, 0.6);
+		smoke.scale.setTo(1,1);
 		smoke.alpha = 0;
 		smoke.fixedToCamera = true;
 		

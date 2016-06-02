@@ -84,6 +84,14 @@ gameTitle.prototype = {
 		title_ground.setAll('body.checkCollision.down', false);
 		title_ground.setAll('body.checkCollision.left', false);
 		title_ground.setAll('body.checkCollision.right', false);
+	
+		// animation testing area -lxhart
+		/*
+		pipesmoke = this.add.sprite(250, 400, 'bosscloud');
+		pipesmoke.animations.add('pipesmoke', [0,1,2,3,2,1], 14, true);
+        pipesmoke.animations.play('pipesmoke');  
+        */
+
 		
 		//WATERING CAN 
 		title_wc = new wateringcanShooter(this.game, title_player, title_ground, title_temperature_reading);
@@ -96,6 +104,7 @@ gameTitle.prototype = {
 		sound_shootXL = this.game.add.audio('shootXL');
 		
 		// Text
+		//m_arrowkeys = this.add.sprite(100,550, 'arrowkeys');
     	m_arrowkeys = this.game.add.bitmapText(100, 550, 'pixely_font', 'ARROW KEYS TO MOVE', 24);
     	m_space = this.game.add.bitmapText(150, 590, 'pixely_font', 'SPACE TO SHOOT', 24);
     	m_start = this.game.add.bitmapText(1160, 550, 'pixely_font', 'START HERE', 18);
