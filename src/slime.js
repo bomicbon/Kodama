@@ -53,28 +53,34 @@ function slimeGroup(game, player, ground) {
         this.damaged = false;
         
         for(var i = 0; i < this.enemyGroup.length; ++i) {
-           var object = this.enemyGroup.getAt(i);
-           if(object.health <= 0) {
+           var slime = this.enemyGroup.getAt(i);
+           if(slime.health <= 0) {
                //runs once the slime runs out of health
                //damage check for use with damage system to check if the
                //player can still hit it
-               if(object.damage != 0) {
-                   object.body.velocity.x = 0;
-                   object.body.velocity.y = 0;
-                   object.damage = 0;
+               if(slime.damage != 0) {
+                   slime.body.velocity.x = 0;
+                   slime.body.velocity.y = 0;
+                   slime.damage = 0;
                }
 
             }
-            this.overlapping(object, this);
-            this.movement(object); // Movement Code
-            if(object == null) {
+            this.overlapping(slime, this);
+            this.movement(slime); // Movement Code
+            if(slime == null) {
                 --i;
             }
            
             //this destroys slimes that are outside of the alive Range from the player position
             //it helps prevent high memory usage, aka lag
-            if(Math.abs(object.x - this.p.x) > this.aliveRange) {
-                object.destroy();
+            if(Math.abs(slime.x - this.p.x) > this.aliveRange) {
+                slime.destroy();
+                --i;
+            }
+            
+            //check if slime goes underground
+            if(slime.y > this.g.world.height - 40) {
+                slime.destroy();
                 --i;
             }
         }
