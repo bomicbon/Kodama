@@ -1,7 +1,7 @@
 var theGame = function(game){
 	background = null;
 	background_music = null;
-	
+	waterCount = 0;
 	p = null;
 	player = null;
 	score = 5;
@@ -55,6 +55,7 @@ var theGame = function(game){
 	// Toxicity Bar
 	this.myToxicityBar = null;
 	t_barConfig = null;
+	temp_bar_border = null;
 	
 	// Message Boxes
 	m_feedme = null;
@@ -229,10 +230,18 @@ theGame.prototype = {
     	this.myHealthBar.setPercent(player.health);
     	this.myHealthBar.setFixedToCamera(true);
     	
+    	// Toxicity Bar Border
+    	temp_bar_border = this.game.add.sprite(this.game.camera.x+511, this.game.camera.y+27, 'temp_bar_border');
+		temp_bar_border.scale.setTo(0.78, 0.45);
+		temp_bar_border.anchor.setTo(0.5, 0.5);
+		temp_bar_border.alpha = 0.8;
+		temp_bar_border.fixedToCamera = true;
+		
+    	
     	// Toxicity Bar Configurations
     	var t_barConfig = {
     		x: this.game.camera.x+510,
-    		y: this.game.camera.y+30,
+    		y: this.game.camera.y+32,
     		width: 200,
     		height: 7,
     		bg: {
@@ -244,9 +253,11 @@ theGame.prototype = {
     		animationDuration: 200,
     		flipped: true
     	};
+    	
     	this.myToxicityBar = new HealthBar(this.game, t_barConfig);
     	this.myToxicityBar.setPercent(100*temperature_reading.temp/80);
     	this.myToxicityBar.setFixedToCamera(true);
+    	
     	
     	// Text
     	m_feedme = this.game.add.bitmapText(410, 610, 'pixely_font', '', 12);

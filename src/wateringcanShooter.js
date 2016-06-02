@@ -140,6 +140,7 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
     //this is a the collision event for when the projectile hits a wall
     // or something, it changes its rotation depending on where collision happened
     this.hitCollision = function (body1, body2) {
+    	waterCount++;
         var splash_scale = this.scale = 0.5 - (temperature_reading.temp - temperature_reading.nTemp) * 0.015; 
         var splash_obj = game.add.sprite(body1.body.x, body1.body.y, 'splash'); // declaring where to add sprite animation
         splash_obj.scale.setTo(splash_scale, splash_scale);

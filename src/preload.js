@@ -62,7 +62,7 @@ preload.prototype = {
 		this.game.load.image("leaf", "assets/img/leaf.png");
 		this.game.load.image("smoke", "assets/img/smoke.png");
 		
-		
+		this.game.load.image("temp_bar_border", "assets/img/temp_bar_border.png");
 		this.game.load.image("health_bar_border", "assets/img/health_bar_border.png");
 		this.game.load.image("feedme", "assets/img/feedme.png");
 		this.game.load.image("thankyou", "assets/img/thankyou.png");
@@ -101,6 +101,7 @@ preload.prototype = {
 		
 		// FONT
 		this.game.load.bitmapFont('pixely_font', 'assets/font/font.png', 'assets/font/font.fnt');
+		this.game.load.bitmapFont('pixely_font1', 'assets/font/font1.png', 'assets/font/font1.fnt');
 
 	},
   	create: function(){
