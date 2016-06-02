@@ -81,7 +81,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             camera.deadzone = new Phaser.Rectangle(this.deadZX, 0, camera.width / 4, 10);
             
             //gas spawners
-            this.leftSpawner = gasSpawner.add(0, 0, 1, 1);
+            this.leftSpawner = gasSpawner.addCustom("water");
             //this.bossGroup.add(this.leftSpawner);
             
             this.rightSpawner = gasSpawner.add(0, 0, 1, 1);
