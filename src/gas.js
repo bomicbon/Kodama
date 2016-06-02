@@ -162,6 +162,8 @@ function gasSpawnerSystem(game, gasClass, water) {
         sprite.health = this.health;
         sprite.body.setSize(35, 115, 0, 55); // hitbox
         sprite.body.immovable = true;
+        
+        sprite.custom = 0;
         return sprite;
         
     }
@@ -175,6 +177,10 @@ function gasSpawnerSystem(game, gasClass, water) {
         sprite.anchor.setTo(0.5, 0.5);
         sprite.health = this.health;
         sprite.body.immovable = true;
+        
+        //custom is used to determine which death animation is played
+        sprite.custom = 1;
+        //custom determines if death animation is played
         return sprite;
     }
     
@@ -199,12 +205,29 @@ function gasSpawnerSystem(game, gasClass, water) {
                     
                 //if the spawner dies, destroy
                 if(spawner.health <= 0) {
-                    spawner.destroy();
-                    --i;
-                    var spawner_die = game.add.sprite(spawner.body.x-17, spawner.body.y-125, 'factorypipe');
-              		spawner_die.animations.add('factorypipe_die', [8, 9, 10, 11, 12, 13, 14], 17, false); // pipe death animation
-                	spawner_die.animations.play('factorypipe_die');
-                	s_collapse.play();
+                    if(spawner.custom == 0) {
+                        spawner.destroy();
+                        --i;
+                        
+                        var spawner_die = game.add.sprite(spawner.body.x-17, spawner.body.y-125, 'factorypipe');
+              		    spawner_die.animations.add('factorypipe_die', [8, 9, 10, 11, 12, 13, 14], 17, false); // pipe death animation
+                	    spawner_die.animations.play('factorypipe_die');
+                    	s_collapse.play();
+                    }
+                    else if(spawner.custom == 1) {
+                        var time = 1000;
+                        var fadeTween = game.add.tween(spawner).to({alpha: 0}, time, Phaser.Easing.Linear.None, true);
+                        spawner.custom = -1;
+                        spawner.customTimer = 0;
+                    }
+                    //called when custom spawner is dieing
+                    else if(spawner.custom == -1) {
+                        spawner.customTimer += 1;
+                        if(spawner.customTimer > 60) {
+                            spawner.destroy();
+                            --i;
+                        }
+                    }
                 }
             }
         }

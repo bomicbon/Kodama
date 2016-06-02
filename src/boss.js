@@ -15,8 +15,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
     this.scaleY = 1.0;
         
     //where the boss spawns
-    this.startPosition = 800
-    //this.g.world.width - 100;
+    this.startPosition = this.g.world.width - 100;
     this.startY = 680;
     
     //used in harmony with the x component sprite scale change
@@ -83,19 +82,18 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
             
             //gas spawners
             this.leftSpawner = gasSpawner.addCustom("bosscloud");
+            this.leftSpawner.x += 40;
 			this.leftSpawner.animations.add('bosscloud', [0,1,2,3,2,1], 14, true);
       		this.leftSpawner.animations.play('bosscloud');  
       		this.leftSpawner.scale.setTo(0.6, 0.8);
-            //this.bossGroup.add(this.leftSpawner);
             
             this.rightSpawner = gasSpawner.addCustom("bosscloud");
+            this.rightSpawner.x += this.sprite.width - 40;
 			this.rightSpawner.animations.add('bosscloud', [0,1,2,3,2,1], 14, true);
       		this.rightSpawner.animations.play('bosscloud');  
       		this.rightSpawner.scale.setTo(0.6, 0.8);
-           // this.bossGroup.add(this.rightSpawner);
 
             trees.inBossFight = true;
-            //this.bossGroup.sort();
             
             this.s_spawn = this.g.add.audio('boss_spawn');
             this.s_spawn.volume = 0.8;
@@ -216,6 +214,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
                     this.restCounter = 0;
                 }
             }
+            
         }
         else {
             //check if player is close enough
@@ -223,6 +222,8 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
 			    this.create();
 		    }
         }
+        
+        
         
     }
     
