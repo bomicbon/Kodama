@@ -4,7 +4,7 @@ var theGame = function(game){
 	waterCount = 0;
 	p = null;
 	player = null;
-	score = 5;
+	score = null;
 	pollution_timer = 0;
 	temperature_reading = null;
 	startingTemp = null;
@@ -262,7 +262,8 @@ theGame.prototype = {
     	// Text
     	m_feedme = this.game.add.bitmapText(410, 610, 'pixely_font', '', 12);
 		
-		
+		//need to reset the score everytime restart game
+		score = 5;
 		
 		
 	},
@@ -277,6 +278,12 @@ theGame.prototype = {
 			background_music.destroy();
 			this.game.state.start("GameOver", true, false, score);
 		}	
+		
+		//game over if the boss reaches the end of the map
+		if(boss.sprite != null && boss.sprite.x + boss.sprite.width < 0) {
+			background_music.destroy();
+			this.game.state.start("GameOver", true, false, score);
+		}
 		
 		//Enemies update needs to be before the follower update
 		
