@@ -49,7 +49,10 @@ preload.prototype = {
 		this.game.load.image("blobR", "assets/img/blobRightArm.png");
 		this.game.load.spritesheet("blobSheet", "assets/img/blobSS.png", 350, 340, 9);
 		this.game.load.spritesheet("bosscloud", "assets/img/bosscloud.png", 300, 200, 3);
-		this.game.load.image("arrowkeys", "assets/img/arrowkeys.png");
+		this.game.load.image("arrowUp", "assets/img/arrowUp.png");
+		this.game.load.image("arrowDown", "assets/img/arrowDown.png");
+		this.game.load.image("arrowLeft", "assets/img/arrowLeft.png");
+		this.game.load.image("arrowRight", "assets/img/arrowRight.png");
 		this.game.load.image("spacebar", "assets/img/spacebar.png");
 		
 		this.game.load.image("orb", "assets/img/greenOrb.png");

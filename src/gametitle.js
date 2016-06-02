@@ -106,8 +106,11 @@ gameTitle.prototype = {
 		sound_shootXL = this.game.add.audio('shootXL');
 		
 		// Text
-		m_arrowkeys = this.add.sprite(195,505, 'arrowkeys');
-		m_space = this.add.sprite(315,525, 'spacebar');
+		m_arrowup = this.add.sprite(220,505, 'arrowUp');
+		m_arrowdown = this.add.sprite(220,543, 'arrowDown');
+		m_arrowleft = this.add.sprite(183,543, 'arrowLeft');
+		m_arrowright = this.add.sprite(258,543, 'arrowRight');
+		m_space = this.add.sprite(325,525, 'spacebar');
     	//m_arrowkeys = this.game.add.bitmapText(100, 550, 'pixely_font', 'ARROW KEYS TO MOVE', 24);
     	//m_space = this.game.add.bitmapText(150, 590, 'pixely_font', 'SPACE TO SHOOT', 24);
     	m_start = this.game.add.bitmapText(1160, 550, 'pixely_font', 'START HERE', 18);
@@ -131,8 +134,10 @@ gameTitle.prototype = {
 		backgroundbldgs.tilePosition.x = camera.x - 1 * camera.x / 8;
 		backgroundsky.tilePosition.x = camera.x;
 		
-	
 		
+		
+	
+		/*
 		// ARROW KEYS TUTORIAL
 		if (title_p.didL || title_p.didU || title_p.didR) {
 			if (m_arrowkeys.alpha < 0.5) {
@@ -159,6 +164,13 @@ gameTitle.prototype = {
 				//m_space.scale += 0.5;
 			}
 		}
+		*/
+		if (title_wc.didShoot) 
+			m_space.alpha = 0.4;
+		else
+			m_space.alpha = 1;
+			
+			
 		if (title_player.body.x >= 1200) {
 			this.game.camera.reset();
 			this.game.state.start("TheGame");

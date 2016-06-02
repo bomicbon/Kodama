@@ -65,6 +65,26 @@ function Title_Player(game, temperature_reading) {
 			this.sprite.body.velocity.x = 0;
 			var minSpeed = 100;
             
+            if(this.cursors.up.isDown) 
+			m_arrowup.alpha = 0.4;
+			else if (!this.cursors.left.isDown) 
+			m_arrowup.alpha = 1;
+			
+			if(this.cursors.down.isDown) 
+			m_arrowdown.alpha = 0.4;
+			else if (!this.cursors.left.isDown) 
+			m_arrowdown.alpha = 1;
+			
+			if(this.cursors.left.isDown) 
+			m_arrowleft.alpha = 0.4;
+			else if (!this.cursors.left.isDown) 
+			m_arrowleft.alpha = 1;
+			
+			if(this.cursors.right.isDown) 
+			m_arrowright.alpha = 0.4;
+			else if (!this.cursors.left.isDown) 
+			m_arrowright.alpha = 1;
+            
 			if(this.cursors.left.isDown && this.cursors.right.isDown) {
 			    //do nothing
 			}
@@ -105,7 +125,7 @@ function Title_Player(game, temperature_reading) {
 			
 			if (this.cursors.up.isDown && this.sprite.body.touching.down) {
 				this.sprite.body.velocity.y = jumpVelocity;
-				sound_jump.play();
+				sound_jump.play();				
 				this.didU = true; // TUTORIAL
 			}
 			

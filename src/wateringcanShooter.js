@@ -47,6 +47,8 @@ function wateringcanShooter(game, player, collisionGroup, temperature_reading) {
             this.shot = true; //if spawnwater then shot is true
             this.didShoot = true; // for the tutorial must remain true after pressed
         }
+        else if (!this.key.isDown)
+        	this.didShoot = false;
         if (this.delayCount < this.delay && this.delayCount != 0) {
             this.shot = false;
         }
