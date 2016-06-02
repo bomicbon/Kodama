@@ -123,6 +123,7 @@ function Boss(game, player, water, gasSpawner, slimes, trees) {
                 // 2. ANIMATE DEATH
                 // 3. ADD SUCCESS SPRITE & MENU OPTIONS
                 // 4. LEAVE PLAYER IN GAME TO CHOOSE MAIN MENU
+                background_music.destroy();
                 this.g.state.start("StageCleared", true, false);
             }
             
