@@ -43,13 +43,13 @@ function gasGroup(game, player, tempReading) {
             // Health
             if(object.health <= 0){
                 this.s_death.play(); // DEATH SOUND
-                object.destroy();
                 --i;
                 var gas_die = game.add.sprite(object.body.x, object.body.y, 'gas');
                 gas_die.animations.add('gas_die', [12,13,14,15,16,17,18,19,20,21], 20, false, true); 
                 gas_die.alpha = object.alpha;
                 gas_die.scale.setTo(object.scaleValue, object.scaleValue);
                 gas_die.animations.play('gas_die', null, false, true);
+                object.destroy();
       
             }
             // Scale Testing
@@ -134,7 +134,7 @@ function gasGroup(game, player, tempReading) {
 function gasSpawnerSystem(game, gasClass, water) {
     this.g = game;
     //spawner health
-    this.health = 120;
+    this.health = 40;
     
     this.spawnerGroup = this.g.add.group();
     this.gClass = gasClass;

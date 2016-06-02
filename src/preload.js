@@ -1,7 +1,7 @@
 var preload = function(game){}
 
 preload.prototype = {
-	preload: function(){ 
+	preload: function(score){ 
           var loadingBar = this.add.sprite(410,330,"loading");
           loadingBar.anchor.setTo(0.5,0.5);
           this.load.setPreloadSprite(loadingBar);
@@ -69,7 +69,8 @@ preload.prototype = {
 		this.game.load.audio('background_music', 'assets/sound/background_music.wav');
 		this.game.load.audio('footstep', 'assets/sound/footstep.wav');
 		this.game.load.audio('shoot', 'assets/sound/shoot.wav');
-		this.game.load.audio('tree_healed', 'assets/sound/tree_healed.wav');
+		//this.game.load.audio('tree_healed', 'assets/sound/tree_healed.wav');
+		this.game.load.audio('tree_healed', 'assets/sound/tree_healed2.wav');
 		this.game.load.audio('shootM', 'assets/sound/shootM.wav');
 		this.game.load.audio('shootL', 'assets/sound/shootL.wav');
 		this.game.load.audio('shootXL', 'assets/sound/shootXL.wav');
@@ -79,6 +80,7 @@ preload.prototype = {
 		this.game.load.audio('leaf2', 'assets/sound/leafShoot.wav');
 		this.game.load.audio('jump', 'assets/sound/jump.wav');
 		this.game.load.audio('explosion', 'assets/sound/explosion.wav');
+		
 		this.game.load.audio('healthUp', 'assets/sound/healthUp.wav');
 		this.game.load.audio('hithurt', 'assets/sound/hithurt.wav');
 		this.game.load.audio('slimejump', 'assets/sound/slimeJump.wav');

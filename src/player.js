@@ -25,6 +25,7 @@ function Player(game, temperature_reading) {
     var sound_jump = game.add.audio('jump');
     var s_thud = game.add.audio('thud');
     this.falling = null;
+    score = 5;
     
     this.create = function() {
         
@@ -111,7 +112,7 @@ function Player(game, temperature_reading) {
 		}
 
 		if (this.sprite.health < 1) {
-			game.state.start("GameOver", true, false, score);
+			//game.state.start("GameOver", true, false, score);
 		}
 		
 		if(!this.cursors.left.isDown && !this.cursors.right.isDown) {

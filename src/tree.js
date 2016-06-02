@@ -212,12 +212,12 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
             for(var i = 0; i < slime.length; ++i) {
                 var s = slime.getAt(i);
                 if(this.g.physics.arcade.overlap(this.shield, s)) {
-                    /*
+                    
                     this.s_sdeath.play();
                     var slime_die = game.add.sprite(s.body.x, s.body.y, 'slime');
                     slime_die.animations.add('slime_die', [4,5,6,7,8,9,10,11,12,13,14], 25, false, true); 
-                    slime_die.animations.play('slime_die');
-                    */
+                    slime_die.animations.play('slime_die', 45, false, true);
+                    
                     s.destroy();
                     --i;
                 }
@@ -226,6 +226,11 @@ function treeGroup(game, player, water, slime, gas, temperature_reading) {
                 var g = gas.getAt(i);
                 if(this.g.physics.arcade.overlap(this.shield, g)) {
                     this.s_gdeath.play();
+                    var gas_die = game.add.sprite(object.body.x, object.body.y, 'gas');
+                    gas_die.animations.add('gas_die', [12,13,14,15,16,17,18,19,20,21], 20, false, true); 
+                    gas_die.alpha = g.alpha;
+                    gas_die.scale.setTo(g.scaleValue, g.scaleValue);
+                    gas_die.animations.play('gas_die', null, false, true);
                     g.destroy();
                     --i;
                 }

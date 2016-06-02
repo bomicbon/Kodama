@@ -226,7 +226,7 @@ function slimeGroup(game, player, ground) {
 function slimeSpawner(game, player, slime, water) {
     this.g = game;
     //spawner health
-    this.health = 80;
+    this.health = 60;
     
     //time between spawns
     this.spawnTime = 60 * 0.4; // formerly 60 * 3

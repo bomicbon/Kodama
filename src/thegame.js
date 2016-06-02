@@ -4,7 +4,7 @@ var theGame = function(game){
 	
 	p = null;
 	player = null;
-	score = 0;
+	score = 5;
 	pollution_timer = 0;
 	temperature_reading = null;
 	startingTemp = null;
@@ -270,6 +270,7 @@ theGame.prototype = {
 		p.update();
 		if(player.health < 1) {
 			background_music.destroy();
+			this.game.state.start("GameOver", true, false, score);
 		}	
 		
 		//Enemies update needs to be before the follower update
