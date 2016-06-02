@@ -169,7 +169,8 @@ function gasSpawnerSystem(game, gasClass, water) {
     //pass sprite variable to this function to create
     //a custom sprite gas spawner
     this.addCustom = function(image) {
-        var sprite = this.spawnerGroup.addChild(image);
+        var sprite = this.spawnerGroup.create(0,0, image);
+        this.g.physics.arcade.enable(sprite);
         sprite.counter = 0;
         sprite.anchor.setTo(0.5, 0.5);
         sprite.health = this.health;
